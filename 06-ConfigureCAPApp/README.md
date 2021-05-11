@@ -92,4 +92,4 @@ In this how to guide, you will clone an existing CAP application in SAP Business
 
     This will trigger the deployment to SAP BTP, Cloud Foundry Runtime including the creation of the necessary service instances and service bindings to the corresponding apps. 
 
-16. 
+
