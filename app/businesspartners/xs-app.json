@@ -1,0 +1,19 @@
+{
+  "welcomeFile": "/index.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "source": "^/srv-api/(.*)$",
+      "destination": "BusinessPartnerVerification-srv-api",
+      "target": "$1"
+    },
+    {
+      "source": "^(.*)$",
+      "target": "$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    }
+  ]
+}

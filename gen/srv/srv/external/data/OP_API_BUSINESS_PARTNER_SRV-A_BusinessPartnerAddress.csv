@@ -1,0 +1,6 @@
+BusinessPartner,AddressID,StreetName,CityName,Country,postalCode
+"HARUT","124462","Dietmar-Hopp-Allee 162","Walldorf","DE","12345"
+"HARUT","124465","whitefield 162","Bangalore","IN","560066"
+"TEST123","124465","whitefield 162","Bangalore","IN","560066"
+"TEST234","124466","whitefield 162","Bangalore","IN","560066"
+"TEST234","124467","whitefield 162","Bangalore","IN","560066"

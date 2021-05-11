@@ -1,0 +1,31 @@
+### Get Lists of businesspartners
+GET http://localhost:4004/op-api-business-partner-srv/A_BusinessPartner 
+
+### Create new Business Partner
+POST http://localhost:4004/op-api-business-partner-srv/A_BusinessPartner 
+Content-Type: application/json
+
+{"BusinessPartner": "TEST234", "FirstName": "This is a new", "LastName": "BusinessPartner"}
+
+### Update a particular BusinessPartner
+PUT http://localhost:4004/op-api-business-partner-srv/A_BusinessPartner('HARUT')
+Content-Type: application/json
+
+{"BusinessPartner": "HARUT", "FirstName": "Updated", "LastName": "Name"}
+
+### Update a particular adress
+PUT http://localhost:4004/op-api-business-partner-srv/A_BusinessPartnerAddress(BusinessPartner='HARUT',AddressID='124462')
+Content-Type: application/json
+
+{"Country": "US", "CityName": "new city", "StreetName": "new street", "PostalCode": "9999"}
+
+### Update a particular adress
+POST http://localhost:4004/op-api-business-partner-srv/A_BusinessPartnerAddress
+Content-Type: application/json
+
+{"BusinessPartner": "HARUT", "AddressID": "151111", "Country": "US", "CityName": "new city", "StreetName": "new street", "PostalCode": "9999"}
+
+// entire request incl properties for whole businesspartner
+
+### 
+GET http://localhost:4004/admin/testFunction()

@@ -1,0 +1,16 @@
+_schema-version: 3.3.0
+ID: BusinessPartnerVerification-live
+extends: BusinessPartnerVerification
+
+version: 1.0.0
+
+modules:
+- name: BusinessPartnerVerification-srv
+  parameters:
+    instances: 1
+resources:
+  - name: BusinessPartnerVerification-ems
+    parameters:
+      path: ./em.json 
+      service: enterprise-messaging
+      service-plan: default

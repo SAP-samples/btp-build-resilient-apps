@@ -1,0 +1,31 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "TFE_MODEL_BPVERIFICATION_STATUSVALUES",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "tfe.model.bpVerification-StatusValues.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ";"
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "CODE",
+          "VALUE",
+          "CRITICALITY",
+          "UPDATECODE"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "CODE": "code",
+        "VALUE": "value",
+        "CRITICALITY": "criticality",
+        "UPDATECODE": "updateCode"
+      }
+    }
+  ]
+}

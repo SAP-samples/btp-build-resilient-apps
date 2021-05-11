@@ -1,0 +1,40 @@
+./sapcp target --subaccount $subaccount
+mapfile -t subscriptions < .github/workflows/scripts/config/subscriptions.txt
+subaccount=$(./sapcp --format json list accounts/subaccount | jq '.value[0].guid' | sed -e 's/^"//' -e 's/"$//')
+
+## now loop through the above array
+for subs in ${subscriptions[*]}
+do
+
+    #split the subscription string into app and plans (seperated by ":")
+    IFS=':' read -ra appandplan <<< "$subs"
+    app=${appandplan[0]}
+    plan=${appandplan[1]}
+    subscriptionState=$(./sapcp --format=json list accounts/subscription | jq -r --arg app "$app" --arg plan "$plan" '.applications[] | select((.appName==$app) and (.planName==$plan)) | .state' )
+    if [ $subscriptionState != "SUBSCRIBED" ]
+    then
+        echo "not subscribed to $app ($plan)".
+        echo subscribing to "$app ($plan)"
+        ./sapcp subscribe accounts/subaccount --to-app $app -sa $subaccount --plan $plan
+    else
+        echo "already succesfully subscribed to $app ($plan)"
+    fi
+    
+done
+
+echo "checking all subscriptions..."
+sleep 15s
+for subs in ${subscriptions[*]}
+do
+    #echo $subs
+    IFS=':' read -ra appandplan <<< "$subs"
+    app=${appandplan[0]}
+    plan=${appandplan[1]}
+    subscriptionState=$(./sapcp --format=json list accounts/subscription | jq -r --arg app "$app" --arg plan "$plan" '.applications[] | select((.appName==$app) and (.planName==$plan)) | .state' )
+    if [ $subscriptionState != "SUBSCRIBED" ]
+    then
+        echo "not subscribed to $app ($plan)".
+    else
+        echo "succesfully subscribed to $app ($plan)"
+    fi
+done

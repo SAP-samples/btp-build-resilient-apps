@@ -1,0 +1,4 @@
+ID;addressId;country;cityName;streetName;postalCode;verifications_ID
+58040e66-1dcd-4ffb-ab10-fdce32028b79;"124462";"DE";"Walldorf";"Dietmar-Hopp-Allee 162";"560066";58040e66-1dcd-4ffb-ab10-fdce32028b79
+58040e66-1dcd-4ffb-ab10-fdce32028b80;"124464";"DE";"Oberaudorf";"Hauptstraße 23";"83080";58040e66-1dcd-4ffb-ab10-fdce32028b79
+64e718c9-ff99-47f1-8ca3-950c850777d4;"124463";"DE";"Walldorf";"some street";"123456";64e718c9-ff99-47f1-8ca3-950c850777d4

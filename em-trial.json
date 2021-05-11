@@ -1,0 +1,7 @@
+{
+	"emname": "em",
+	"options": {
+		"management": true,
+		"messagingrest": true
+	}
+}

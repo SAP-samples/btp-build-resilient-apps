@@ -1,0 +1,7 @@
+ID;businessPartnerId;businessPartnerFirstName;businessPartnerLastName;verificationStatus_code
+58040e66-1dcd-4ffb-ab10-fdce32028b79;HARUT;Harut;Ter-Minasyan;N
+64e718c9-ff99-47f1-8ca3-950c850777d4;MAX;Max;Streifeneder;P
+64e718c9-ff99-47f1-8ca3-950c850777d1;TEST;Test;Person1;INV
+64e718c9-ff99-47f1-8ca3-950c850777d2;TEST;Test;Person2;V
+64e718c9-ff99-47f1-8ca3-950c850777d3;TEST;Test;Person3;U
+64e718c9-ff99-47f1-8ca3-950c850777d5;TEST;Test;Person3;U
