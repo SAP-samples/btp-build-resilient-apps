@@ -29,4 +29,4 @@ You will look up the required API on API Business Hub and download its specifica
 
  ![Logon Required](././images/APIBusinessHub3.png)
 
-9. Download the EDMX file and copy it to a suitable directory (e.g. BpValidationMockS4 directory).
+9. Download the EDMX file to your machine so you could later on use it while developing the SAP Cloud Application Programming Model application.
