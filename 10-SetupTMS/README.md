@@ -27,4 +27,51 @@ Before we can combine both services, we need to setup Cloud Transport Management
 
    ![Create TMS](images/tms2.png)
 
-The Go to Application link allows you to start the user interface of Cloud Transport Management. However, before you can use it, you will need to assign roles and permissions.
+2. Assign User Roles and Permissions in Cloud Transport Management
+
+    After successful subscription, you need to configure user access to the application. You need different role collections for the different Cloud Transport Management roles, and assign roles to the role collections based on the application templates. Afterwards, you assign the role collections to users or user groups.
+
+   - Create 2 role collections for the Cloud Transport Management
+      * TMS Import Operator
+      * TMS Admin
+
+   - To create a new role collection, in your subaccount, choose Security  Role Collections.
+   - Choose ... (Create New Role Collection).
+     
+     ![TMS Role Collection](images/tms3.png)
+
+   - Enter a name (*TMS Import Operator*) for the new role collection, and choose Create. 
+     
+     ![TMS Role Collection](images/tms4.png)
+
+   - Repeat the previous steps to create the *TMS Admin* role collection.
+   - The new role collections are added to the list.
+     
+     ![TMS Role Collection](images/tms5.png)
+
+   - In your subaccount, choose Services  > Instances and Subscriptions.
+  
+     ![TMS Role Collection](images/tms6.png)
+    
+   - On the Subscriptions tab, in the Cloud Transport Management row, choose ... (Actions) and Manage Roles.
+  
+     ![TMS Role Collection](images/tms7.png)
+
+   - The default role templates are displayed
+  
+     ![TMS Role Collection](images/tms8.png)
+  
+   - Assign the  Cloud Transport Management roles to the role collections
+     * ImportOperator > TMS Import Operator
+     * Administrator > TMS Admin
+  
+     ![TMS Role Collection](images/tms9.png)
+   
+   - Assign Role Collections (TMS Import Operator & TMS Admin) to your user
+     
+     ![TMS Role Collection](images/tms11.png)
+
+3. Open SAP Cloud Transport Management 
+   - 'Go to Application' link is available that allows you to start the user interface of SAP Cloud Transport Management, as shown in the image below:
+  
+    ![TMS Start](images/tms10.png)
