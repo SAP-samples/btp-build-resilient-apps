@@ -11,11 +11,14 @@ https://help.sap.com/viewer/810dfd34f2cc4f39aa8d946b5204fd9c/1809.000/en-US/1255
 
 ### Configure Endpoint
 
-1. Open your browser. Then go to your sub account in SAP BTP Cockpit 
+1. Open your browser and navigate to your subaccount in the SAP BTP Cockpit. 
 2. Click on *Instances & Subscriptions* in the menu on the left.
+   
+ ![Click on Instances and Subscriptions](./images/instances.png)
+
 3. Scroll to the Instances tab, and look for Event Mesh in the table. Now click on the 3 dots to open the dropdown and choose 'Create Serive Key'
 
- ![Open Event Mesh Instance](./images/EventBased1.png)
+ ![Open Event Mesh Instance](./images/service-key-creation.png)
  
 5. Provide a service key name e.g. EMServiceKey. Click on create.
 
