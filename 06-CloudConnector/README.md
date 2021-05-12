@@ -99,16 +99,18 @@ In this section you will configure the Cloud Connector for connecting the on pre
     - *Authentication:* 'Basic Authentication'
     - *Username:* REFAPP
     - *Password:* password of the REFAPP user you have created in one of the [previous steps](../02-configure-oData-Service/README.md#)
-    - **Optional:** Add location Id (In case of multiple CC)
+    - **Optional:** Add location Id (In case of multiple SAP Cloud Connector instances)
 
 5. Additionally, provide the following properties using the **New Property** button:
 
-    - WebIDEEnabled: true
-    - WebIDEUsage: odata_abap
-    - sap-client: 100 (or the client you want to connect to)
-    - HTML5.DynamicDestination
+    - *WebIDEEnabled*: true
+    - *WebIDEUsage*: odata_abap
+    - *sap-client*: 100 (or the client you want to connect to)
+    - *HTML5.DynamicDestination*: true
+
+    ![Configure Destination](./images/cloud-connector-13.png)
     
 5.	Click on *Save* (optionally you can also *check the connection*) and close the window
 
-![Configure Destination](./images/cloud-connector-13.png)
+
 
