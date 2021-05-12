@@ -6,7 +6,7 @@
     "license": "UNLICENSED",
     "private": true,
     "engines": {
-        "node": ">=14"
+        "node": ">=12"
     },
     "dependencies": {
         "@sap-cloud-sdk/core": "^1.44.0",
