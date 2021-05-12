@@ -44,15 +44,27 @@ If you are using an S/4HANA 1909 (or older version), please follow the following
 > - If you are using SAP Event Mesh from a productive SAP BTP account, just paste the copied service key content without adding the namespace manually. (this should already be part)
  4. Then click on *save configuration*
   
- 5. After your configuration is saved, click on the *Activate - Deactivate* button
- 6. Click on *Check connection*
- 7. Then click on *Outbound Bindings* to start the configuration
- 
-  ![Check Connection](./images/EventBased6.png)
-  
- 8. In the next screen, first click on *Create*, then use the F4 help to look for the **BusinessPartner** topics. Select **sap/s4/beh/businesspartner/v1/BusinessPartner/*** topic. (the wildcard enables all BusinessPartner related events such as "Created" or "Changed" )
+ 5. After your configuration is saved, click on the *Activate - Deactivate* button.
 
+ 6. Click on *Check connection* to check that everything is fine with the configuration.
+> Troubleshooting: In case of errors, please have a look at the following blog post: https://blogs.sap.com/2020/08/27/enterprise-event-enablement-troubleshooting/
+
+ 7. Then click on *Outbound Bindings* to start the configuration
+   
+  ![Go to Outbound bindings](./images/outbound-bindings.png) 
+
+  
+ 8. In the next screen, first click on *Create*.
+   
+  ![Create outbound binding](./images/create-outbound-binding.png) 
+   
+ 9.  Use the F4 help to look for the **BusinessPartner** topics. Select **BusinessPartner/*** to get all events related to BusinessPartners. (the wildcard enables all BusinessPartner related events such as "Created" or "Changed" )
+   
+ ![Create outbound binding](./images/topic-filter.png) 
+
+10. Finish the setup and **Save**. 
+   
+  ![Create outbound binding](./images/finish-outbound-binding.png) 
 
 > the topic name in SAP Event Mesh is effectively a combination of the namespace you have provided within the service key ("tfe/bpem/em") concatenated with the actual topic name you have selected in this step. Hence, the resulting topic name is: *tfe/bpem/em/sap/s4/beh/businesspartner/v1/BusinessPartner/*. 
  
- ![Create Outbound Bindings](./images/EventBased7.png)
