@@ -9,7 +9,7 @@ target/
 resources/
 dist/
 *.zip
-package-lock.json
+*package-lock.json
 
 # Web IDE, App Studio
 .che/
