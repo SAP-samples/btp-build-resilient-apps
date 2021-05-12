@@ -49,9 +49,15 @@ In this section you will configure the Cloud Connector for connecting the on pre
 
 8.	Enter your values for the fields: *Internal Host* and *Internal Port* then choose *Next*
 
+> Provide the actual hostname and port of your S/4HANA on premise system!
+
 ![Select Screen](./images/cloud-connector-5.png)
 
-9.	Choose *Principal Type* 'None' and press *Next*
+9. Provide a virtual hostname and port that will later on be used in *Destinations* to reach your on S/4HANA on premise system using the SAP Cloud Connector.
+
+![Select Screen](./images/cloud-connector-virtual.png)
+
+10.	Choose *Principal Type* 'None' and press *Next*
 
 10.	Select *Host in header* 'Use Virtual Host' and choose *Next*
 
@@ -87,13 +93,21 @@ In this section you will configure the Cloud Connector for connecting the on pre
 3.	Go back to Connectivity in the menu on the left then choose *Destinations -> New Destination*
 
 4.	Enter the following information to the Destination Configuration:
-    - *Name:* bupa
-    - *Url:* insert url of the on Prem system (http://<virtual host>:<virtual port>/sap/opu/odata/sap/API_BUSINESS_PARTNER)
+    - *Name:* BusinessPartner
+    - *Url:* http://myvirtualhost>:44300/sap/opu/odata/sap/API_BUSINESS_PARTNER (or in general http://*virtualhost*:*virtualport*/URLPath)
     - *Proxy Type*: OnPremise
-    - Change *Proxy Type* to 'OnPremise'
-    - Select *Authentication:* 'Basic Authentication'
-    - Add location Id (In case of multiple CC)
-    -Basic Authentication with User and Password
+    - *Authentication:* 'Basic Authentication'
+    - *Username:* REFAPP
+    - *Password:* password of the REFAPP user you have created in one of the [previous steps](../02-configure-oData-Service/README.md#)
+    - **Optional:** Add location Id (In case of multiple CC)
+
+5. Additionally, provide the following properties using the **New Property** button:
+
+    - WebIDEEnabled: true
+    - WebIDEUsage: odata_abap
+    - sap-client: 100 (or the client you want to connect to)
+    - HTML5.DynamicDestination
+    
 5.	Click on *Save* (optionally you can also *check the connection*) and close the window
 
 ![Configure Destination](./images/cloud-connector-13.png)
