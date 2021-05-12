@@ -1,11 +1,9 @@
 # Configure event based communication between S/4 and SAP Event Mesh
 ## Introduction
 
-In this how to guide, you will establish a connection between your S/4HANA on Premise System and Event Mesh. This connection is needed to transport events from the SAP S/4HANA system to Event Mesh. 
+In this how to guide, you will establish a connection between your S/4HANA on premise System (2020) and SAP Event Mesh. This connection is needed to transport events from the SAP S/4HANA system to to the SAP Cloud Application Programming Model application. 
 
-Additional documentation on configuring trust and creating the RFC destination can be found in the official guide:
- 
-https://help.sap.com/viewer/810dfd34f2cc4f39aa8d946b5204fd9c/1809.000/en-US/12559a8c26f34e0bbe8c6d82b7501424.html
+If you are using an S/4HANA 1909 (or older version), please follow the following instruction to setup a connection to the SAP Event Mesh service: https://help.sap.com/viewer/810dfd34f2cc4f39aa8d946b5204fd9c/1909.latest/en-US/fbb2a5980cb54110a96d381e136e0dd8.html
 
 **Persona:** S/4HANA Developer
 
@@ -52,6 +50,9 @@ https://help.sap.com/viewer/810dfd34f2cc4f39aa8d946b5204fd9c/1809.000/en-US/1255
  
   ![Check Connection](./images/EventBased6.png)
   
- 8. In the next screen first click on *Create*, then select the *topic*
+ 8. In the next screen, first click on *Create*, then use the F4 help to look for the **BusinessPartner** topics. Select **sap/s4/beh/businesspartner/v1/BusinessPartner/*** topic. (the wildcard enables all BusinessPartner related events such as "Created" or "Changed" )
+
+
+> the topic name in SAP Event Mesh is effectively a combination of the namespace you have provided within the service key ("tfe/bpem/em") concatenated with the actual topic name you have selected in this step. Hence, the resulting topic name is: *tfe/bpem/em/sap/s4/beh/businesspartner/v1/BusinessPartner/*. 
  
  ![Create Outbound Bindings](./images/EventBased7.png)
