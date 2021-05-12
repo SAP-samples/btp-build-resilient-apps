@@ -3,7 +3,7 @@ _out
 *.db
 connection.properties
 default-*.json
-gen/
+gen/*
 node_modules/
 target/
 resources/

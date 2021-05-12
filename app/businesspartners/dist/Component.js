@@ -1,1 +1,0 @@
-sap.ui.define(["sap/fe/core/AppComponent"],function(e){"use strict";return e.extend("com.sap.tfe.bp.businesspartners.Component",{metadata:{manifest:"json"}})});
