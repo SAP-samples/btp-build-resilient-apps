@@ -27,4 +27,6 @@ Before we can combine both services, we need to setup Cloud Transport Management
 
    ![Create TMS](images/tms2.png)
 
-The Go to Application link allows you to start the user interface of Cloud Transport Management. However, before you can use it, you will need to assign roles and permissions.
+2. Assign User Roles and Permissions in Cloud Transport Management
+
+    After successful subscription, you need to configure user access to the application. You need different role collections for the different Cloud Transport Management roles, and assign roles to the role collections based on the application templates. Afterwards, you assign the role collections to users or user groups.
