@@ -1,12 +1,875 @@
 {
   "namespace": "tfe.model.bpVerification",
   "definitions": {
-    "Country": {
+    "tfe.model.bpVerification.Verifications": {
+      "kind": "entity",
+      "includes": [
+        "managed",
+        "cuid"
+      ],
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "@odata.on.insert": {
+            "#": "now"
+          },
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@odata.on.insert": {
+            "#": "user"
+          },
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "@odata.on.update": {
+            "#": "now"
+          },
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@odata.on.update": {
+            "#": "user"
+          },
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "businessPartnerId": {
+          "@readonly": true,
+          "@title": "BusinessPartner ID",
+          "type": "cds.String"
+        },
+        "businessPartnerFirstName": {
+          "type": "cds.String"
+        },
+        "businessPartnerLastName": {
+          "type": "cds.String"
+        },
+        "verificationStatus": {
+          "@title": "Verfication Status",
+          "@assert.enum": true,
+          "type": "cds.Association",
+          "target": "tfe.model.bpVerification.StatusValues",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "addresses": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "tfe.model.bpVerification.Addresses",
+          "on": [
+            {
+              "ref": [
+                "addresses",
+                "verifications"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "businessPartnerIsBlocked": {
+          "type": "cds.Boolean",
+          "default": {
+            "val": false
+          }
+        }
+      }
+    },
+    "tfe.model.bpVerification.Addresses": {
+      "kind": "entity",
+      "includes": [
+        "cuid"
+      ],
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "verifications": {
+          "type": "cds.Association",
+          "target": "tfe.model.bpVerification.Verifications",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "addressId": {
+          "@readonly": true,
+          "type": "cds.String"
+        },
+        "country": {
+          "type": "cds.String"
+        },
+        "cityName": {
+          "type": "cds.String"
+        },
+        "streetName": {
+          "type": "cds.String"
+        },
+        "postalCode": {
+          "type": "cds.String"
+        },
+        "houseNumber": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "tfe.model.bpVerification.StatusValues": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "elements": {
+        "code": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "value": {
+          "type": "cds.String"
+        },
+        "criticality": {
+          "type": "cds.Integer"
+        },
+        "updateCode": {
+          "type": "cds.Boolean"
+        }
+      }
+    },
+    "tfe.service.businessPartnerValidation.AdminService": {
+      "@source": "srv/catalog.cds",
+      "kind": "service",
+      "@requires": "authenticated-user"
+    },
+    "tfe.service.businessPartnerValidation.AdminService.BusinessPartnerVerification": {
+      "kind": "entity",
+      "@odata.draft.enabled": true,
+      "@restrict": [
+        {
+          "grant": [
+            "*"
+          ],
+          "to": "BPAdmin"
+        }
+      ],
+      "@UI.UpdateHidden": {
+        "=": "verificationStatus.updateCode"
+      },
+      "@UI.HeaderInfo.TypeName": "{i18n>Verification}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Verifications}",
+      "@UI.HeaderInfo.Title.$Type": "UI.DataField",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "businessPartnerId"
+      },
+      "@UI.SelectionFields": [
+        {
+          "=": "businessPartnerId"
+        },
+        {
+          "=": "businessPartnerFirstName"
+        },
+        {
+          "=": "businessPartnerLastName"
+        },
+        {
+          "=": "verificationStatus_code"
+        },
+        {
+          "=": "businessPartnerIsBlocked"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataFieldForAction",
+          "Action": "tfe.service.businessPartnerValidation.AdminService.block",
+          "Label": "Block"
+        },
+        {
+          "$Type": "UI.DataFieldForAction",
+          "Action": "tfe.service.businessPartnerValidation.AdminService.unblock",
+          "Label": "Unblock"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "businessPartnerId"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "businessPartnerFirstName"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "businessPartnerLastName"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "verificationStatus.value"
+          },
+          "Criticality": {
+            "=": "verificationStatus.criticality"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "businessPartnerIsBlocked"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "modifiedAt"
+          }
+        }
+      ],
+      "@UI.HeaderFacets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "ID": "HeaderBpFirstName",
+          "Target": "@UI.DataPoint#BpFName"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "ID": "HeaderBPLastName",
+          "Target": "@UI.DataPoint#BpLName"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Target": "@UI.FieldGroup#Detail"
+        }
+      ],
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Target": "addresses/@UI.LineItem",
+          "Label": "Address Facet"
+        }
+      ],
+      "@UI.DataPoint#BpFName.Value": {
+        "=": "businessPartnerFirstName"
+      },
+      "@UI.DataPoint#BpFName.Title": "First Name",
+      "@UI.DataPoint#BpLName.Value": {
+        "=": "businessPartnerLastName"
+      },
+      "@UI.DataPoint#BpLName.Title": "Last Name",
+      "@UI.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.PresentationVariant.SortOrder": [
+        {
+          "$Type": "Common.SortOrderType",
+          "Property": {
+            "=": "modifiedAt"
+          },
+          "Descending": true
+        }
+      ],
+      "@UI.PresentationVariant.Visualizations": [
+        "@UI.LineItem"
+      ],
+      "@UI.FieldGroup#Detail.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "verificationStatus_code"
+          },
+          "Label": "Verification Status"
+        }
+      ],
+      "@Capabilities.Insertable": false,
+      "@Capabilities.Deletable": false,
+      "@Capabilities.Updatable": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "tfe.model.bpVerification.Verifications"
+          ]
+        }
+      },
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "@odata.on.insert": {
+            "#": "now"
+          },
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@odata.on.insert": {
+            "#": "user"
+          },
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "@odata.on.update": {
+            "#": "now"
+          },
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@odata.on.update": {
+            "#": "user"
+          },
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "businessPartnerId": {
+          "@Common.Label": "Business Partner ID",
+          "@readonly": true,
+          "@title": "BusinessPartner ID",
+          "type": "cds.String"
+        },
+        "businessPartnerFirstName": {
+          "@Common.Label": "First Name",
+          "@readonly": true,
+          "type": "cds.String"
+        },
+        "businessPartnerLastName": {
+          "@Common.Label": "Last Name",
+          "@readonly": true,
+          "type": "cds.String"
+        },
+        "verificationStatus": {
+          "@Common.Label": "Verification Status",
+          "@Common.ValueList.CollectionPath": "StatusValues",
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.SelectionVariantQualifier": "code",
+          "@Common.ValueList.PresentationVariantQualifier": "code",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "verificationStatus_code"
+              },
+              "ValueListProperty": "code"
+            }
+          ],
+          "@Common.ValueListWithFixedValues": true,
+          "@title": "Verfication Status",
+          "@assert.enum": true,
+          "type": "cds.Association",
+          "target": "tfe.service.businessPartnerValidation.AdminService.StatusValues",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "addresses": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "tfe.service.businessPartnerValidation.AdminService.Addresses",
+          "on": [
+            {
+              "ref": [
+                "addresses",
+                "verifications"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "businessPartnerIsBlocked": {
+          "@Common.Label": "Blocked?",
+          "type": "cds.Boolean",
+          "default": {
+            "val": false
+          }
+        }
+      },
+      "actions": {
+        "block": {
+          "kind": "action",
+          "@Common.SideEffects.TargetProperties": [
+            "businessPartnerIsBlocked",
+            "verificationStatus_code"
+          ],
+          "@sap.applicable.path": "block"
+        },
+        "unblock": {
+          "kind": "action",
+          "@Common.SideEffects.TargetProperties": [
+            "businessPartnerIsBlocked",
+            "verificationStatus_code"
+          ],
+          "@sap.applicable.path": "unblock"
+        }
+      }
+    },
+    "tfe.service.businessPartnerValidation.AdminService.StatusValues": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "tfe.model.bpVerification.StatusValues"
+          ]
+        }
+      },
+      "elements": {
+        "code": {
+          "@Common.Text": {
+            "=": "value"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "@title": "Code",
+          "key": true,
+          "type": "cds.String"
+        },
+        "value": {
+          "@title": "Verification Status",
+          "type": "cds.String"
+        },
+        "criticality": {
+          "type": "cds.Integer"
+        },
+        "updateCode": {
+          "type": "cds.Boolean"
+        }
+      }
+    },
+    "tfe.service.businessPartnerValidation.AdminService.Addresses": {
+      "kind": "entity",
+      "@restrict": [
+        {
+          "grant": [
+            "*"
+          ],
+          "to": "BPAdmin"
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "Address",
+      "@UI.HeaderInfo.TypeNamePlural": "Addresses",
+      "@UI.HeaderInfo.Title.$Type": "UI.DataField",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "addressId"
+      },
+      "@UI.SelectionFields": [
+        {
+          "=": "addressId"
+        },
+        {
+          "=": "streetName"
+        },
+        {
+          "=": "cityName"
+        },
+        {
+          "=": "country"
+        },
+        {
+          "=": "postalCode"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "verifications.businessPartnerId"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "addressId"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "streetName"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "houseNumber"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "postalCode"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "cityName"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "country"
+          }
+        }
+      ],
+      "@UI.HeaderFacets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "ID": "BP",
+          "Target": "@UI.DataPoint#BP"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "ID": "Status",
+          "Target": "@UI.DataPoint#Status"
+        }
+      ],
+      "@UI.DataPoint#BP.Value": {
+        "=": "verifications.businessPartnerId"
+      },
+      "@UI.DataPoint#BP.Title": "Business Partner ID",
+      "@UI.DataPoint#Status.Value": {
+        "=": "verifications.verificationStatus_code"
+      },
+      "@UI.DataPoint#Status.Title": "Verification Status",
+      "@Capabilities.Deletable": false,
+      "@Capabilities.Insertable": false,
+      "projection": {
+        "from": {
+          "ref": [
+            "tfe.model.bpVerification.Addresses"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "verifications": {
+          "type": "cds.Association",
+          "target": "tfe.service.businessPartnerValidation.AdminService.BusinessPartnerVerification",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "addressId": {
+          "@Common.Label": "Address ID",
+          "@readonly": true,
+          "type": "cds.String"
+        },
+        "country": {
+          "@Common.Label": "Country",
+          "type": "cds.String"
+        },
+        "cityName": {
+          "@Common.Label": "City Name",
+          "type": "cds.String"
+        },
+        "streetName": {
+          "@Common.Label": "Street Name",
+          "type": "cds.String"
+        },
+        "postalCode": {
+          "@Common.Label": "Postal Code",
+          "type": "cds.String"
+        },
+        "houseNumber": {
+          "@Common.Label": "House Number",
+          "type": "cds.String"
+        }
+      }
+    },
+    "tfe.service.businessPartnerValidation.AdminService.testFunction": {
+      "kind": "function",
+      "returns": {
+        "type": "cds.String"
+      }
+    },
+    "tfe.service.businessPartnerValidation.S4Service": {
+      "@source": "srv/external-catalog.cds",
+      "kind": "service"
+    },
+    "tfe.service.businessPartnerValidation.S4Service.BusinessPartners": {
+      "kind": "entity",
+      "@Capabilities.Insertable": true,
+      "@Capabilities.Updatable": true,
+      "@Capabilities.Deletable": false,
+      "@cds.persistence.skip": true,
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "OP_API_BUSINESS_PARTNER_SRV.A_BusinessPartner"
+            ]
+          },
+          "columns": [
+            {
+              "key": true,
+              "ref": [
+                "BusinessPartner"
+              ],
+              "as": "businessPartnerId"
+            },
+            {
+              "ref": [
+                "BusinessPartnerIsBlocked"
+              ],
+              "as": "businessPartnerIsBlocked"
+            },
+            {
+              "ref": [
+                "FirstName"
+              ],
+              "as": "businessPartnerFirstName"
+            },
+            {
+              "ref": [
+                "LastName"
+              ],
+              "as": "businessPartnerLastName"
+            }
+          ]
+        }
+      },
+      "elements": {
+        "businessPartnerId": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "businessPartnerIsBlocked": {
+          "type": "cds.Boolean"
+        },
+        "businessPartnerFirstName": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "businessPartnerLastName": {
+          "type": "cds.String",
+          "length": 40
+        }
+      }
+    },
+    "tfe.service.businessPartnerValidation.S4Service.BusinessPartnerAddresses": {
+      "kind": "entity",
+      "@cds.persistence.skip": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "OP_API_BUSINESS_PARTNER_SRV.A_BusinessPartnerAddress"
+          ]
+        },
+        "columns": [
+          {
+            "key": true,
+            "ref": [
+              "BusinessPartner"
+            ],
+            "as": "businessPartnerId"
+          },
+          {
+            "ref": [
+              "AddressID"
+            ],
+            "as": "addressId"
+          },
+          {
+            "ref": [
+              "Country"
+            ],
+            "as": "country"
+          },
+          {
+            "ref": [
+              "CityName"
+            ],
+            "as": "cityName"
+          },
+          {
+            "ref": [
+              "StreetName"
+            ],
+            "as": "streetName"
+          },
+          {
+            "ref": [
+              "PostalCode"
+            ],
+            "as": "postalCode"
+          },
+          {
+            "ref": [
+              "HouseNumber"
+            ],
+            "as": "houseNumber"
+          }
+        ]
+      },
+      "elements": {
+        "businessPartnerId": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "addressId": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "country": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "cityName": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "streetName": {
+          "type": "cds.String",
+          "length": 60
+        },
+        "postalCode": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "houseNumber": {
+          "type": "cds.String",
+          "length": 10
+        }
+      }
+    },
+    "OP_API_BUSINESS_PARTNER_SRV.BusinessPartnerCreated": {
+      "kind": "event",
+      "@topic": "tfe/bpem/em/ce/sap/s4/beh/businesspartner/v1/BusinessPartner/Created/v1",
+      "elements": {
+        "ID": {
+          "type": "cds.UUID"
+        },
+        "BUSINESSPARTNER": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "OP_API_BUSINESS_PARTNER_SRV.BusinessPartnerChanged": {
+      "kind": "event",
+      "@topic": "tfe/bpem/em/ce/sap/s4/beh/businesspartner/v1/BusinessPartner/Changed/v1",
+      "elements": {
+        "ID": {
+          "type": "cds.UUID"
+        },
+        "BUSINESSPARTNER": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "Language": {
       "kind": "type",
-      "@description": "{i18n>CountryCode.Description}",
-      "@title": "{i18n>Country}",
+      "@title": "{i18n>Language}",
+      "@description": "{i18n>LanguageCode.Description}",
       "type": "cds.Association",
-      "target": "sap.common.Countries",
+      "target": "sap.common.Languages",
       "keys": [
         {
           "ref": [
@@ -17,8 +880,8 @@
     },
     "Currency": {
       "kind": "type",
-      "@description": "{i18n>CurrencyCode.Description}",
       "@title": "{i18n>Currency}",
+      "@description": "{i18n>CurrencyCode.Description}",
       "type": "cds.Association",
       "target": "sap.common.Currencies",
       "keys": [
@@ -29,12 +892,12 @@
         }
       ]
     },
-    "Language": {
+    "Country": {
       "kind": "type",
-      "@description": "{i18n>LanguageCode.Description}",
-      "@title": "{i18n>Language}",
+      "@title": "{i18n>Country}",
+      "@description": "{i18n>CountryCode.Description}",
       "type": "cds.Association",
-      "target": "sap.common.Languages",
+      "target": "sap.common.Countries",
       "keys": [
         {
           "ref": [
@@ -42,6 +905,411 @@
           ]
         }
       ]
+    },
+    "sap.common": {
+      "kind": "context"
+    },
+    "sap.common.Languages": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>LanguageCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 14
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.Languages.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.Languages.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.Countries": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>CountryCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.Countries.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.Countries.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.Currencies": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "symbol": {
+          "@title": "{i18n>CurrencySymbol}",
+          "type": "cds.String",
+          "length": 5
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.CodeList": {
+      "kind": "aspect",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        }
+      }
+    },
+    "cuid": {
+      "kind": "aspect",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        }
+      }
+    },
+    "managed": {
+      "kind": "aspect",
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "@odata.on.insert": {
+            "#": "now"
+          },
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@odata.on.insert": {
+            "#": "user"
+          },
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "@odata.on.update": {
+            "#": "now"
+          },
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@odata.on.update": {
+            "#": "user"
+          },
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        }
+      }
+    },
+    "temporal": {
+      "kind": "aspect",
+      "elements": {
+        "validFrom": {
+          "@cds.valid.from": true,
+          "type": "cds.Timestamp"
+        },
+        "validTo": {
+          "@cds.valid.to": true,
+          "type": "cds.Timestamp"
+        }
+      }
+    },
+    "User": {
+      "kind": "type",
+      "@title": "{i18n>UserID}",
+      "@description": "{i18n>UserID.Description}",
+      "type": "cds.String",
+      "length": 255
     },
     "OP_API_BUSINESS_PARTNER_SRV": {
       "@source": "srv/external/OP_API_BUSINESS_PARTNER_SRV.csn",
@@ -1642,69 +2910,6 @@
         }
       }
     },
-    "OP_API_BUSINESS_PARTNER_SRV.A_CustSalesPartnerFunc": {
-      "kind": "entity",
-      "@cds.persistence.skip": true,
-      "elements": {
-        "Customer": {
-          "key": true,
-          "type": "cds.String",
-          "length": 10
-        },
-        "SalesOrganization": {
-          "key": true,
-          "type": "cds.String",
-          "length": 4
-        },
-        "DistributionChannel": {
-          "key": true,
-          "type": "cds.String",
-          "length": 2
-        },
-        "Division": {
-          "key": true,
-          "type": "cds.String",
-          "length": 2
-        },
-        "PartnerCounter": {
-          "key": true,
-          "type": "cds.String",
-          "length": 3
-        },
-        "PartnerFunction": {
-          "key": true,
-          "type": "cds.String",
-          "length": 2
-        },
-        "BPCustomerNumber": {
-          "type": "cds.String",
-          "length": 10
-        },
-        "CustomerPartnerDescription": {
-          "type": "cds.String",
-          "length": 30
-        },
-        "DefaultPartner": {
-          "type": "cds.Boolean"
-        },
-        "Supplier": {
-          "type": "cds.String",
-          "length": 10
-        },
-        "PersonnelNumber": {
-          "type": "cds.String",
-          "length": 8
-        },
-        "ContactPerson": {
-          "type": "cds.String",
-          "length": 10
-        },
-        "AuthorizationGroup": {
-          "type": "cds.String",
-          "length": 4
-        }
-      }
-    },
     "OP_API_BUSINESS_PARTNER_SRV.A_Customer": {
       "kind": "entity",
       "@cds.persistence.skip": true,
@@ -2726,6 +3931,69 @@
         }
       }
     },
+    "OP_API_BUSINESS_PARTNER_SRV.A_CustSalesPartnerFunc": {
+      "kind": "entity",
+      "@cds.persistence.skip": true,
+      "elements": {
+        "Customer": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "SalesOrganization": {
+          "key": true,
+          "type": "cds.String",
+          "length": 4
+        },
+        "DistributionChannel": {
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "Division": {
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "PartnerCounter": {
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "PartnerFunction": {
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "BPCustomerNumber": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "CustomerPartnerDescription": {
+          "type": "cds.String",
+          "length": 30
+        },
+        "DefaultPartner": {
+          "type": "cds.Boolean"
+        },
+        "Supplier": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "PersonnelNumber": {
+          "type": "cds.String",
+          "length": 8
+        },
+        "ContactPerson": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "AuthorizationGroup": {
+          "type": "cds.String",
+          "length": 4
+        }
+      }
+    },
     "OP_API_BUSINESS_PARTNER_SRV.A_Supplier": {
       "kind": "entity",
       "@cds.persistence.skip": true,
@@ -3599,673 +4867,8 @@
         }
       }
     },
-    "OP_API_BUSINESS_PARTNER_SRV.BusinessPartnerChanged": {
-      "kind": "event",
-      "@topic": "tfe/bpem/em/ce/sap/s4/beh/businesspartner/v1/BusinessPartner/Changed/v1",
-      "elements": {
-        "ID": {
-          "type": "cds.UUID"
-        },
-        "BUSINESSPARTNER": {
-          "type": "cds.String"
-        }
-      }
-    },
-    "OP_API_BUSINESS_PARTNER_SRV.BusinessPartnerCreated": {
-      "kind": "event",
-      "@topic": "tfe/bpem/em/ce/sap/s4/beh/businesspartner/v1/BusinessPartner/Created/v1",
-      "elements": {
-        "ID": {
-          "type": "cds.UUID"
-        },
-        "BUSINESSPARTNER": {
-          "type": "cds.String"
-        }
-      }
-    },
-    "User": {
-      "kind": "type",
-      "@description": "{i18n>UserID.Description}",
-      "@title": "{i18n>UserID}",
-      "type": "cds.String",
-      "length": 255
-    },
-    "cuid": {
-      "kind": "type",
-      "elements": {
-        "ID": {
-          "key": true,
-          "type": "cds.UUID"
-        }
-      },
-      "$syntax": "aspect"
-    },
-    "localized.sap.common.Countries": {
+    "sap.common.Languages.texts": {
       "kind": "entity",
-      "@UI.Identification": [
-        {
-          "Value": {
-            "=": "name"
-          }
-        }
-      ],
-      "@cds.autoexpose": true,
-      "@cds.odata.valuelist": true,
-      "@cds.persistence.skip": "if-unused",
-      "@odata.draft.enabled": false,
-      "query": {
-        "SELECT": {
-          "from": {
-            "ref": [
-              "sap.common.Countries"
-            ],
-            "as": "L"
-          },
-          "columns": [
-            "*",
-            {
-              "func": "coalesce",
-              "args": [
-                {
-                  "ref": [
-                    "L",
-                    "localized",
-                    "name"
-                  ]
-                },
-                {
-                  "ref": [
-                    "L",
-                    "name"
-                  ]
-                }
-              ],
-              "as": "name"
-            },
-            {
-              "func": "coalesce",
-              "args": [
-                {
-                  "ref": [
-                    "L",
-                    "localized",
-                    "descr"
-                  ]
-                },
-                {
-                  "ref": [
-                    "L",
-                    "descr"
-                  ]
-                }
-              ],
-              "as": "descr"
-            }
-          ]
-        }
-      },
-      "elements": {
-        "name": {
-          "@Core.Computed": true,
-          "@title": "{i18n>Name}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 255
-        },
-        "descr": {
-          "@Core.Computed": true,
-          "@title": "{i18n>Description}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 1000
-        },
-        "code": {
-          "@Common.Text": {
-            "=": "name"
-          },
-          "@title": "{i18n>CountryCode}",
-          "key": true,
-          "type": "cds.String",
-          "length": 3
-        },
-        "texts": {
-          "type": "cds.Composition",
-          "cardinality": {
-            "max": "*"
-          },
-          "target": "sap.common.Countries_texts",
-          "on": [
-            {
-              "ref": [
-                "texts",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            }
-          ]
-        },
-        "localized": {
-          "type": "cds.Association",
-          "target": "sap.common.Countries_texts",
-          "on": [
-            {
-              "ref": [
-                "localized",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            },
-            "and",
-            {
-              "ref": [
-                "localized",
-                "locale"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "$user",
-                "locale"
-              ]
-            }
-          ]
-        }
-      }
-    },
-    "localized.sap.common.Currencies": {
-      "kind": "entity",
-      "@UI.Identification": [
-        {
-          "Value": {
-            "=": "name"
-          }
-        }
-      ],
-      "@cds.autoexpose": true,
-      "@cds.odata.valuelist": true,
-      "@cds.persistence.skip": "if-unused",
-      "@odata.draft.enabled": false,
-      "query": {
-        "SELECT": {
-          "from": {
-            "ref": [
-              "sap.common.Currencies"
-            ],
-            "as": "L"
-          },
-          "columns": [
-            "*",
-            {
-              "func": "coalesce",
-              "args": [
-                {
-                  "ref": [
-                    "L",
-                    "localized",
-                    "name"
-                  ]
-                },
-                {
-                  "ref": [
-                    "L",
-                    "name"
-                  ]
-                }
-              ],
-              "as": "name"
-            },
-            {
-              "func": "coalesce",
-              "args": [
-                {
-                  "ref": [
-                    "L",
-                    "localized",
-                    "descr"
-                  ]
-                },
-                {
-                  "ref": [
-                    "L",
-                    "descr"
-                  ]
-                }
-              ],
-              "as": "descr"
-            }
-          ]
-        }
-      },
-      "elements": {
-        "name": {
-          "@Core.Computed": true,
-          "@title": "{i18n>Name}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 255
-        },
-        "descr": {
-          "@Core.Computed": true,
-          "@title": "{i18n>Description}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 1000
-        },
-        "code": {
-          "@Common.Text": {
-            "=": "name"
-          },
-          "@title": "{i18n>CurrencyCode}",
-          "key": true,
-          "type": "cds.String",
-          "length": 3
-        },
-        "symbol": {
-          "@title": "{i18n>CurrencySymbol}",
-          "type": "cds.String",
-          "length": 5
-        },
-        "texts": {
-          "type": "cds.Composition",
-          "cardinality": {
-            "max": "*"
-          },
-          "target": "sap.common.Currencies_texts",
-          "on": [
-            {
-              "ref": [
-                "texts",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            }
-          ]
-        },
-        "localized": {
-          "type": "cds.Association",
-          "target": "sap.common.Currencies_texts",
-          "on": [
-            {
-              "ref": [
-                "localized",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            },
-            "and",
-            {
-              "ref": [
-                "localized",
-                "locale"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "$user",
-                "locale"
-              ]
-            }
-          ]
-        }
-      }
-    },
-    "localized.sap.common.Languages": {
-      "kind": "entity",
-      "@UI.Identification": [
-        {
-          "Value": {
-            "=": "name"
-          }
-        }
-      ],
-      "@cds.autoexpose": true,
-      "@cds.odata.valuelist": true,
-      "@cds.persistence.skip": "if-unused",
-      "@odata.draft.enabled": false,
-      "query": {
-        "SELECT": {
-          "from": {
-            "ref": [
-              "sap.common.Languages"
-            ],
-            "as": "L"
-          },
-          "columns": [
-            "*",
-            {
-              "func": "coalesce",
-              "args": [
-                {
-                  "ref": [
-                    "L",
-                    "localized",
-                    "name"
-                  ]
-                },
-                {
-                  "ref": [
-                    "L",
-                    "name"
-                  ]
-                }
-              ],
-              "as": "name"
-            },
-            {
-              "func": "coalesce",
-              "args": [
-                {
-                  "ref": [
-                    "L",
-                    "localized",
-                    "descr"
-                  ]
-                },
-                {
-                  "ref": [
-                    "L",
-                    "descr"
-                  ]
-                }
-              ],
-              "as": "descr"
-            }
-          ]
-        }
-      },
-      "elements": {
-        "name": {
-          "@Core.Computed": true,
-          "@title": "{i18n>Name}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 255
-        },
-        "descr": {
-          "@Core.Computed": true,
-          "@title": "{i18n>Description}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 1000
-        },
-        "code": {
-          "@Common.Text": {
-            "=": "name"
-          },
-          "@title": "{i18n>LanguageCode}",
-          "key": true,
-          "type": "cds.String",
-          "length": 14
-        },
-        "texts": {
-          "type": "cds.Composition",
-          "cardinality": {
-            "max": "*"
-          },
-          "target": "sap.common.Languages_texts",
-          "on": [
-            {
-              "ref": [
-                "texts",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            }
-          ]
-        },
-        "localized": {
-          "type": "cds.Association",
-          "target": "sap.common.Languages_texts",
-          "on": [
-            {
-              "ref": [
-                "localized",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            },
-            "and",
-            {
-              "ref": [
-                "localized",
-                "locale"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "$user",
-                "locale"
-              ]
-            }
-          ]
-        }
-      }
-    },
-    "managed": {
-      "kind": "type",
-      "elements": {
-        "createdAt": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@odata.on.insert": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedAt}",
-          "type": "cds.Timestamp"
-        },
-        "createdBy": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.insert": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "modifiedAt": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@cds.on.update": {
-            "=": "$now"
-          },
-          "@odata.on.update": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedAt}",
-          "type": "cds.Timestamp"
-        },
-        "modifiedBy": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@cds.on.update": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.update": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedBy}",
-          "type": "User",
-          "length": 255
-        }
-      },
-      "$syntax": "aspect"
-    },
-    "sap.common": {
-      "kind": "context"
-    },
-    "sap.common.CodeList": {
-      "kind": "type",
-      "@UI.Identification": [
-        {
-          "Value": {
-            "=": "name"
-          }
-        }
-      ],
-      "@cds.autoexpose": true,
-      "@cds.odata.valuelist": true,
-      "@cds.persistence.skip": "if-unused",
-      "elements": {
-        "name": {
-          "@title": "{i18n>Name}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 255
-        },
-        "descr": {
-          "@title": "{i18n>Description}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 1000
-        }
-      },
-      "$syntax": "aspect"
-    },
-    "sap.common.Countries": {
-      "kind": "entity",
-      "@UI.Identification": [
-        {
-          "Value": {
-            "=": "name"
-          }
-        }
-      ],
-      "@cds.autoexpose": true,
-      "@cds.odata.valuelist": true,
-      "@cds.persistence.skip": "if-unused",
-      "includes": [
-        "sap.common.CodeList"
-      ],
-      "elements": {
-        "name": {
-          "@title": "{i18n>Name}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 255
-        },
-        "descr": {
-          "@title": "{i18n>Description}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 1000
-        },
-        "code": {
-          "@Common.Text": {
-            "=": "name"
-          },
-          "@title": "{i18n>CountryCode}",
-          "key": true,
-          "type": "cds.String",
-          "length": 3
-        },
-        "texts": {
-          "type": "cds.Composition",
-          "cardinality": {
-            "max": "*"
-          },
-          "target": "sap.common.Countries_texts",
-          "on": [
-            {
-              "ref": [
-                "texts",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            }
-          ]
-        },
-        "localized": {
-          "type": "cds.Association",
-          "target": "sap.common.Countries_texts",
-          "on": [
-            {
-              "ref": [
-                "localized",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            },
-            "and",
-            {
-              "ref": [
-                "localized",
-                "locale"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "$user",
-                "locale"
-              ]
-            }
-          ]
-        }
-      }
-    },
-    "sap.common.Countries_texts": {
-      "kind": "entity",
-      "@cds.autoexpose": true,
       "@odata.draft.enabled": false,
       "elements": {
         "locale": {
@@ -4286,117 +4889,52 @@
           "length": 1000
         },
         "code": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>LanguageCode}",
           "@Common.Text": {
             "=": "name"
           },
+          "key": true,
+          "type": "cds.String",
+          "length": 14
+        }
+      }
+    },
+    "sap.common.Countries.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "elements": {
+        "locale": {
+          "key": true,
+          "type": "cds.String",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": false,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": false,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
           "@odata.containment.ignore": true,
           "@title": "{i18n>CountryCode}",
-          "key": true,
-          "type": "cds.String",
-          "length": 3
-        }
-      }
-    },
-    "sap.common.Currencies": {
-      "kind": "entity",
-      "@UI.Identification": [
-        {
-          "Value": {
-            "=": "name"
-          }
-        }
-      ],
-      "@cds.autoexpose": true,
-      "@cds.odata.valuelist": true,
-      "@cds.persistence.skip": "if-unused",
-      "includes": [
-        "sap.common.CodeList"
-      ],
-      "elements": {
-        "name": {
-          "@title": "{i18n>Name}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 255
-        },
-        "descr": {
-          "@title": "{i18n>Description}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 1000
-        },
-        "code": {
           "@Common.Text": {
             "=": "name"
           },
-          "@title": "{i18n>CurrencyCode}",
           "key": true,
           "type": "cds.String",
           "length": 3
-        },
-        "symbol": {
-          "@title": "{i18n>CurrencySymbol}",
-          "type": "cds.String",
-          "length": 5
-        },
-        "texts": {
-          "type": "cds.Composition",
-          "cardinality": {
-            "max": "*"
-          },
-          "target": "sap.common.Currencies_texts",
-          "on": [
-            {
-              "ref": [
-                "texts",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            }
-          ]
-        },
-        "localized": {
-          "type": "cds.Association",
-          "target": "sap.common.Currencies_texts",
-          "on": [
-            {
-              "ref": [
-                "localized",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            },
-            "and",
-            {
-              "ref": [
-                "localized",
-                "locale"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "$user",
-                "locale"
-              ]
-            }
-          ]
         }
       }
     },
-    "sap.common.Currencies_texts": {
+    "sap.common.Currencies.texts": {
       "kind": "entity",
-      "@cds.autoexpose": true,
       "@odata.draft.enabled": false,
       "elements": {
         "locale": {
@@ -4417,1008 +4955,16 @@
           "length": 1000
         },
         "code": {
-          "@Common.Text": {
-            "=": "name"
-          },
           "@odata.containment.ignore": true,
           "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
           "key": true,
           "type": "cds.String",
           "length": 3
         }
       }
-    },
-    "sap.common.Languages": {
-      "kind": "entity",
-      "@UI.Identification": [
-        {
-          "Value": {
-            "=": "name"
-          }
-        }
-      ],
-      "@cds.autoexpose": true,
-      "@cds.odata.valuelist": true,
-      "@cds.persistence.skip": "if-unused",
-      "includes": [
-        "sap.common.CodeList"
-      ],
-      "elements": {
-        "name": {
-          "@title": "{i18n>Name}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 255
-        },
-        "descr": {
-          "@title": "{i18n>Description}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 1000
-        },
-        "code": {
-          "@Common.Text": {
-            "=": "name"
-          },
-          "@title": "{i18n>LanguageCode}",
-          "key": true,
-          "type": "cds.String",
-          "length": 14
-        },
-        "texts": {
-          "type": "cds.Composition",
-          "cardinality": {
-            "max": "*"
-          },
-          "target": "sap.common.Languages_texts",
-          "on": [
-            {
-              "ref": [
-                "texts",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            }
-          ]
-        },
-        "localized": {
-          "type": "cds.Association",
-          "target": "sap.common.Languages_texts",
-          "on": [
-            {
-              "ref": [
-                "localized",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            },
-            "and",
-            {
-              "ref": [
-                "localized",
-                "locale"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "$user",
-                "locale"
-              ]
-            }
-          ]
-        }
-      }
-    },
-    "sap.common.Languages_texts": {
-      "kind": "entity",
-      "@cds.autoexpose": true,
-      "@odata.draft.enabled": false,
-      "elements": {
-        "locale": {
-          "key": true,
-          "type": "cds.String",
-          "length": 14
-        },
-        "name": {
-          "@title": "{i18n>Name}",
-          "localized": false,
-          "type": "cds.String",
-          "length": 255
-        },
-        "descr": {
-          "@title": "{i18n>Description}",
-          "localized": false,
-          "type": "cds.String",
-          "length": 1000
-        },
-        "code": {
-          "@Common.Text": {
-            "=": "name"
-          },
-          "@odata.containment.ignore": true,
-          "@title": "{i18n>LanguageCode}",
-          "key": true,
-          "type": "cds.String",
-          "length": 14
-        }
-      }
-    },
-    "temporal": {
-      "kind": "type",
-      "elements": {
-        "validFrom": {
-          "@cds.valid.from": true,
-          "type": "cds.Timestamp"
-        },
-        "validTo": {
-          "@cds.valid.to": true,
-          "type": "cds.Timestamp"
-        }
-      },
-      "$syntax": "aspect"
-    },
-    "tfe.model.bpVerification.Addresses": {
-      "kind": "entity",
-      "includes": [
-        "cuid"
-      ],
-      "elements": {
-        "ID": {
-          "key": true,
-          "type": "cds.UUID"
-        },
-        "verifications": {
-          "type": "cds.Association",
-          "target": "tfe.model.bpVerification.Verifications",
-          "keys": [
-            {
-              "ref": [
-                "ID"
-              ]
-            }
-          ]
-        },
-        "addressId": {
-          "@readonly": true,
-          "type": "cds.String"
-        },
-        "country": {
-          "type": "cds.String"
-        },
-        "cityName": {
-          "type": "cds.String"
-        },
-        "streetName": {
-          "type": "cds.String"
-        },
-        "postalCode": {
-          "type": "cds.String"
-        },
-        "houseNumber": {
-          "type": "cds.String"
-        }
-      }
-    },
-    "tfe.model.bpVerification.StatusValues": {
-      "kind": "entity",
-      "@cds.autoexpose": true,
-      "elements": {
-        "code": {
-          "key": true,
-          "type": "cds.String"
-        },
-        "value": {
-          "type": "cds.String"
-        },
-        "criticality": {
-          "type": "cds.Integer"
-        },
-        "updateCode": {
-          "type": "cds.Boolean"
-        }
-      }
-    },
-    "tfe.model.bpVerification.Verifications": {
-      "kind": "entity",
-      "includes": [
-        "managed",
-        "cuid"
-      ],
-      "elements": {
-        "createdAt": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@odata.on.insert": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedAt}",
-          "type": "cds.Timestamp"
-        },
-        "createdBy": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.insert": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "modifiedAt": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@cds.on.update": {
-            "=": "$now"
-          },
-          "@odata.on.update": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedAt}",
-          "type": "cds.Timestamp"
-        },
-        "modifiedBy": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@cds.on.update": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.update": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "ID": {
-          "key": true,
-          "type": "cds.UUID"
-        },
-        "businessPartnerId": {
-          "@readonly": true,
-          "@title": "BusinessPartner ID",
-          "type": "cds.String"
-        },
-        "businessPartnerFirstName": {
-          "type": "cds.String"
-        },
-        "businessPartnerLastName": {
-          "type": "cds.String"
-        },
-        "verificationStatus": {
-          "@assert.enum": true,
-          "@title": "Verfication Status",
-          "type": "cds.Association",
-          "target": "tfe.model.bpVerification.StatusValues",
-          "keys": [
-            {
-              "ref": [
-                "code"
-              ]
-            }
-          ]
-        },
-        "addresses": {
-          "type": "cds.Composition",
-          "cardinality": {
-            "max": "*"
-          },
-          "target": "tfe.model.bpVerification.Addresses",
-          "on": [
-            {
-              "ref": [
-                "addresses",
-                "verifications"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "$self"
-              ]
-            }
-          ]
-        },
-        "businessPartnerIsBlocked": {
-          "type": "cds.Boolean",
-          "default": {
-            "val": false
-          }
-        }
-      }
-    },
-    "tfe.service.businessPartnerValidation.AdminService": {
-      "@source": "srv/catalog.cds",
-      "kind": "service",
-      "@requires": "authenticated-user"
-    },
-    "tfe.service.businessPartnerValidation.AdminService.Addresses": {
-      "kind": "entity",
-      "@Capabilities.Deletable": false,
-      "@Capabilities.Insertable": false,
-      "@UI.DataPoint#BP.Title": "Business Partner ID",
-      "@UI.DataPoint#BP.Value": {
-        "=": "verifications.businessPartnerId"
-      },
-      "@UI.DataPoint#Status.Title": "Verification Status",
-      "@UI.DataPoint#Status.Value": {
-        "=": "verifications.verificationStatus_code"
-      },
-      "@UI.HeaderFacets": [
-        {
-          "$Type": "UI.ReferenceFacet",
-          "ID": "BP",
-          "Target": "@UI.DataPoint#BP"
-        },
-        {
-          "$Type": "UI.ReferenceFacet",
-          "ID": "Status",
-          "Target": "@UI.DataPoint#Status"
-        }
-      ],
-      "@UI.HeaderInfo.Title.$Type": "UI.DataField",
-      "@UI.HeaderInfo.Title.Value": {
-        "=": "addressId"
-      },
-      "@UI.HeaderInfo.TypeName": "Address",
-      "@UI.HeaderInfo.TypeNamePlural": "Addresses",
-      "@UI.LineItem": [
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "verifications.businessPartnerId"
-          }
-        },
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "addressId"
-          }
-        },
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "streetName"
-          }
-        },
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "houseNumber"
-          }
-        },
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "postalCode"
-          }
-        },
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "cityName"
-          }
-        },
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "country"
-          }
-        }
-      ],
-      "@UI.SelectionFields": [
-        {
-          "=": "addressId"
-        },
-        {
-          "=": "streetName"
-        },
-        {
-          "=": "cityName"
-        },
-        {
-          "=": "country"
-        },
-        {
-          "=": "postalCode"
-        }
-      ],
-      "@restrict": [
-        {
-          "grant": [
-            "*"
-          ],
-          "to": "BPAdmin"
-        }
-      ],
-      "query": {
-        "SELECT": {
-          "from": {
-            "ref": [
-              "tfe.model.bpVerification.Addresses"
-            ]
-          }
-        }
-      },
-      "elements": {
-        "ID": {
-          "key": true,
-          "type": "cds.UUID"
-        },
-        "verifications": {
-          "type": "cds.Association",
-          "target": "tfe.service.businessPartnerValidation.AdminService.BusinessPartnerVerification",
-          "keys": [
-            {
-              "ref": [
-                "ID"
-              ]
-            }
-          ]
-        },
-        "addressId": {
-          "@Common.Label": "Address ID",
-          "@readonly": true,
-          "type": "cds.String"
-        },
-        "country": {
-          "@Common.Label": "Country",
-          "type": "cds.String"
-        },
-        "cityName": {
-          "@Common.Label": "City Name",
-          "type": "cds.String"
-        },
-        "streetName": {
-          "@Common.Label": "Street Name",
-          "type": "cds.String"
-        },
-        "postalCode": {
-          "@Common.Label": "Postal Code",
-          "type": "cds.String"
-        },
-        "houseNumber": {
-          "@Common.Label": "House Number",
-          "type": "cds.String"
-        }
-      },
-      "$syntax": "projection"
-    },
-    "tfe.service.businessPartnerValidation.AdminService.BusinessPartnerVerification": {
-      "kind": "entity",
-      "@Capabilities.Deletable": false,
-      "@Capabilities.Insertable": false,
-      "@Capabilities.Updatable": true,
-      "@UI.DataPoint#BpFName.Title": "First Name",
-      "@UI.DataPoint#BpFName.Value": {
-        "=": "businessPartnerFirstName"
-      },
-      "@UI.DataPoint#BpLName.Title": "Last Name",
-      "@UI.DataPoint#BpLName.Value": {
-        "=": "businessPartnerLastName"
-      },
-      "@UI.Facets": [
-        {
-          "$Type": "UI.ReferenceFacet",
-          "Target": "addresses/@UI.LineItem",
-          "Label": "Address Facet"
-        }
-      ],
-      "@UI.FieldGroup#Detail.Data": [
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "verificationStatus_code"
-          },
-          "Label": "Verification Status"
-        }
-      ],
-      "@UI.HeaderFacets": [
-        {
-          "$Type": "UI.ReferenceFacet",
-          "ID": "HeaderBpFirstName",
-          "Target": "@UI.DataPoint#BpFName"
-        },
-        {
-          "$Type": "UI.ReferenceFacet",
-          "ID": "HeaderBPLastName",
-          "Target": "@UI.DataPoint#BpLName"
-        },
-        {
-          "$Type": "UI.ReferenceFacet",
-          "Target": "@UI.FieldGroup#Detail"
-        }
-      ],
-      "@UI.HeaderInfo.Title.$Type": "UI.DataField",
-      "@UI.HeaderInfo.Title.Value": {
-        "=": "businessPartnerId"
-      },
-      "@UI.HeaderInfo.TypeName": "{i18n>Verification}",
-      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Verifications}",
-      "@UI.LineItem": [
-        {
-          "$Type": "UI.DataFieldForAction",
-          "Action": "tfe.service.businessPartnerValidation.AdminService.block",
-          "Label": "Block"
-        },
-        {
-          "$Type": "UI.DataFieldForAction",
-          "Action": "tfe.service.businessPartnerValidation.AdminService.unblock",
-          "Label": "Unblock"
-        },
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "businessPartnerId"
-          }
-        },
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "businessPartnerFirstName"
-          }
-        },
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "businessPartnerLastName"
-          }
-        },
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "verificationStatus.value"
-          },
-          "Criticality": {
-            "=": "verificationStatus.criticality"
-          }
-        },
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "businessPartnerIsBlocked"
-          }
-        },
-        {
-          "$Type": "UI.DataField",
-          "Value": {
-            "=": "modifiedAt"
-          }
-        }
-      ],
-      "@UI.PresentationVariant.$Type": "UI.PresentationVariantType",
-      "@UI.PresentationVariant.SortOrder": [
-        {
-          "$Type": "Common.SortOrderType",
-          "Property": {
-            "=": "modifiedAt"
-          },
-          "Descending": true
-        }
-      ],
-      "@UI.PresentationVariant.Visualizations": [
-        "@UI.LineItem"
-      ],
-      "@UI.SelectionFields": [
-        {
-          "=": "businessPartnerId"
-        },
-        {
-          "=": "businessPartnerFirstName"
-        },
-        {
-          "=": "businessPartnerLastName"
-        },
-        {
-          "=": "verificationStatus_code"
-        },
-        {
-          "=": "businessPartnerIsBlocked"
-        }
-      ],
-      "@UI.UpdateHidden": {
-        "=": "verificationStatus.updateCode"
-      },
-      "@odata.draft.enabled": true,
-      "@restrict": [
-        {
-          "grant": [
-            "*"
-          ],
-          "to": "BPAdmin"
-        }
-      ],
-      "query": {
-        "SELECT": {
-          "from": {
-            "ref": [
-              "tfe.model.bpVerification.Verifications"
-            ]
-          }
-        }
-      },
-      "elements": {
-        "createdAt": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@odata.on.insert": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedAt}",
-          "type": "cds.Timestamp"
-        },
-        "createdBy": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.insert": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "modifiedAt": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@cds.on.update": {
-            "=": "$now"
-          },
-          "@odata.on.update": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedAt}",
-          "type": "cds.Timestamp"
-        },
-        "modifiedBy": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@cds.on.update": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.update": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "ID": {
-          "key": true,
-          "type": "cds.UUID"
-        },
-        "businessPartnerId": {
-          "@Common.Label": "Business Partner ID",
-          "@readonly": true,
-          "@title": "BusinessPartner ID",
-          "type": "cds.String"
-        },
-        "businessPartnerFirstName": {
-          "@Common.Label": "First Name",
-          "@readonly": true,
-          "type": "cds.String"
-        },
-        "businessPartnerLastName": {
-          "@Common.Label": "Last Name",
-          "@readonly": true,
-          "type": "cds.String"
-        },
-        "verificationStatus": {
-          "@Common.Label": "Verification Status",
-          "@Common.ValueList.$Type": "Common.ValueListType",
-          "@Common.ValueList.CollectionPath": "StatusValues",
-          "@Common.ValueList.Parameters": [
-            {
-              "$Type": "Common.ValueListParameterInOut",
-              "LocalDataProperty": {
-                "=": "verificationStatus_code"
-              },
-              "ValueListProperty": "code"
-            }
-          ],
-          "@Common.ValueList.PresentationVariantQualifier": "code",
-          "@Common.ValueList.SelectionVariantQualifier": "code",
-          "@Common.ValueListWithFixedValues": true,
-          "@assert.enum": true,
-          "@title": "Verfication Status",
-          "type": "cds.Association",
-          "target": "tfe.service.businessPartnerValidation.AdminService.StatusValues",
-          "keys": [
-            {
-              "ref": [
-                "code"
-              ]
-            }
-          ]
-        },
-        "addresses": {
-          "type": "cds.Composition",
-          "cardinality": {
-            "max": "*"
-          },
-          "target": "tfe.service.businessPartnerValidation.AdminService.Addresses",
-          "on": [
-            {
-              "ref": [
-                "addresses",
-                "verifications"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "$self"
-              ]
-            }
-          ]
-        },
-        "businessPartnerIsBlocked": {
-          "@Common.Label": "Blocked?",
-          "type": "cds.Boolean",
-          "default": {
-            "val": false
-          }
-        }
-      },
-      "actions": {
-        "block": {
-          "kind": "action",
-          "@Common.SideEffects.TargetProperties": [
-            "businessPartnerIsBlocked",
-            "verificationStatus_code"
-          ],
-          "@sap.applicable.path": "block"
-        },
-        "unblock": {
-          "kind": "action",
-          "@Common.SideEffects.TargetProperties": [
-            "businessPartnerIsBlocked",
-            "verificationStatus_code"
-          ],
-          "@sap.applicable.path": "unblock"
-        }
-      },
-      "$syntax": "projection"
-    },
-    "tfe.service.businessPartnerValidation.AdminService.StatusValues": {
-      "kind": "entity",
-      "@cds.autoexpose": true,
-      "query": {
-        "SELECT": {
-          "from": {
-            "ref": [
-              "tfe.model.bpVerification.StatusValues"
-            ]
-          }
-        }
-      },
-      "elements": {
-        "code": {
-          "@Common.Text": {
-            "=": "value"
-          },
-          "@Common.TextArrangement": {
-            "#": "TextOnly"
-          },
-          "@title": "Code",
-          "key": true,
-          "type": "cds.String"
-        },
-        "value": {
-          "@title": "Verification Status",
-          "type": "cds.String"
-        },
-        "criticality": {
-          "type": "cds.Integer"
-        },
-        "updateCode": {
-          "type": "cds.Boolean"
-        }
-      },
-      "$syntax": "projection"
-    },
-    "tfe.service.businessPartnerValidation.AdminService.testFunction": {
-      "kind": "function",
-      "returns": {
-        "type": "cds.String"
-      }
-    },
-    "tfe.service.businessPartnerValidation.S4Service": {
-      "@source": "srv/external-catalog.cds",
-      "kind": "service"
-    },
-    "tfe.service.businessPartnerValidation.S4Service.BusinessPartnerAddresses": {
-      "kind": "entity",
-      "@cds.persistence.skip": true,
-      "query": {
-        "SELECT": {
-          "from": {
-            "ref": [
-              "OP_API_BUSINESS_PARTNER_SRV.A_BusinessPartnerAddress"
-            ]
-          },
-          "columns": [
-            {
-              "key": true,
-              "ref": [
-                "BusinessPartner"
-              ],
-              "as": "businessPartnerId"
-            },
-            {
-              "ref": [
-                "AddressID"
-              ],
-              "as": "addressId"
-            },
-            {
-              "ref": [
-                "Country"
-              ],
-              "as": "country"
-            },
-            {
-              "ref": [
-                "CityName"
-              ],
-              "as": "cityName"
-            },
-            {
-              "ref": [
-                "StreetName"
-              ],
-              "as": "streetName"
-            },
-            {
-              "ref": [
-                "PostalCode"
-              ],
-              "as": "postalCode"
-            },
-            {
-              "ref": [
-                "HouseNumber"
-              ],
-              "as": "houseNumber"
-            }
-          ]
-        }
-      },
-      "elements": {
-        "businessPartnerId": {
-          "key": true,
-          "type": "cds.String",
-          "length": 10
-        },
-        "addressId": {
-          "type": "cds.String",
-          "length": 10
-        },
-        "country": {
-          "type": "cds.String",
-          "length": 3
-        },
-        "cityName": {
-          "type": "cds.String",
-          "length": 40
-        },
-        "streetName": {
-          "type": "cds.String",
-          "length": 60
-        },
-        "postalCode": {
-          "type": "cds.String",
-          "length": 10
-        },
-        "houseNumber": {
-          "type": "cds.String",
-          "length": 10
-        }
-      },
-      "$syntax": "projection"
-    },
-    "tfe.service.businessPartnerValidation.S4Service.BusinessPartners": {
-      "kind": "entity",
-      "@Capabilities.Deletable": false,
-      "@Capabilities.Insertable": true,
-      "@Capabilities.Updatable": true,
-      "@cds.persistence.skip": true,
-      "query": {
-        "SELECT": {
-          "from": {
-            "ref": [
-              "OP_API_BUSINESS_PARTNER_SRV.A_BusinessPartner"
-            ]
-          },
-          "columns": [
-            {
-              "key": true,
-              "ref": [
-                "BusinessPartner"
-              ],
-              "as": "businessPartnerId"
-            },
-            {
-              "ref": [
-                "BusinessPartnerIsBlocked"
-              ],
-              "as": "businessPartnerIsBlocked"
-            },
-            {
-              "ref": [
-                "FirstName"
-              ],
-              "as": "businessPartnerFirstName"
-            },
-            {
-              "ref": [
-                "LastName"
-              ],
-              "as": "businessPartnerLastName"
-            }
-          ]
-        }
-      },
-      "elements": {
-        "businessPartnerId": {
-          "key": true,
-          "type": "cds.String",
-          "length": 10
-        },
-        "businessPartnerIsBlocked": {
-          "type": "cds.Boolean"
-        },
-        "businessPartnerFirstName": {
-          "type": "cds.String",
-          "length": 40
-        },
-        "businessPartnerLastName": {
-          "type": "cds.String",
-          "length": 40
-        }
-      },
-      "$syntax": "entity"
     }
   },
   "extensions": [
@@ -5433,8 +4979,8 @@
     }
   ],
   "meta": {
-    "flavor": "inferred",
-    "creator": "CDS Compiler v1.50.6"
+    "creator": "CDS Compiler v2.2.4",
+    "flavor": "inferred"
   },
-  "$version": "1.0"
+  "$version": "2.0"
 }

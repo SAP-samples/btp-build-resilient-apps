@@ -5,33 +5,35 @@
     "repository": "<Add your repository here>",
     "license": "UNLICENSED",
     "private": true,
-    "type": "module",
+    "engines": {
+        "node": ">=14"
+    },
     "dependencies": {
-        "@sap-cloud-sdk/core": "canary",
-        "@sap/cds": "^4.5.1",
+        "@sap-cloud-sdk/core": "^1.44.0",
+        "@sap/cds": "^5.1.3",
         "@sap/cloud-sdk-vdm-business-partner-service": "^1.24.0",
-        "@sap/hana-client": "^2.7.23",
-        "@sap/xb-msg-amqp-v100": "^0.9.48",
-        "@sap/xsenv": "^2.2.0",
-        "@sap/xssec": "^2.2.5",
+        "@sap/hana-client": "^2.8.20",
+        "@sap/xb-msg-amqp-v100": "^0.9.51",
+        "@sap/xsenv": "^3.1.0",
+        "@sap/xssec": "^3.2.0",
         "express": "^4",
         "hdb": "^0.18.3",
-        "lodash": "^4.17.20",
+        "lodash": "^4.17.21",
         "passport": "^0.4.1"
     },
     "devDependencies": {
-        "@sap/approuter": "9.0.x",
+        "@sap/approuter": "10.2.x",
         "@sap/eslint-plugin-ui5-jsdocs": "2.0.x",
-        "@sap/hdi-deploy": "3.11.15",
+        "@sap/hdi-deploy": "4.0.5",
         "@sap/html5-repo-mock": "2.0.x",
-        "@sap/ui5-builder-webide-extension": "1.0.x",
-        "@sap/ux-specification": "^1.84.2",
-        "@sapui5/ts-types": "1.71.x",
-        "@ui5/cli": "2.2.6",
-        "bestzip": "2.1.7",
-        "eslint": "5.16.x",
+        "@sap/ui5-builder-webide-extension": "1.1.x",
+        "@sap/ux-specification": "^1.84.10",
+        "@sapui5/ts-types": "1.84.x",
+        "@ui5/cli": "2.10.3",
+        "bestzip": "2.2.0",
+        "eslint": "7.26.x",
         "rimraf": "3.0.2",
-        "sqlite3": "5.0.0"
+        "sqlite3": "5.0.2"
     },
     "scripts": {
         "start": "npx -n=\"--inspect\" cds run"

@@ -1,0 +1,9 @@
+Business_Application_Studio_Administrator
+Business_Application_Studio_Developer
+Enterprise Messaging Administrator
+Enterprise Messaging Developer
+Enterprise Messaging Display
+Enterprise Messaging Subscription Administrator
+Launchpad_Admin
+Launchpad_External_User
+BPAdmin

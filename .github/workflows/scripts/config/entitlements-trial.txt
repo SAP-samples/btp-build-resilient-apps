@@ -1,0 +1,10 @@
+APPLICATION_RUNTIME:MEMORY:4
+enterprise-messaging:dev:1
+transport:standard:enable
+cicd-app:trial:enable
+sapappstudiotrial:trial:enable
+SAPLaunchpad:standard:enable
+enterprise-messaging-hub:standard:enable
+hana:hdi-shared:enable
+alert-notification:standard:enable
+hana-cloud-trial:hana:enable

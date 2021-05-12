@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+./sapcp login --url https://cpcli.cf.eu10.hana.ondemand.com --subdomain $GLOBAL_ACCOUNT --user $CF_USERNAME --password $CF_PASSWORD
+curl --cookie "eula_3_1_agreed=tools.hana.ondemand.com/developer-license-3_1.txt" --fail --silent https://tools.hana.ondemand.com/additional/sapcp-cli-linux-amd64-1.32.0.tar.gz | tar xzf - --strip-components 1 linux-amd64/sapcp 
+subaccount=$(./sapcp --format json list accounts/subaccount | jq '.value[0].guid' | sed -e 's/^"//' -e 's/"$//')
+./sapcp target --subaccount $subaccount
+ls -l

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -e
+
+subaccount=$(./sapcp --format json list accounts/subaccount | jq '.value[0].guid' | sed -e 's/^"//' -e 's/"$//')
+./sapcp target --subaccount $subaccount
+
+mapfile -t entitlements < .github/workflows/scripts/config/entitlements-trial.txt
+
+## now loop through the above array of RoleCollections
+for entitlement in "${entitlements[@]}"
+do
+    
+    #split string of multiple values into the seperate values (separated by :)
+    IFS=':' read -ra serviceplanamount <<< "$entitlement"
+    service=${serviceplanamount[0]}
+    plan=${serviceplanamount[1]}
+    amount=${serviceplanamount[2]}
+    
+    #entitlement without amounts need the flag --enable, others need the amount
+    quota=$(./sapcp --format json list accounts/assigned-entitlements | jq -r --arg service "$service" --arg plan "$plan" '.quotas[] | select((.service==$service) and (.plan==$plan)) | .quota')
+    echo "QUOTA: $quota"
+    if [[ $amount = "enable" ]]
+    then
+        echo "assign entitlement to $service ($plan) + enabling"
+        ./sapcp assign accounts/entitlement --global-account $GLOBAL_ACCOUNT --to-subaccount $subaccount --for-service "$service" --plan "$plan" --enable
+    else
+        if [[ $quota == $amount ]]
+        then
+            echo "entitlement for $service ($plan) already done"
+        else
+            echo "assign entitlement to $service ($plan), amount $amount"
+            ./sapcp assign accounts/entitlement --global-account $GLOBAL_ACCOUNT --to-subaccount $subaccount --for-service "$service" --plan "$plan" --amount $amount
+        fi
+    fi
+   
+done

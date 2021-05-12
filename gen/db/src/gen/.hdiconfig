@@ -3,6 +3,12 @@
     "csv": {
       "plugin_name": "com.sap.hana.di.tabledata.source"
     },
+    "hdbconstraint": {
+      "plugin_name": "com.sap.hana.di.constraint"
+    },
+    "hdbindex": {
+      "plugin_name": "com.sap.hana.di.index"
+    },
     "hdbtable": {
       "plugin_name": "com.sap.hana.di.table"
     },
