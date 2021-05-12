@@ -25,22 +25,26 @@ https://help.sap.com/viewer/810dfd34f2cc4f39aa8d946b5204fd9c/1809.000/en-US/1255
  ![create key](./images/EventBased2.png)
  
 6.  Click on your created Service Key to open the detail view
-  
-7. Find and copy your Event Mesh token endpoint URL. Look for token endpoint and then copy the URL. Make sure you have selected the Service Key in the dropdown
 
- ![Token Endpoint](./images/EventBased3.png)
- 
- ### Configure Channel
+ ![open key](./images/open-servicekey.png)
+  
+7. Make sure you have the right service key opened. Click **Copy JSON** to copy the entire service key content. 
+
+ ![Token Endpoint](./images/copy-key-json.png)
+  ### Configure Channel
  
  1. Open your S/4 HANA system and navigate to the transaction */IWXBE/CONFIG*
  2. Click on *via Service Key*
  
  ![Configure Channel](./images/EventBased4.png)
  
- 3. In the popup choose a *channel name* e.g. 'S4EM', provide a description and paste the *Service Key* you have created in the ealier steps
- 4. Then click on *save configuration*
+ 3. In the popup choose a *channel name* e.g. 'S4EM', provide a description and paste the *Service Key* you have created in the ealier steps. 
 
-  ![Create configuration](./images/EventBased5.png)
+ ![Configure Channel](./images/eventmesh-trial.png)
+> **IMPORTANT:** 
+> - If you are using SAP Event Mesh in the SAP BTP Trial environment: please provide the highlighted namespace ("tfe/bpem/em", including the semicolon at the end of the line) manually after pasting the service key content. It needs to be exactly the mentioned namespace, as this defines the exact topic/queue names the SAP Cloud Application Programming Model application is expecting.
+> - If you are using SAP Event Mesh from a productive SAP BTP account, just paste the copied service key content without adding the namespace manually. (this should already be part)
+ 4. Then click on *save configuration*
   
  5. After your configuration is saved, click on the *Activate - Deactivate* button
  6. Click on *Check connection*
