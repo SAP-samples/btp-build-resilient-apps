@@ -131,3 +131,72 @@ Before we can combine both services, we need to setup Cloud Transport Management
    - After successfully finishing the step, you will find the newly defind Nodes in **Landscape Visualization**
 
    ![TMS Landscape Visualization](images/tms15.png)
+
+6. Connecting Cloud Transport Management to our CI/CD Pipeline
+   
+   Follow the next steps to connect the CI/CD Pipeline to Cloud Transport Management
+
+   ![Development and Delivery landscape](images/tms1.png)
+
+7. Create Service Instance of Cloud Transport Management
+   
+   - Go to "Instances and Subscriptions" and create new service instance of **Cloud Transport Management** Service Plan: **standard**
+
+   ![TMS Instance](images/tms16.png)
+
+   - Create **Service Key** (name: tms-service-key)
+
+   ![TMS Service Key](images/tms17.png)
+
+   - View the Credentials of the service key and copy the JSON
+
+   ![TMS Service Key](images/tms18.png)
+
+7. Create TMS Credentials in SAP Continuous Integration adn Delivery Service
+    
+  - Open CI/CD Service and go to "Credentials" Tab
+  - Create new credential by clicking on "+"
+  
+    ![CI/CD TMS Credential](images/tms19.png)
+
+  - Give a name for credential: **"tms"**
+  - Choose as a Type: **"Cloud Foundry Service Key"**
+  - Past the copied JSON from previous step and create the credential
+
+    ![CI/CD TMS Credential](images/tms20.png)
+
+8. Activate the "Upload to TMS" in our pipeline step
+   
+   - Go to Business Application Studio and open the project source code
+   - Open Pipeline configuration: *.pipeline > config.yml* 
+   - To upload the artifact to SAP Cloud Transport Management, set this parameter to true in release stage
+      ```bash
+        tmsUpload: true  
+        ```
+   - Comment out following code snippet 
+        ```bash
+        tmsUpload:           
+        nodeName: 'QA'
+        credentialsId: 'tms'
+        customDescription: 'TMS Upload'
+        ```
+   - Where *nodeName* is the QA Node defined in Cloud Transport Management, *credentialsId* is the credential name defined in CI/CD Service
+
+9. Push the pipeline changes into Github
+      ```bash
+      git add .
+      git commit -m "Pipeline upload to TMS"
+      git push
+      ```
+
+TODO:
+
+10. Changes in Github will trigger a Run of the CI/CD service
+
+11. After Pipeline finishes the steps (Build > Test > Deploy to Dev >Upload TMS), we will find the build results (MTAR) in Cloud Transport Management **que of QA Node**
+
+12. Import the changes to QA --> will run deploy to QA Subaccount and forward the MTAR to PROD Node for TMS Service
+
+13. Similary you can Import to PROD subaccount from que of PROD Node.
+
+>Additionally to manual import, you can schedule automatic deployment
