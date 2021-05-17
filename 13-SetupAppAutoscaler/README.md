@@ -59,6 +59,14 @@ A better approach is the Application Autoscaler service provided by SAP BTP on C
 }
 ```
 
+This rule states that, for the rule to execute, the application must have one instance running at minimum and the Application Autoscaler can scale the application till it has 5 instances running at maximum. The scaling rules are for CPU and states the following things.
+
+- Whenever threshold value of CPU reaches above 6, scale the application.
+- Start window seconds of 60 defines that the amount of time required to calculate the average value of the metric CPU is 60 seconds.
+- Breach duration seconds of 60 defines that the amount of time required to analyze the collected data of the metric CPU is 60 seconds.
+- Cool down seconds of 60 defines that the amount of time required between two successive scale triggers is 60 seconds.
+- Adjustment defines what to do when the rule conditions are satisfied. There are two rules in this case. one rule is scaling up the application instances and the other one is scaling down the instances.
+
 You can find further polices [here](https://help.sap.com/viewer/7472b7d13d5d4862b2b06a730a2df086/Cloud/en-US/e6927e5af85e45f4a8a056c8662fa784.html)
 
 >Note: the 6% CPU threshold is just an example to demonstrate the feature. In real usecases you should choose realistic thresholds
