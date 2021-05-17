@@ -14,10 +14,11 @@ We can differeciate
 
 > Note, this is not possible to run on **BTP trial** landscape due to limited quote for having multiple subaccounts. 
 
-> Prerequisites: make sure that you have 3 subaccounts (Dev, QA/Pre-Prod, Prod) to successfully execute the transport and release. Additionally to *Dev* Subaccount, create Pre-Prod and Prod Subaccounts with sufficient Quota to deploy the application.
+> Prerequisites: make sure that you have 3 subaccounts (Dev, QA/Pre-Prod, Prod) to successfully execute the transport and release. Additionally to *Dev* Subaccount, create QA and Prod Subaccounts with sufficient Quota to deploy the application.
 
-TODO: Share HANA Cloud with the other subaccount.
-TODO: Quota indication for preprod and prod.
+For more details, see appendix:
+  - [Share HANA Cloud instance with other Subaccounts](#share-hana-cloud-instance-with-other-subaccounts)
+  - [Required Quotas for QA and PRDO Subaccounts](#required-quotas-for-qa-and-prdo-subaccounts)
 
 Before we can combine both services, we need to setup Cloud Transport Management. The required steps are described below:
 
@@ -78,7 +79,7 @@ Before we can combine both services, we need to setup Cloud Transport Management
      ![TMS Role Collection](images/tms11.png)
 
 
-4. Configuring the Landscape
+3. Configuring the Landscape
    Before you can use SAP Cloud Transport Management to transport cloud applications or application content between different subaccounts, you must configure your landscape for transports.
    Following steeps are required to setup the landscape
    * Create Transport Destinations
@@ -86,7 +87,7 @@ Before we can combine both services, we need to setup Cloud Transport Management
    
    Follow the next steps to configure the transport landscape
 
-5. Create Transport Destinations
+4. Create Transport Destinations
    
    In SAP Cloud Transport Management, transport destinations are used to address the target end point of a deployment process.
 
@@ -102,7 +103,7 @@ Before we can combine both services, we need to setup Cloud Transport Management
 
     > Instead of Basic Authentication, it is also possible to use OAuth2Password Authentication. More details can be found [here](https://help.sap.com/viewer/7f7160ec0d8546c6b3eab72fb5ad6fd8/Cloud/en-US/c9905c142cf14aea86fe2451434faed9.html)
 
-6. Use the Transport Landscape Wizard
+5. Use the Transport Landscape Wizard
    
    You can use the Transport Landscape Wizard to configure the transport nodes and transport routes of simple transport landscapes.
 
@@ -152,7 +153,7 @@ Before we can combine both services, we need to setup Cloud Transport Management
 
    ![TMS Service Key](images/tms18.png)
 
-7. Create TMS Credentials in SAP Continuous Integration adn Delivery Service
+8. Create TMS Credentials in SAP Continuous Integration adn Delivery Service
     
   - Open CI/CD Service and go to "Credentials" Tab
   - Create new credential by clicking on "+"
@@ -189,14 +190,75 @@ Before we can combine both services, we need to setup Cloud Transport Management
       git push
       ```
 
-TODO:
-
 10. Changes in Github will trigger a Run of the CI/CD service
+    
+    ![CI/CD build](images/tms21.png)
 
-11. After Pipeline finishes the steps (Build > Test > Deploy to Dev >Upload TMS), we will find the build results (MTAR) in Cloud Transport Management **que of QA Node**
+11. Import queue of Cloud Transport Management
+    
+    After Pipeline finishes the steps (Build > Test > Deploy to Dev >Upload TMS), we will find the build results (MTAR) in Cloud Transport Management **queue of QA Node**
+    
+    - Open Cloud Transport Management and go to **QA** Node
+    - You will find one entry in a queue with name TMS Upload which is the MTAR archive created by CI/CD Service
 
-12. Import the changes to QA --> will run deploy to QA Subaccount and forward the MTAR to PROD Node for TMS Service
+      ![QA queue](images/tms22.png)
 
-13. Similary you can Import to PROD subaccount from que of PROD Node.
+12. Import the changes to QA Subaccount
+    
+    - Check the the content details dor this transport request
+    ![QA content](images/tms24.png)
+    - Select the entry and press in **"Import Selected"**
+    - After Approval, it will run a deployment to QA Subaccount and forward the MTAR to PROD Node
+  
+      ![QA content](images/tms23.png)
 
->Additionally to manual import, you can schedule automatic deployment
+    - Meanwhile the deployment is running, you can check the **Logs** of this transport entry. In case of issues during the deployment, you can find the details of failure in this log.
+
+      ![QA import log](images/tms25.png)
+
+    - After finishing the import you will find the Application deployed in your **QA Subaccount**
+
+
+  >Additionally to manual import, you can schedule automatic deployment based on defined schedule. E.g. Every week on certain day and time.
+
+  ![Schedule import ](images/tms26.png)
+
+
+13. Similarly you can import to PROD subaccount from **queue of PROD Node**.
+    
+    - Repeat the step 12 for PROD Node
+
+
+## Appendix
+### Required Quotas for QA and PRDO Subaccounts
+
+For each Subaccount following entitlements are required
+
+| Service                           | Plan        | Number of instances |
+| --------------------------------- | ----------- | ------------------- |
+| Connectivity                      | lite        | 1                   |
+| Destination                       | lite        | 1                   |
+| HTML5 Application Repository      | app-host    | 1                   |
+| Event Mesh                        | default     | 1                   |
+| Application Logging               | lite        | 1                   |
+| Authorization & Trust Management  | application | 1                   |
+| SAP HANA Schemas & HDI Containers | hdi-shared  | 1                   |
+| Cloud Foundry runtime             |             | 1GB                 |
+
+
+
+### Share HANA Cloud instance with other Subaccounts
+
+Here you can find the required steps to share you HANA Cloud instance with other subaccounts
+
+1. Open **SAP HANA Cloud Central**
+   
+   ![ HANA ](images/hana01.png)
+
+2. Open the running HANA Instance
+   
+   ![ HANA ](images/hana02.png)
+
+3. Share the instance with your QA and PROD subaccounts
+   
+   ![ HANA ](images/hana03.png)
