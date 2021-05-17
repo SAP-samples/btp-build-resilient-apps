@@ -12,6 +12,12 @@ We can differeciate
 
 ![Development and Delivery landscape](images/tms1.png)
 
+> Note, this is not possible to run on **BTP trial** landscape due to limited quote for having multiple subaccounts. 
+
+> Prerequisites: make sure that you have 3 subaccounts (Dev, QA/Pre-Prod, Prod) to successfully execute the transport and release. Additionally to *Dev* Subaccount, create Pre-Prod and Prod Subaccounts with sufficient Quota to deploy the application.
+
+TODO: Share HANA Cloud with the other subaccount.
+TODO: Quota indication for preprod and prod.
 
 Before we can combine both services, we need to setup Cloud Transport Management. The required steps are described below:
 
@@ -71,7 +77,57 @@ Before we can combine both services, we need to setup Cloud Transport Management
      
      ![TMS Role Collection](images/tms11.png)
 
-3. Open SAP Cloud Transport Management 
+
+4. Configuring the Landscape
+   Before you can use SAP Cloud Transport Management to transport cloud applications or application content between different subaccounts, you must configure your landscape for transports.
+   Following steeps are required to setup the landscape
+   * Create Transport Destinations
+   * Use the Transport Landscape Wizard
+   
+   Follow the next steps to configure the transport landscape
+
+5. Create Transport Destinations
+   
+   In SAP Cloud Transport Management, transport destinations are used to address the target end point of a deployment process.
+
+   - Go to Subaccount where you activated the Cloud Transport management
+   - Create 2 Destinations pointing to QA/Pre-Prod and Prod Subaccuonts
+  
+    | Destination  | URL                                                                                          | Authentication | User/Password |
+    | -------------| -------------------------------------------------------------------------------------------- | -------------- |------------- |
+    | **TMS-QA**   | https://deploy-service.cfapps.< default-domain >/slprot/< myorg-qa >/< myspace-qa >/slp      | Basic Authentication | username & password of the technical user |
+    | **TMS-PROD** | https://deploy-service.cfapps.< default-domain >/slprot/< myorg-prod >/< myspace-prod >/slp  | Basic Authentication | username & password of the technical user |
+
+    ![TMS Destinations](images/tms12.png)
+
+    > Instead of Basic Authentication, it is also possible to use OAuth2Password Authentication. More details can be found [here](https://help.sap.com/viewer/7f7160ec0d8546c6b3eab72fb5ad6fd8/Cloud/en-US/c9905c142cf14aea86fe2451434faed9.html)
+
+6. Use the Transport Landscape Wizard
+   
+   You can use the Transport Landscape Wizard to configure the transport nodes and transport routes of simple transport landscapes.
+
+   - Open SAP Cloud Transport Management 
    - 'Go to Application' link is available that allows you to start the user interface of SAP Cloud Transport Management, as shown in the image below:
   
     ![TMS Start](images/tms10.png)
+
+   - Start the Landscape Wizard.
+   - Choose Two-Node Landscape (QA/Pre-Prod and Prod) and go to next step.
+   > Reminder: 2 Nodes, since **Dev** Node/Subaccount is part of Development Landscape and is delivered by CI.
+
+    ![TMS Wizard](images/tms13.png)
+
+   - Provide the details of Nodes:
+  
+    | Node | Name | Allow Upload | Forward Mode | Content Type | Destination |
+    | -----| ---- | -------------| ------------ | -------------|-------------|
+    | Node 1 | QA | true | Auto | Multi-Target App | TMS-QA | 
+    | Node 2 | PROD | false | Auto | Multi-Target App | TMS-PROD |
+  
+   - Give a name for the transport route: **route_qa_prod**
+    
+    ![TMS Wizard](images/tms14.png)
+  
+   - After successfully finishing the step, you will find the newly defind Nodes in **Landscape Visualization**
+
+   ![TMS Landscape Visualization](images/tms15.png)
