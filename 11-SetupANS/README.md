@@ -9,7 +9,6 @@ Service offers a variety of Built-In Events. The complete list can be found [her
 For our extension use-case we will define following Alerts:
 * *Application Events* - get notifications when app stopped, crash, process crash, etc.
 * *Multitarget Application Evetns* - get notification when the deployment or removal of a specific multitarget application has been initiated
-* *SAP Cloud Transport Management Events* - get notification when an SAP Cloud Transport Management import has started or finished.
 
 1. Create Alert Notification Service instance
    - Go to Service Marketplace and create new instance
@@ -30,13 +29,8 @@ For our extension use-case we will define following Alerts:
    - Past it and import
 
     ```json
-    {
+        {
         "actions": [
-            {
-                "type": "STORE",
-                "name": "tmp-store",
-                "state": "ENABLED"
-            },
             {
                 "type": "EMAIL",
                 "name": "send-email",
@@ -45,42 +39,20 @@ For our extension use-case we will define following Alerts:
                     "destination": "your@email.com",
                     "useHtml": "false"
                 }
+            },
+            {
+                "type": "STORE",
+                "name": "tmp-store",
+                "state": "ENABLED"
             }
         ],
         "conditions": [
             {
-                "name": "Audit-App-Stop",
-                "mandatory": false,
-                "propertyKey": "eventType",
-                "predicate": "CONTAINS",
-                "propertyValue": "audit.app.stop",
-                "labels": [],
-                "description": ""
-            },
-            {
-                "name": "tms-import",
+                "name": "Audit-App-Crash",
                 "mandatory": false,
                 "propertyKey": "eventType",
                 "predicate": "EQUALS",
-                "propertyValue": "TmsImportStarted",
-                "labels": [],
-                "description": ""
-            },
-            {
-                "name": "qa-node",
-                "mandatory": false,
-                "propertyKey": "tags.nodeName",
-                "predicate": "EQUALS",
-                "propertyValue": "QA",
-                "labels": [],
-                "description": ""
-            },
-            {
-                "name": "tms-import-finished",
-                "mandatory": false,
-                "propertyKey": "eventType",
-                "predicate": "EQUALS",
-                "propertyValue": "TmsImportFinished",
+                "propertyValue": "app.crash",
                 "labels": [],
                 "description": ""
             },
@@ -94,24 +66,6 @@ For our extension use-case we will define following Alerts:
                 "description": ""
             },
             {
-                "name": "mta-deployment",
-                "mandatory": false,
-                "propertyKey": "eventType",
-                "predicate": "EQUALS",
-                "propertyValue": "DEPLOYMENT",
-                "labels": [],
-                "description": ""
-            },
-            {
-                "name": "prod-node",
-                "mandatory": false,
-                "propertyKey": "tags.nodeName",
-                "predicate": "EQUALS",
-                "propertyValue": "PROD",
-                "labels": [],
-                "description": ""
-            },
-            {
                 "name": "mta-category",
                 "mandatory": false,
                 "propertyKey": "category",
@@ -121,6 +75,24 @@ For our extension use-case we will define following Alerts:
                 "description": ""
             },
             {
+                "name": "Audit-App-Stop",
+                "mandatory": false,
+                "propertyKey": "eventType",
+                "predicate": "CONTAINS",
+                "propertyValue": "audit.app.stop",
+                "labels": [],
+                "description": ""
+            },
+            {
+                "name": "Audit-App-Process-Crash",
+                "mandatory": false,
+                "propertyKey": "eventType",
+                "predicate": "EQUALS",
+                "propertyValue": "audit.app.process.crash",
+                "labels": [],
+                "description": "audit.app.process.crash"
+            },
+            {
                 "name": "Audit-App-Start",
                 "mandatory": false,
                 "propertyKey": "eventType",
@@ -128,47 +100,52 @@ For our extension use-case we will define following Alerts:
                 "propertyValue": "audit.app.start",
                 "labels": [],
                 "description": ""
+            },
+            {
+                "name": "mta-deployment",
+                "mandatory": false,
+                "propertyKey": "eventType",
+                "predicate": "EQUALS",
+                "propertyValue": "DEPLOYMENT",
+                "labels": [],
+                "description": ""
+            },
+            {
+                "name": "mta-undeployment",
+                "mandatory": false,
+                "propertyKey": "eventType",
+                "predicate": "EQUALS",
+                "propertyValue": "UNDEPLOYMENT",
+                "labels": [],
+                "description": ""
             }
         ],
         "subscriptions": [
             {
-                "name": "MTA",
-                "conditions": [
-                    "mta-deployment"
-                ],
-                "actions": [
-                    "tmp-store",
-                    "send-email"
-                ],
-                "state": "ENABLED"
+            "name": "MTA",
+            "conditions": [
+                "mta-deployment",
+                "mta-undeployment"
+            ],
+            "actions": [
+                "tmp-store",
+                "send-email"
+            ],
+            "state": "ENABLED"
             },
             {
-                "name": "App-Audit",
-                "conditions": [
-                    "Audit-App-Stop",
-                    "Audit-App-Update",
-                    "Audit-App-Start"
-                ],
-                "actions": [
-                    "tmp-store",
-                    "send-email"
-                ],
-                "state": "ENABLED"
-            },
-            {
-                "name": "TMS",
-                "conditions": [
-                    "tms-import",
-                    "prod-node",
-                    "qa-node",
-                    "tms-import-finished"
-                ],
-                "actions": [
-                    "tmp-store",
-                    "send-email"
-                ],
-                "state": "ENABLED",
-                "description": "Transport Management Events"
+            "name": "App-Audit",
+            "conditions": [
+                "Audit-App-Process-Crash",
+                "Audit-App-Stop",
+                "Audit-App-Crash",
+                "Audit-App-Update"
+            ],
+            "actions": [
+                "tmp-store",
+                "send-email"
+            ],
+            "state": "ENABLED"
             }
         ]
     }
@@ -187,4 +164,46 @@ For our extension use-case we will define following Alerts:
    
    ![Alert E-mail](images/ans07.png)
 
-6. 
+6. Overview of Subscriptions
+   
+   To receive notifications about relevant events by SAP Alert Notification service, you need subscriptions to these alerts.
+
+   We defined 2 Subscriptions
+     * *App Audit* - get notifications when app stopped, crash, process crash, etc.
+   * *MTA* - get notification when the deployment or removal of a  multitarget application has been initiated
+
+   ![Alert Subscriptions](images/ans08.png)
+
+7. Overview of Conditions
+
+   We can open one of the above mentioned Subscriptions e.g. App Audit and check the conditions when the alert will be triggered. 
+
+   ![ANS Conditions](images/ans09.png)
+
+   Whenever one of following conditions will be matched, alert notification will trigger notification (in this example via e-mail)
+   - App Stops
+   - App Crash
+   - App Process Crash
+   - APP Updates
+
+8. For application Events, we need to add the respective existing technical users according to their relevant data center. This user must have the Space Auditor permission. You add the user to the space by using its e-mail address.
+   
+   - List of technical users depending on the data center can be found [here](https://help.sap.com/viewer/5967a369d4b74f7a9c2b91f5df8e6ab6/Cloud/en-US/4255e6064ea44f20a540c5ae0804500d.html) 
+
+   - In our case we have the service running in AWS-Frankfurt and the technical user is: sap_cp_eu10_ans@sap.com
+
+   - Go to the space where your application is deployed and add the user as a member with Space Auditor role
+   
+     ![ANS Tech user](images/ans10.png)
+
+9. Testing Alert Notification
+    
+    To test the alert notification we can trigger an event for app audit. We can manually stop the application, which will trigger the event and notify you via e-mail.
+
+    - Go to the space and stop the application
+    
+      ![ANS stop app](images/ans11.png)
+     
+    - Check your E-Mail, you will get the information that the application was stopped
+    
+      ![ANS stop app](images/ans12.png)
