@@ -63,13 +63,31 @@ Subscriptions required in your SAP Business Technology Platform Account:
 | Continuous Integration & Delivery (Optional) | default          |
 | Cloud Transport Management (Optional)        | saas-application |
 
+
+## Setup & Configuration
+
+### Step 1: [Identify APIs in API Business Hub](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/01-IdentifyAPIFromAPIBusinessHub.md)
+### Step 2: [S/4HANA Enable OData Service for business partner](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/02-configure-oData-Service)
+### Step 3: [Setup SAP BTP Environment](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/03-PrepareBTP)
+### Step 4: [Configure Event Based Communication between S/4HANA and Event Mesh](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/04-SetupEventMesh)
+### Step 5: [Create SAP HANA Cloud instance](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/05-SetupHANACloud)
+### Step 6: [Setup connectivity between S/4HANA system, SAP BTP](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/06-CloudConnector)
+### Step 7: [Configure Business Application Studio and Build/Deploy the CAP application ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/07-ConfigureCAPApp)
+### Step 8: [Test scenario End to End](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/08-TestApplication)
+### Step 9 (optional): [Access and Discover Application Logs and Metrics](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/12-ApplicationLogging)
+### Step 10 (optional): [Setup of Continuous Integration and Continuous Delivery (CI/CD) ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/09-SetupCICD)
+### Step 11 (optional): [Setup Cloud Transport Management ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/10-SetupTMS)
+### Step 12 (optional): [Setup Alert Notification ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/11-SetupANS)
+### Step 13 (optional): [Setup Application Autoscaler ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/13-SetupAppAutoscaler)
+
+
 ## Download and Installation
 
 ## Known Issues
-
+No known issues.
 ## How to obtain support
 
-[Create an issue](https://github.com/SAP-samples/<repository-name>/issues) in this repository if you find a bug or have questions about the content.
+[Create an issue](https://github.com/SAP-samples/s4hana-btp-extension-devops/issues) in this repository if you find a bug or have questions about the content.
  
 For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html).
 
