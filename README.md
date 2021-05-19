@@ -80,7 +80,6 @@ Subscriptions required in your SAP Business Technology Platform Account:
 ### Step 12: [Setup Alert Notification ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/12-SetupANS)
 ### Step 13 (optional): [Setup Application Autoscaler ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/13-SetupAppAutoscaler)
 
-
 ## Download and Installation
 
 ## Known Issues
