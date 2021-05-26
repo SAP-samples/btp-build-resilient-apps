@@ -81,7 +81,7 @@ Before we can combine both services, we need to setup Cloud Transport Management
 
 3. Configuring the Landscape
    Before you can use SAP Cloud Transport Management to transport cloud applications or application content between different subaccounts, you must configure your landscape for transports.
-   Following steeps are required to setup the landscape
+   Following steps are required to setup the landscape
    * Create Transport Destinations
    * Use the Transport Landscape Wizard
    
@@ -94,10 +94,10 @@ Before we can combine both services, we need to setup Cloud Transport Management
    - Go to Subaccount where you activated the Cloud Transport management
    - Create 2 Destinations pointing to QA/Pre-Prod and Prod Subaccuonts
   
-    | Destination  | URL                                                                                          | Authentication | User/Password |
-    | -------------| -------------------------------------------------------------------------------------------- | -------------- |------------- |
-    | **TMS-QA**   | https://deploy-service.cfapps.< default-domain >/slprot/< myorg-qa >/< myspace-qa >/slp      | Basic Authentication | username & password of the technical user |
-    | **TMS-PROD** | https://deploy-service.cfapps.< default-domain >/slprot/< myorg-prod >/< myspace-prod >/slp  | Basic Authentication | username & password of the technical user |
+    | Destination  | URL                                                                                         | Authentication       | User/Password                             |
+    | ------------ | ------------------------------------------------------------------------------------------- | -------------------- | ----------------------------------------- |
+    | **TMS-QA**   | https://deploy-service.cfapps.< default-domain >/slprot/< myorg-qa >/< myspace-qa >/slp     | Basic Authentication | username & password of the technical user |
+    | **TMS-PROD** | https://deploy-service.cfapps.< default-domain >/slprot/< myorg-prod >/< myspace-prod >/slp | Basic Authentication | username & password of the technical user |
 
     ![TMS Destinations](images/tms12.png)
 
@@ -120,10 +120,10 @@ Before we can combine both services, we need to setup Cloud Transport Management
 
    - Provide the details of Nodes:
   
-    | Node | Name | Allow Upload | Forward Mode | Content Type | Destination |
-    | -----| ---- | -------------| ------------ | -------------|-------------|
-    | Node 1 | QA | true | Auto | Multi-Target App | TMS-QA | 
-    | Node 2 | PROD | false | Auto | Multi-Target App | TMS-PROD |
+    | Node   | Name | Allow Upload | Forward Mode | Content Type     | Destination |
+    | ------ | ---- | ------------ | ------------ | ---------------- | ----------- |
+    | Node 1 | QA   | true         | Auto         | Multi-Target App | TMS-QA      |
+    | Node 2 | PROD | false        | Auto         | Multi-Target App | TMS-PROD    |
   
    - Give a name for the transport route: **route_qa_prod**
     
@@ -153,7 +153,7 @@ Before we can combine both services, we need to setup Cloud Transport Management
 
    ![TMS Service Key](images/tms18.png)
 
-8. Create TMS Credentials in SAP Continuous Integration adn Delivery Service
+8. Create TMS Credentials in SAP Continuous Integration and Delivery Service
     
   - Open CI/CD Service and go to "Credentials" Tab
   - Create new credential by clicking on "+"
