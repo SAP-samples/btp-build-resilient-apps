@@ -30,7 +30,7 @@ In this how to guide, you will clone an existing CAP application in SAP Business
  
 6.	Your Dev Space is now being created. As soon as the Dev Space is running you can click on your Dev Spaces name to  access
 
-7. Go to <https://github.com/SAP-samples/s4hana-btp-extension-devops> and fork the repository. 
+7. Go to <https://github.com/SAP-samples/s4hana-btp-extension-devops> and fork the repository so that you have the source code and can further on work and change the code. (For instance, in one of the subsequent steps you can connect the repository with the SAP Continuous Integration and Delivery service)
 
     ![Fork Repo](./images/fork-repo.png)
 
