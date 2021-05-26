@@ -7,7 +7,7 @@ The steps below will guide your through settting up your pipeline.
 1. Enable SAP Continuous Integration and Delivery 
    - Go to your subaccount in SAP BTP
    - Navigate to the Service Marketplace
-   - Find the Continuous Integration & Delivery Service and create/subscribe to the Service.
+   - Find the Continuous Integration & Delivery Service and subscribe to the Service.
 
     ![choose create](./images/cicd1-1.png)
 
@@ -59,7 +59,7 @@ The steps below will guide your through settting up your pipeline.
 5. Add your Repository
    - Navigate to **"Repository"** Tab in CI/CD Service and click on ‘+’ to add your repository
    - Give a name for repository. e.g. **s4hana-ext-cap** 
-   - Enter the *Repository URL*, which you **forked** to your Github account.
+   - Enter the *Repository URL*, which you **forked** to your Github account. (github.com/**YourUser**/s4hana-btp-extension/devops)
    - Select the github credentials (githubtools) created in previous step. 
 
    ![add credentials](./images/cicd6.png)
@@ -83,7 +83,7 @@ The steps below will guide your through settting up your pipeline.
 
 7.  Add Webhook in GitHub
 
-    - In your project in GitHub go to the Settings tab.
+    - In your repository (github.com/**YourUser**/s4hana-btp-extension/devops) in GitHub go to the Settings tab.
     - From the navigation pane, choose Webhooks.
     - Choose Add webhook.
 
@@ -106,10 +106,7 @@ The steps below will guide your through settting up your pipeline.
  
     - In the Jobs tab in SAP Continuous Integration and Delivery, choose *+* to create a new job.
     - For Job Name, enter a freely chosen name for your job, which is unique in your SAP BTP subaccount, for example ‘s4hana-btp-extension’.
-    - Under Repository, choose Add Repository.
-    - Add the repository name and the repository URL.
-    - Select the repository credential from the dropdown. Pick *githubtools*
-    - Choose *Add*
+    - Under Repository, select the previously configured repository
     - For Branch, enter the GitHub branch from which you want to receive push events. In this example, **main**.
     - As Pipeline, choose SAP Cloud Application Programming Model.
     - Keep the default values in the BUILD RETENTION tab.
@@ -120,59 +117,20 @@ The steps below will guide your through settting up your pipeline.
 
    [*.pipline/config.yml*](https://github.com/SAP-samples/s4hana-btp-extension-devops/blob/main/.pipeline/config.yml)
 
-```bash
-  # Project configuration
-  general:
-    pipeline: "sap-cloud-sdk" # this line is mandatory
-    buildTool: "mta" # or 'npm'
 
-  # Stages configuration
-  stages:
-    Build:
-      npmExecuteLint: true # true, if you want to run a lint check that verifies the syntax of your JavaScript code
+9. Open the *.pipeline/config.yml* file in the SAP Business Application Studio. 
+    
+10. Update the following values for your deployment target and **Save** the file after you have made the changes.
 
-    Release:
-      cloudFoundryDeploy: true # true, if you want to deploy to Cloud Foundry. If you set this parameter to true, the CloudFoundryDeploy step is mandatory
-      tmsUpload: false # true if you want to upload your artifact to SAP Cloud Transport Management. If you set this parameter to true, the tmsUpload step is mandatory
+    ![Create Job](./images/config-api-endpoint.png)
 
-  # Steps configuration
-  steps:
-    npmExecuteLint:
-      failOnError: false # true, if you want your pipeline to fail, if the lint check reveals any errors
-
-    mtaBuild:
-      buildTarget: "CF"
-      extensions: "live.mtaext" # for Live BTP Account choose live.mtaext for BTP Trial  trial.mtaext
-      mtaBuildTool: "cloudMbt"
-
-    cloudFoundryDeploy: # only relevant, if you set the cloudFoundryDeploy parameter in the Release stage to true
-      cloudFoundry:
-        credentialsId: "cf-credential" # name is defined in CI/CD Service
-        apiEndpoint: "<cf API>" # for example, https://api.cf.eu10.hana.ondemand.com
-        org: "<cf org>" 
-        space: "<cf space>"
-      mtaDeployParameters: "-f --version-rule ALL"
-    # tmsUpload:            # only relevant, if you set the tmsUpload parameter in the Release stage to true
-    #   nodeName: 'QA'
-    #   credentialsId: 'tms'
-    #   customDescription: 'TMS Upload'
-  ```
+    > the left half of the screenshot shows the config.yml file, the right half of the screenshot shows the subaccount information of SAP BTP Cockpit with the needed values. 
  
-9.  Test the pipeline
- 
-     - Go to the terminal in Business Application Studio and sync the changes in GitHub 
- 
-    ```bash
-    git pull
-    ```
- 
-     - Go to Business Application Studio
-     - Make a minor change to for example the Readme.MD like e.g. adding a comment
-     - Go to the terminal and execute the commands below
+11.Go to the terminal and execute the commands below to push the changes to your fork. This will also trigger the first job if everything went fine. 
      
       ```bash
       git add .
-      git commit -m "minor change"
+      git commit -m "config.yml configured for deployment target"
       git push
       ```
      - Goto the CI/CD app 
