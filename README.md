@@ -50,18 +50,18 @@ Entitlements/Quota required in your SAP Business Technology Platform Account:
 | SAP HANA Schemas & HDI Containers | hdi-shared  | 1                   |
 | SAP HANA Cloud                    |             |                     |
 | Cloud Foundry runtime             |             |                     |
-| Application Autoscaler (Optional) | standard    | 1                   |
+| Application Autoscaler            | standard    | 1                   |
 
 
 Subscriptions required in your SAP Business Technology Platform Account:
 
-| Subscription                                 | Plan             |
-| -------------------------------------------- | ---------------- |
-| SAP Business Application Studio              | standard         |
-| Event Mesh                                   | standard         |
-| Launchpad Service (Optional)                 | standard         |
-| Continuous Integration & Delivery (Optional) | default          |
-| Cloud Transport Management (Optional)        | saas-application |
+| Subscription                      | Plan             |
+| --------------------------------- | ---------------- |
+| SAP Business Application Studio   | standard         |
+| Event Mesh                        | standard         |
+| Launchpad Service                 | standard         |
+| Continuous Integration & Delivery | default          |
+| Cloud Transport Management        | saas-application |
 
 
 ## Setup & Configuration
@@ -69,10 +69,10 @@ Subscriptions required in your SAP Business Technology Platform Account:
 ### Step 1: [Identify APIs in API Business Hub](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/01-IdentifyAPIFromAPIBusinessHub.md)
 ### Step 2: [S/4HANA Enable OData Service for business partner](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/02-configure-oData-Service)
 ### Step 3: [Setup SAP BTP Environment](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/03-PrepareBTP)
-### Step 4: [Configure Event Based Communication between S/4HANA and Event Mesh](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/04-SetupEventMesh)
-### Step 5: [Create SAP HANA Cloud instance](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/05-SetupHANACloud)
-### Step 6: [Setup connectivity between S/4HANA system, SAP BTP](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/06-CloudConnector)
-### Step 7: [Configure Business Application Studio and Build/Deploy the CAP application ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/07-ConfigureCAPApp)
+### Step 4: [Create SAP HANA Cloud instance](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/04-SetupHANACloud)
+### Step 5: [Setup connectivity between S/4HANA system, SAP BTP](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/05-CloudConnector)
+### Step 6: [Configure Business Application Studio and Build/Deploy the CAP application ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/06-ConfigureCAPApp)
+### Step 7: [Configure Event Based Communication between S/4HANA and Event Mesh](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/07-SetupEventMesh)
 ### Step 8: [Test scenario End to End](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/08-TestApplication)
 ### Step 9: [Access and Discover Application Logs and Metrics](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/09-ApplicationLogging)
 ### Step 10: [Setup of Continuous Integration and Continuous Delivery (CI/CD) ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/10-SetupCICD)
