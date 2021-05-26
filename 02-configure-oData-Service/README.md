@@ -24,8 +24,6 @@ We are going to activate our Business Partner OData service and create a technic
    
 6.	On the next screen specify *Package Assignment* e.g. $TMP by clicking on *Local Object*
 7.	Check checkbox for "Enable OAuth for Service“ and click on *Continue*
-
-   ![Enable OAuth](./images/configure-oData-Service-4.png)
    
 ### Create Technical User and Assign Role
 
