@@ -139,7 +139,7 @@ The steps below will guide your through settting up your pipeline.
      - Goto the CI/CD app 
      - Check on the right hand side that the build has been triggered
  
-    ![test_pipeline](./images/cicd11.png)
+ ![test_pipeline](./images/cicd11.png)
  
 
  
