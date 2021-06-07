@@ -24,7 +24,8 @@ Before we can combine both services, we need to setup Cloud Transport Management
 
 > Note, in case you used at the beginning of the mission the **booster** to setup the account, you can skip first 2 Steps, it's done by booster automatically.
 
-1. Enable/Subscribe to SAP Cloud Transport Management
+1. Enable/Subscribe to SAP Cloud Transport Management (Optional - in case you used Booster)
+  
 
    - In the subaccount, choose Services > Service Marketplace.
    - The entitled subscriptions are shown.
@@ -34,7 +35,7 @@ Before we can combine both services, we need to setup Cloud Transport Management
 
    ![Create TMS](images/tms2.png)
 
-2. Assign User Roles and Permissions in Cloud Transport Management
+2. Assign User Roles and Permissions in Cloud Transport Management (Optional - in case you used Booster)
 
     After successful subscription, you need to configure user access to the application. You need different role collections for the different Cloud Transport Management roles, and assign roles to the role collections based on the application templates. Afterwards, you assign the role collections to users or user groups.
 

@@ -24,24 +24,28 @@ You will now prepare your SAP Business Technology Platform, configure your entit
    ![Check Booster](./images/booster3.png)
 
    - In case you see **WARNING**, it means _some optional services_ are not entitled in your global account. You can create the account, but without missing services
-   - In case you see **ERROR**, it means _some mandatory services_ are missing and you need to check your global acount entitlments (internaly e.g. in Control Center)
+   - In case you see **ERROR**, it means _some mandatory services_ are missing and you need to check your global account entitlements 
    - In case you see **DONE**, it means _all necessary services_ are entitled and you can continue with next step
    
 
 5. On the next screen you can set up your Subaccount: 
+    - Configure the Entitlements
+    - Remove: XFS Runtime and Extension Center
+    - Add 1 Quota to Application Autoscaler
+   ![Setup Services](./images/booster5.png)
 
- - Enter Subaccount name - eg: "Simplelogic"
- - You can edit the smaller org name, space name (optional)
+    - Enter Subaccount name - eg: "Development"
+    - You can edit the smaller org name, space name (optional)
 6. Click on *Next* to finish
 
-  ![Enter name](./images/booster4.png)
+   ![Enter name](./images/booster4.png)
 
 7. On the next screen you can add your needed Users:
  - Enter Administor's ID (you can enter IDs of people you would like to have the admin role)
  - Enter developer's ID
 8. Click on *Next*
 
- ![Add Users](./images/booster5.png)
+ ![Add Users](./images/booster10.png)
 
 
 9. After you reviewed your account click on *Finish* 
@@ -60,8 +64,14 @@ You will now prepare your SAP Business Technology Platform, configure your entit
 
 14. Search for "HANA" in the pop-up window and select *SAP HANA Cloud*
 
-15. Click on the checkbox below "Available Plans" for HAN
-
-16. Click on *Add 1 Service Plan* and save
-
+15. Click on the checkbox below "Available Plans" for HANA
+    
 ![Add Service Plan](./images/booster9.png)
+
+16. Search for "Alert Notification" in the pop-up window and select Alert Notification
+
+17. Click on the checkbox below "Available Plans" for standard
+
+18. Click on *Add 2 Service Plan* and save
+
+![Add Service Plan](./images/booster11.png)

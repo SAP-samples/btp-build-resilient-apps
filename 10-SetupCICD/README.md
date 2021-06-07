@@ -4,7 +4,10 @@ This section describes how to configure and run a predefined continuous integrat
 
 The steps below will guide your through settting up your pipeline.
 
-1. Enable SAP Continuous Integration and Delivery 
+1. Enable SAP Continuous Integration and Delivery (Optional - in case you used Booster)
+   
+    >Note, you can skip this step, if you used previously the Booster to initiate the Subaccount
+
    - Go to your subaccount in SAP BTP
    - Navigate to the Service Marketplace
    - Find the Continuous Integration & Delivery Service and subscribe to the Service.
