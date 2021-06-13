@@ -5,7 +5,14 @@ Now it is time to test your basic scenario. As a result of the following steps y
 
 # Run Application and test entire Business Scenario
 
-1. Start your Business Partner Validation Application
+1. To access the application, it require to assign **BPAdmin** role collection to respective user. 
+   
+   - Go to BTP cockpit, open Security -> User
+   - Assign **BPAdmin** role collection to respective user
+  
+    ![app](./images/endtoend0.png)
+
+2. Start your Business Partner Validation Application
 
     - In BTP Cockpit go to the *HTML5 Applications*
 
@@ -21,18 +28,18 @@ Now it is time to test your basic scenario. As a result of the following steps y
 
         ![app](./images/endtoend2.png)
 
-2. Now we can switch to S/4HANA System to create new business partners or modify existing ones.
+3. Now we can switch to S/4HANA System to create new business partners or modify existing ones.
 
 
-3. Login to your SAP S/4HANA On Prem System
+4. Login to your SAP S/4HANA On Prem System
 
     ![backend](./images/endtoend3.png)
 
-4. Enter transaction code *bp*
+5. Enter transaction code *bp*
 
     ![backend](./images/endtoend4.png)
 
-5. Create a new Business Partner
+6. Create a new Business Partner
 
 - Click on Person
 

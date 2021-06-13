@@ -10,6 +10,8 @@ For our extension use-case we will define following Alerts:
 * *Application Events* - get notifications when app stopped, crash, process crash, etc.
 * *Multitarget Application Evetns* - get notification when the deployment or removal of a specific multitarget application has been initiated
 
+>Note, add Alert Notification entitlement, in case it is missing in subaccount. Steps are described in ["Configure BTP Environment"](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/03-PrepareBTP) card.
+
 1. Create Alert Notification Service instance
    - Go to Service Marketplace and create new instance
     ![ANS service instance](images/ans02.png)
