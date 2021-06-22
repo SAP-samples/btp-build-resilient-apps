@@ -29,7 +29,7 @@ John who is an employee of Business Partner Validation Firm iCredible, which is 
 
 ### Solution Diagram
 
-![solution diagram](./documentation/images/solutiondiagramm-1.png)
+![solution diagram](https://github.com/SAP-samples/s4hana-btp-extension-devops/blob/main/documentation/images/solutiondiagramm-1.png)
 
 The Business Partner Validation application is developed using the SAP Cloud Application programming Model (CAP) and runs on the SAP BTP, Cloud Foundry runtime. It consumes platform services like SAP Event Mesh, SAP HANA Cloud and the Connectivity service. The events occuring in S/4 HANA on premise are inserted into the SAP Event Mesh queue. The application running in Cloud Foundry is notified on events, consumes them from the queue and inserts the event data into the HANA database. The Business Partner Validation Application uses S/4 HANA OData API's to read additional Business Partner Data from the S/4 HANA system. In case of updates performed by the third-party vendor the SAP Cloud SDK is used to update the corresponding data in the S/4HANA on premise system. 
 
