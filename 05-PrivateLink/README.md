@@ -1,4 +1,4 @@
-# S/4HANA Extension over SAP Private Link (BETA) to Azure
+# SAP S/4HANA Extension over SAP Private Link (BETA) service to Azure
 
 In this section you can find all required steps for your Extension Application to use SAP Private Link Service to consume OData resources from S/4HANA system located on **Azure** subscription. 
 More details about [SAP Private Link Service ](https://blogs.sap.com/2021/06/28/sap-private-link-service-beta-is-available/).
@@ -7,7 +7,7 @@ In our use case we are going to use the SAP Private Link service to communicate 
 
 Having SAP Private Link will not require anymore to expose the systems and communication through internet and the whole traffic is secured by internal hyperscaler network without any exposure. 
 
-Current use case is describing a S/4HANA extension, of course having a S/4HANA solution deployed on Azure.
+Current use case is describing an SAP S/4HANA extension, of course having a S/4HANA solution deployed on Azure.
 
 ![S/4HANA Extension using Private Link](images/s4-ext-privatelink.png)
 
