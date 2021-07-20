@@ -53,6 +53,7 @@ Entitlements/Quota required in your SAP Business Technology Platform Account:
 | SAP HANA Cloud                    |             |                     |
 | Cloud Foundry runtime             |             |                     |
 | Application Autoscaler            | standard    | 1                   |
+| [Optional] SAP Private Link (BETA)| standard    | 1                   |
 
 
 Subscriptions required in your SAP Business Technology Platform Account:
@@ -72,7 +73,22 @@ Subscriptions required in your SAP Business Technology Platform Account:
 ### Step 2: [S/4HANA Enable OData Service for business partner](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/02-configure-oData-Service)
 ### Step 3: [Setup SAP BTP Environment](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/03-PrepareBTP)
 ### Step 4: [Create SAP HANA Cloud instance](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/04-SetupHANACloud)
-### Step 5: [Setup connectivity between S/4HANA system, SAP BTP](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/05-CloudConnector)
+
+
+There are to Options to establish connectivity between S/4HANA system and SAP BTP:
+   * First one (see Step 5a) is the well know connectivity via **SAP Cloud Connector**
+  
+   * Second option (see Step 5b) is through new **SAP Private Link (BETA)** Service. In this way Cloud Foundry applications running on SAP BTP with Microsoft Azure as IaaS provider can communicate with Azure Private Link services via a private connection. This ensures that traffic is not routed through the public internet but stays within the Azure infrastructure.
+   >Note: Currently, we only support the connection from SAP BTP Cloud Foundry to Azure Private Link services. 
+
+   >Note, For the beta release, you can connect to Microsoft Azure Private Link Service running behind the Azure Standard Load Balancer.
+ 
+Please continue either with Step 5a or 5b based on your scenario/requirement  
+### Step 5a: [Setup connectivity between S/4HANA system, SAP BTP - SAP Cloud Connector](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/05-CloudConnector)
+
+### Step 5b: [Setup connectivity between S/4HANA system, SAP BTP - SAP Private Link (BETA)](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/05-PrivateLink)
+
+
 ### Step 6: [Configure Business Application Studio and Build/Deploy the CAP application ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/06-ConfigureCAPApp)
 ### Step 7: [Configure Event Based Communication between S/4HANA and Event Mesh](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/07-SetupEventMesh)
 ### Step 8: [Test scenario End to End](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/08-TestApplication)
