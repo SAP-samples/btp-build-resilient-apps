@@ -76,7 +76,7 @@ Subscriptions required in your SAP Business Technology Platform Account:
 
 
 There are to Options to establish connectivity between S/4HANA system and SAP BTP:
-   * First one (see Step 5a) is the well know connectivity via **SAP Cloud Connector**
+   * First one (see Step 5a) is the well known connectivity via **SAP Cloud Connector**
   
    * Second option (see Step 5b) is through new **SAP Private Link (BETA)** Service. In this way Cloud Foundry applications running on SAP BTP with Microsoft Azure as IaaS provider can communicate with Azure Private Link services via a private connection. This ensures that traffic is not routed through the public internet but stays within the Azure infrastructure.
    >Note: Currently, we only support the connection from SAP BTP Cloud Foundry to Azure Private Link services. 
