@@ -91,10 +91,10 @@ In this section you will configure the Cloud Connector for connecting the on pre
 ![Check host detail](./images/cloud-connector-11.png)
 
 3.	Go back to Connectivity in the menu on the left then choose *Destinations -> New Destination*
-
+s
 4.	Enter the following information to the Destination Configuration:
     - *Name:* BusinessPartner
-    - *Url:* http://myvirtualhost>:44300/sap/opu/odata/sap/API_BUSINESS_PARTNER (or in general http://*virtualhost*:*virtualport*/URLPath)
+    - *Url:* http://myvirtualhost:44300 (or in general http://*virtualhost*:*virtualport*)
     - *Proxy Type*: OnPremise
     - *Authentication:* 'Basic Authentication'
     - *Username:* REFAPP
