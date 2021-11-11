@@ -116,10 +116,7 @@ The steps below will guide your through settting up your pipeline.
     - In the Stages tab, choose **'Source Repository'** from the Configuration Mode dropdown list. Alternative for this is the Job Editor, where you can configure the pipline steps in UI. In our example we defined the pipline configuration in "source code" and the configuration file can be found in *.pipline/config.yml*
     - Choose *Create*.
     
-     ![Create Job](./images/cicd6-6.png)
-
-   [*.pipline/config.yml*](https://github.com/SAP-samples/s4hana-btp-extension-devops/blob/main/.pipeline/config.yml)
-
+![Create Job](./images/cicd6-6.png)
 
 9. Open the *.pipeline/config.yml* file in the SAP Business Application Studio. 
     
