@@ -130,14 +130,15 @@ The steps below will guide your through settting up your pipeline.
     > the left half of the screenshot shows the config.yml file, the right half of the screenshot shows the subaccount information of SAP BTP Cockpit with the needed values. 
  
 11.Go to the terminal and execute the commands below to push the changes to your fork. This will also trigger the first job if everything went fine. 
-     
-      ```bash
-      git add .
-      git commit -m "config.yml configured for deployment target"
-      git push
-      ```
-     - Goto the CI/CD app 
-     - Check on the right hand side that the build has been triggered
+
+```shell
+git add .
+git commit -m "config.yml configured for deployment target"
+git push
+```
+
+ - Goto the CI/CD app 
+ - Check on the right hand side that the build has been triggered
  
  ![test_pipeline](./images/cicd11.png)
  
