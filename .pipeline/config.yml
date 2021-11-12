@@ -20,15 +20,16 @@ steps:
 
   mtaBuild:
     buildTarget: "CF"
-    extensions: "live.mtaext"  # live.mtaext for BTP Live landscape or trial.mtaext for BTP Trial Account
+    extensions: "trial.mtaext"  # live.mtaext for BTP Live landscape or trial.mtaext for BTP Trial Account
     mtaBuildTool: "cloudMbt"
   
   cloudFoundryDeploy:   # only relevant, if you set the cloudFoundryDeploy parameter in the Release stage to true
     cloudFoundry:
-      credentialsId: 'cf-credential'
-      apiEndpoint: <cf-api>    # for example, https://api.cf.eu10.hana.ondemand.com
-      org: <cf-org> # your cloud foundry org name
-      space: <cf-space> # your cloud foundry space name
+      credentialsId: 'cloud-credentials'
+      apiEndpoint: https://api.cf.us10.hana.ondemand.com
+    # for example, https://api.cf.eu10.hana.ondemand.com
+      org: 258dcaf3trial # your cloud foundry org name
+      space: dev # your cloud foundry space name
     mtaDeployParameters: '-f --version-rule ALL'
     
   # tmsUpload:            # only relevant, if you set the tmsUpload parameter in the Release stage to true
