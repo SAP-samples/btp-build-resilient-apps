@@ -18,7 +18,7 @@ This step is required for newly created accounts, e.g. with Boosters where you d
 
 3. Give an Instance Name and the Password for DBADMIN user and click on _Next Step_
 
-    ![hana-cloud](./images/hanacloudGeneral.png)
+    ![hana-cloud](./images/hanaCloudGeneral.png)
 
 4. Choose the Database Memory size and click on _Next Step_
    
@@ -42,6 +42,6 @@ This step is required for newly created accounts, e.g. with Boosters where you d
     
 6. Wait couple of minutes until the HANA Cloud Instance is created
 
-    ![hana-cloud](./images/hanacloudCreating.png)
+    ![hana-cloud](./images/hanaCloudCreating.png)
 
 [< Back to Usecase](../usecase.md)
