@@ -10,11 +10,11 @@ This step is required for newly created accounts, e.g. with Boosters where you d
 
 3. Click on _SAP HANA Database_ 
 
-    ![hana-cloud](./images/hanaCloudCreateOptionSelect.PNG)
+    ![hana-cloud](./images/hanaCloudCreateOptionSelect.png)
 
 3. It will route you to **SAP HANA Cloud Central**. Then Click on _SAP HANA Cloud, SAP HANA Database_ and click on _Next Step_
 
-    ![hana-cloud](./images/hanaCloudCentral.PNG)
+    ![hana-cloud](./images/hanaCloudCentral.png)
 
 3. Give an Instance Name and the Password for DBADMIN user and click on _Next Step_
 
