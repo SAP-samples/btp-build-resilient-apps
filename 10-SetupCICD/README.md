@@ -34,7 +34,7 @@ The steps below will guide your through settting up your pipeline.
     - Click on ‘+’
 
     ![add btp_credentials](./images/cicd3.png)
- 
+
     - Enter a freely chosen name for your credential, which is unique in your SAP BTP subaccount. In this example, the name of the credential is *cf-credential*.
     - As type select *Basic Authentication* 
     - For Username, enter your BTP Account username/email.
@@ -54,10 +54,10 @@ The steps below will guide your through settting up your pipeline.
     - For Password, use the personal access token for GitHub
     - (Hint: access tokens can be created in GitHub by going to *Settings* -> *Developer Settings*)
     - Click on create
-  
+
 
     ![add github_credentials](./images/cicd5.png)
- 
+
 
 5. Add your Repository
    - Navigate to **"Repository"** Tab in CI/CD Service and click on ‘+’ to add your repository
@@ -77,11 +77,11 @@ The steps below will guide your through settting up your pipeline.
    - Open on the Detail View of your repository by clicking on the arrow at the end of the row
    - The detail view opens up on the right hand side
    - Click on Webhook Data
-    
+   
     ![webhook data](./images/cicd6-1.png)
-    
+   
    - You will see a pop-up like the one below
-    
+   
     ![pop up](./images/cicd6-2.png)
 
 7.  Add Webhook in GitHub
@@ -106,7 +106,7 @@ The steps below will guide your through settting up your pipeline.
 
 
 8.  Configure a CI/CD Job
- 
+
     - In the Jobs tab in SAP Continuous Integration and Delivery, choose *+* to create a new job.
     - For Job Name, enter a freely chosen name for your job, which is unique in your SAP BTP subaccount, for example ‘s4hana-btp-extension’.
     - Under Repository, select the previously configured repository
@@ -116,16 +116,19 @@ The steps below will guide your through settting up your pipeline.
     - In the Stages tab, choose **'Source Repository'** from the Configuration Mode dropdown list. Alternative for this is the Job Editor, where you can configure the pipline steps in UI. In our example we defined the pipline configuration in "source code" and the configuration file can be found in *.pipline/config.yml*
     - Choose *Create*.
     
+
 ![Create Job](./images/cicd6-6.png)
 
 9. Open the *.pipeline/config.yml* file in the SAP Business Application Studio. 
-    
+   
 10. Update the following values for your deployment target and **Save** the file after you have made the changes.
 
     ![Create Job](./images/config-api-endpoint.png)
 
     > the left half of the screenshot shows the config.yml file, the right half of the screenshot shows the subaccount information of SAP BTP Cockpit with the needed values. 
- 
+    >
+    > NOTE: If the trail version is used then change the **_mtaBuild > extensions_ ** to **"trial.mtaext"**
+
 11.Go to the terminal and execute the commands below to push the changes to your fork. This will also trigger the first job if everything went fine. 
 
 ```shell
@@ -136,8 +139,6 @@ git push
 
  - Goto the CI/CD app 
  - Check on the right hand side that the build has been triggered
- 
- ![test_pipeline](./images/cicd11.png)
- 
 
- 
+ ![test_pipeline](./images/cicd11.png)
+
