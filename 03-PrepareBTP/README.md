@@ -5,14 +5,14 @@
 You will now prepare your SAP Business Technology Platform (Enterprise) account, configure the needed entitlements and configure your account for the subsequent steps of extension scenario.
 
 
-> Note : In case you are using SAP Business Technology Platform Trial, please follow these manual steps to [prepare and configure the account](#prepare-and-configure-trial-account)
+> Note : In case you are using SAP Business Technology Platform Trial, please follow these manual steps to [prepare and configure the account](../03-PrepareBTPTrial/README.md)
 >
 
 
 ### Prepare your SAP Business Technology Platform Account
 
 1. Navigate to *Boosters* 
-2. Search for 'Prepare an Account for Developing Extension Applications' (This booster is not available for the SAP BTP Trial account, please follow the manual steps to [setup the trial account](#prepare-and-configure-trial-account))
+2. Search for 'Prepare an Account for Developing Extension Applications' (This booster is not available for the SAP BTP Trial account, please follow the manual steps to [setup the trial account](../03-PrepareBTPTrial/README.md))
 
 
    ![Search Booster](./images/booster1.png)

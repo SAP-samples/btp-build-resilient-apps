@@ -4,61 +4,64 @@
 
 You will now prepare your SAP Business Technology Platform (Trial) account for the subsequent steps of this extension scenario.
 
-#### Event Mesh Setup
+#### Create Role Collection to assign the required roles for this mission 
 
 1. Log in to SAP BTP Account on https://hanatrial.ondemand.com
 
-2. Navigate to the subaccount you want to use and go to **Service Marketplace**. 
-
-   ![Prepare-Configure](./images/trail/prepAndConfig1.png)
-
-3. Click on _Actions_ button and Choose **Create**. 
-
-   ![Prepare-Configure](./images/trail/prepAndConfig2.png)
-
-4. Choose the **Standard** plan. 
-
-   ![Prepare-Configure](./images/trail/prepAndConfig3.png)
-
-5. Click on **Create**. 
-
-6. Wait until the subscription has been created.
-
-   ![Prepare-Configure](./images/trail/prepAndConfig4.png)
-
-7. You can use **View Subscription** to get a more detailed view about the created subscription.
-
-   ![Prepare-Configure](./images/trail/prepAndConfig5.png)
-
-8. Go to **Security > Role Collections** in the side menu. 
+2. Go to **Security > Role Collections** in the side menu
 
    ![Prepare-Configure](./images/trail/prepAndConfig6.png)
 
-9.  Click on **"+"** button to create a new Role Collection. 
+3.  Click on **"+"** button to create a new Role Collection. 
 
     ![Prepare-Configure](./images/trail/prepAndConfig7.png)
 
-10. Provide _Extension Developer_ as the name for the new Role Collection and click **Create**.
+4. Provide _Extension Developer_ as the name for the new Role Collection and click **Create**.
 
     ![Prepare-Configure](./images/trail/prepAndConfig8.png)
 
-11. Search for _Extension Developer_ and click on it to open the Details View. 
+#### Event Mesh Setup
 
-    ![Prepare-Configure](./images/trail/prepAndConfig9.png)
+1. Navigate to the **Service Marketplace**. 
 
-12. **Edit** the Role Collection. 
+   ![Prepare-Configure](./images/trail/prepAndConfig1.png)
+
+2. Click on _Actions_ button and Choose **Create**. 
+
+   ![Prepare-Configure](./images/trail/prepAndConfig2.png)
+
+3. Choose the **Standard** plan. 
+
+   ![Prepare-Configure](./images/trail/prepAndConfig3.png)
+
+4. Click on **Create**. 
+
+5. Wait until the subscription has been created.
+
+   ![Prepare-Configure](./images/trail/prepAndConfig4.png)
+
+6. You can use **View Subscription** to get a more detailed view about the created subscription.
+
+   ![Prepare-Configure](./images/trail/prepAndConfig5.png)
+
+7. Go to **Security > Role Collections** in the side menu and select the _Extension Developer_ Role Collection. 
+
+   ![Prepare-Configure](./images/trail/prepAndConfig15.png)
+
+
+8. **Edit** the Role Collection. 
 
     ![Prepare-Configure](./images/trail/prepAndConfig10.png)
 
-13. Search for available Roles via clicking on the icon next to the role input field. 
+9. Search for available Roles via clicking on the icon next to the role input field. 
 
 ![Prepare-Configure](./images/trail/prepAndConfig11.png)
 
-15. Search for _"Manage Role"_ and select it. 
+10. Search for _"Manage Role"_ and select it. 
 
 ![Prepare-Configure](./images/trail/prepAndConfig12.png)
 
-16. Search for _"Test Role"_, select it and click **Add**. .
+11. Search for _"Test Role"_, select it and click **Add**. .
 
 #### Cloud Transport Management Setup
 
