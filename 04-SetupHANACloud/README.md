@@ -43,5 +43,3 @@ This step is required for newly created accounts, e.g. with Boosters where you d
 6. Wait couple of minutes until the HANA Cloud Instance is created
 
     ![hana-cloud](./images/hanaCloudCreating.png)
-
-[< Back to Usecase](../usecase.md)
