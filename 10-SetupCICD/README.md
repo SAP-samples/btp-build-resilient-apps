@@ -127,7 +127,7 @@ The steps below will guide your through settting up your pipeline.
 
     > the left half of the screenshot shows the config.yml file, the right half of the screenshot shows the subaccount information of SAP BTP Cockpit with the needed values. 
     >
-    > NOTE: If the trail version is used then change the **_mtaBuild > extensions_ ** to **"trial.mtaext"**
+    > NOTE: In case you are using SAP BTP Trial enviroment, change the **_mtaBuild > extensions_ ** to **"trial.mtaext"**
 
 11.Go to the terminal and execute the commands below to push the changes to your fork. This will also trigger the first job if everything went fine. 
 
