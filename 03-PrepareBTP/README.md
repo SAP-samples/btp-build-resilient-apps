@@ -4,16 +4,15 @@
 
 You will now prepare your SAP Business Technology Platform, configure your entitlements and configure your account for our extension scenario.
 
-**Persona:** BTP Developer
 
-> Note : if SAP Business Technology Platform is Trail Version Follow  [Prepare and Configure for Trail Account](#prepare-and-configure-for-trail-account)
+> Note : In case you are using SAP Business Technology Platform Trial, please follow these manual steps to [prepare and configure the account](#prepare-and-configure-trial-account)
 >
-> 
+
 
 ### Prepare your SAP Business Technology Platform Account
 
 1. Navigate to *Boosters* 
-2. Search for 'Prepare an Account for Developing Extension Applications'
+2. Search for 'Prepare an Account for Developing Extension Applications' (This booster is not available for the SAP BTP Trial account, please follow the manual steps to [setup the trial account](#prepare-and-configure-trial-account))
 
 
    ![Search Booster](./images/booster1.png)
@@ -80,7 +79,8 @@ You will now prepare your SAP Business Technology Platform, configure your entit
 
 ![Add Service Plan](./images/booster11.png)
 
-###  Prepare and Configure for Trail Account
+
+###  Prepare and Configure Trial Account
 
 #### Event Mesh Setup
 
