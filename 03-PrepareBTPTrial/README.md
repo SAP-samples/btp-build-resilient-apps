@@ -1,8 +1,8 @@
-# Prepare and configure your SAP Business Technology Platform environment
+# Prepare and configure your SAP Business Technology Platform (Trial) environment
 
 ## Introduction
 
-You will now prepare your SAP Business Technology Platform (Trial) account, configure the needed entitlements and configure your account for the subsequent steps of this extension scenario.
+You will now prepare your SAP Business Technology Platform (Trial) account for the subsequent steps of this extension scenario.
 
 #### Event Mesh Setup
 
@@ -62,7 +62,8 @@ You will now prepare your SAP Business Technology Platform (Trial) account, conf
 
 #### Cloud Transport Management Setup
 
-1. Go to the **Services > Service Marketplace** in the side menu and search for **Cloud Transport Management**. 
+1. Go to **Services > Service Marketplace** in the side menu and search for **Cloud Transport Management**. 
+   
 2. Click on _Actions_ button and choose **Create**.
 
 ​     ![Prepare-Configure](./images/trail/prepAndConfig13.png)
@@ -91,76 +92,77 @@ You will now prepare your SAP Business Technology Platform (Trial) account, conf
 
 #### Continuous Integration & Delivery Setup
 
-1. Go to **Service Marketplace** and search for  **Continuous Integration & Delivery** and click on **Create** from Actions Tab.
+1. Go to **Services > Service Marketplace** in the side menu and search for **Continous Integration & Delivery**. Click on _Actions_ button and choose **Create**.
 
    ![Prepare-Configure](./images/trail/prepAndConfig20.png)
 
-2. Select **Trail** as Plan and click on _Create_
+2. Select **trial** as plan and click on **Create**.
 
    ![Prepare-Configure](./images/trail/prepAndConfig21.png)
 
-3. It should be visible in **Subscriptions** Tab.
+3. The **Continous Integration & Delivery** subscription should now appear in the **Instances & Subscriptions** view. 
 
-4. Go to **Role Collections** from **Security** Tab in the Menu, Search for _Extension Developer_ And open it in _Edit_ Mode. Click on **Select** Tab and Search For _Administrator_ Role and select it. 
+4. Go to **Security > Role Collections** in the side menu and select the _Extension Developer_ Role Collection.  **Edit** the Role Collection and search for the **Administrator** role via clicking on the icon next to the role input field. 
 
    > Note: For Continuous Integration and Delivery the Application Identifier starts with **"cicdservice"**
 
    ![Prepare-Configure](./images/trail/prepAndConfig22.png)
 
-4. Repeat the same for _Developer_ Role as well and then click on **add**. **Save** it.
+5. Repeat the same for _Developer_ Role as well and then click on **add**. Don't forget to **Save** the Role Collection.
 
 ​     ![Prepare-Configure](./images/trail/prepAndConfig23.png)  
 
 #### Launchpad Service Setup
 
-1. Click on **Service Marketplace**, Search for Launchpad Service and Click on **Create** from Actions
+1. Go to **Services > Service Marketplace** in the side menu and search for **Launchpad & Service**. 
 
    ![Prepare-Configure](./images/trail/prepAndConfig24.png)
 
-2. Select the **Plan** as **Standard**
+2. Select **Standard** as plan and click on **Create**.
 
    ![Prepare-Configure](./images/trail/prepAndConfig25.png)
 
-3. Subscription should be visible in **Instances and Subscriptions**
+3. The **Launchpad Service** subscription should now appear in the **Instances & Subscriptions** view. 
 
-4. Go to **Role Collections** from **Security** Tab in the Menu, Search for _Extension Developer_ And open it in _Edit_ Mode. Click on **Select** Tab and Search For _Mobile Admin_ Role and select it. 
+4. Go to **Security > Role Collections** in the side menu and select the _Extension Developer_ Role Collection. **Edit** the Role Collection and search for the **Mobile Admin** role via clicking on the icon next to the role input field.  
 
    ![Prepare-Configure](./images/trail/prepAndConfig26.png)
 
-5. Click on **Add** and **Save** it.
+5. Click on **Add** and don't forget to **Save** the Role Collection.
 
 #### SAP Business Application Studio Setup
 
-1. Click on **Service Marketplace**, Search for SAP Business Application Studio and Click on **Create** from Actions
+1. Go to **Services > Service Marketplace** in the side menu and search for **SAP Business Application Studio**. 
 
    ![Prepare-Configure](./images/trail/prepAndConfig27.png)
 
-2. Select the **Plan** as **trail**
+2. Select **trial** as plan and click on **Create**.
 
    ![Prepare-Configure](./images/trail/prepAndConfig28.png)
 
-3. Subscription should be visible in **Instances and Subscriptions**
-4. Go to **Role Collections** from **Security** Tab in the Menu, Search for _Extension Developer_ And open it in _Edit_ Mode. Click on **Select** Tab and Search For _Administrator_ Role and select it. 
+3. The **SAP Business Application Studio** subscription should now appear in the **Instances & Subscriptions** view. 
 
-![Prepare-Configure](./images/trail/prepAndConfig29.png)
+4. Go to **Security > Role Collections** in the side menu and select the _Extension Developer_ Role Collection. **Edit** the Role Collection and search for the **Administrator** (application identifier contains _app-studio_) role via clicking on the icon next to the role input field.
+   
+   ![Prepare-Configure](./images/trail/prepAndConfig29.png)
 
-5. Search For _Developer_ and Select it and Click on **Add** button
+5. Search For _Developer_ (application identifier contains _app-studio_), select it and Click on **Add**. 
 
 ![Prepare-Configure](./images/trail/prepAndConfig30.png)
 
-6. Then **Save** it.
+6. Don't forget to **Save** the Role Collection.
 
 #### Adding Role Collections to Users
 
-1. Go to **Role Collections** From **Security** Tab.
+1. Go to **Security > Role Collections** in the side menu. 
 
    ![Prepare-Configure](./images/trail/prepAndConfig31.png)
 
-2. Search for _Extension Developer_ Role collections and open in **Edit** Mode. Switch to **User** tab.
+2. Search for the _Extension Developer_ Role Collection and **Edit** it. Switch to **User** tab.
 
    ![Prepare-Configure](./images/trail/prepAndConfig32.png)
 
-3. Enter The Email Address in **ID** and Click on **"+"** to add Email.
+3. Enter your SAP BTP Email Address in **ID** and Click on **"+"** to add Email.
 
 ![Prepare-Configure](./images/trail/prepAndConfig33.png)
 
@@ -168,4 +170,6 @@ You will now prepare your SAP Business Technology Platform (Trial) account, conf
 
    ![Prepare-Configure](./images/trail/prepAndConfig34.png)
 
-SAP BTP environment has been successfully configured.
+--- 
+
+Congratulations, you have now configured your SAP BTP Trial account sucesfully for the subsequent steps.
