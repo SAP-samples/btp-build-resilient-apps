@@ -62,30 +62,30 @@ You will now prepare your SAP Business Technology Platform (Trial) account, conf
 
 #### Cloud Transport Management Setup
 
-1. In the **Instances and Marketplace** search for **Cloud Transport Management **
-2. Click on Actions button and choose Create
+1. Go to the **Services > Service Marketplace** in the side menu and search for **Cloud Transport Management**. 
+2. Click on _Actions_ button and choose **Create**.
 
 ​     ![Prepare-Configure](./images/trail/prepAndConfig13.png)
 
-3. Select **Standard** Plan and click Create
+3. Select **Standard** Plan and click **Create**.
 
    ![Prepare-Configure](./images/trail/prepAndConfig14.png)
 
-4. In **Security** Tab Select **Role Collections** and search for _Extension Developer_
+4. Go to **Security > Role Collections** in the side menu and select the _Extension Developer_ Role Collection. 
 
    ![Prepare-Configure](./images/trail/prepAndConfig15.png)
 
-5. Go to **Edit** Mode and Click on **Select** Tab
+5.  **Edit** the Role Collection and search for available Roles via clicking on the icon next to the role input field. 
 
  ![Prepare-Configure](./images/trail/prepAndConfig16.png)
 
-6. Search For _Administrator ( alm-ts!t1603 ), ImportOperator and  ExportOperator_ Roles and Assign it. 
+6. Search for _Administrator ( alm-ts!t1603 ), ImportOperator and  ExportOperator_ Roles and click **Add** to save the changes. 
 
-   > Note: Search for Application Identifier which starts with _"alm-ts"_
+   > Note: Search for Application Identifier which starts with _"alm-ts"_ to only get roles for the Cloud Transport Management service displayed. 
 
    ![Prepare-Configure](./images/trail/prepAndConfig18.png)
 
-7.After saving it roles are update. Below Image Depicts it.
+7. The Role Collection should now have the following roles: 
 
 ![Prepare-Configure](./images/trail/prepAndConfig19.png)
 
