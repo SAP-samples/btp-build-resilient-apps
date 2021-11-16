@@ -6,8 +6,6 @@ You will now prepare your SAP Business Technology Platform (Enterprise) account,
 
 
 > Note : In case you are using SAP Business Technology Platform Trial, please follow these manual steps to [prepare and configure the account](../03-PrepareBTPTrial/README.md)
->
-
 
 ### Prepare your SAP Business Technology Platform Enterprise Account
 
@@ -41,12 +39,12 @@ You will now prepare your SAP Business Technology Platform (Enterprise) account,
    ![Enter name](./images/booster4.png)
 
 7. On the next screen you can add your needed Users:
- - Enter Administor's ID (you can enter IDs of people you would like to have the admin role)
- - Enter developer's ID
+ - Enter email addresses of SAP BTP account you want to assign the Administor Role Collections.
+ - Enter email addresses of SAP BTP account you want to assign the Developer Role Collections.
+- 
 8. Click on *Next*
 
  ![Add Users](./images/booster10.png)
-
 
 9. After you reviewed your account click on *Finish* 
 
