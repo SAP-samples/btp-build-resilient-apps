@@ -29,7 +29,7 @@ John who is an employee of Business Partner Validation Firm iCredible, which is 
 
 ### Solution Diagram
 
-![solution diagram](./documentation/images/solutiondiagramm-1.png)
+![solution diagram](https://github.com/SAP-samples/s4hana-btp-extension-devops/blob/main/documentation/images/solutiondiagramm-1.png)
 
 The Business Partner Validation application is developed using the SAP Cloud Application programming Model (CAP) and runs on the SAP BTP, Cloud Foundry runtime. It consumes platform services like SAP Event Mesh, SAP HANA Cloud and the Connectivity service. The events occuring in S/4 HANA on premise are inserted into the SAP Event Mesh queue. The application running in Cloud Foundry is notified on events, consumes them from the queue and inserts the event data into the HANA database. The Business Partner Validation Application uses S/4 HANA OData API's to read additional Business Partner Data from the S/4 HANA system. In case of updates performed by the third-party vendor the SAP Cloud SDK is used to update the corresponding data in the S/4HANA on premise system. 
 
@@ -41,19 +41,19 @@ The required systems and components are:
 
 Entitlements/Quota required in your SAP Business Technology Platform Account:
 
-| Service                           | Plan        | Number of instances |
-| --------------------------------- | ----------- | ------------------- |
-| Connectivity                      | lite        | 1                   |
-| Destination                       | lite        | 1                   |
-| HTML5 Application Repository      | app-host    | 1                   |
-| Event Mesh                        | default     | 1                   |
-| Application Logging               | lite        | 1                   |
-| Authorization & Trust Management  | application | 1                   |
-| SAP HANA Schemas & HDI Containers | hdi-shared  | 1                   |
-| SAP HANA Cloud                    |             |                     |
-| Cloud Foundry runtime             |             |                     |
-| Application Autoscaler            | standard    | 1                   |
-| [Optional] SAP Private Link (BETA)| standard    | 1                   |
+| Service                            | Plan        | Number of instances |
+| ---------------------------------- | ----------- | ------------------- |
+| Connectivity                       | lite        | 1                   |
+| Destination                        | lite        | 1                   |
+| HTML5 Application Repository       | app-host    | 1                   |
+| Event Mesh                         | default     | 1                   |
+| Application Logging                | lite        | 1                   |
+| Authorization & Trust Management   | application | 1                   |
+| SAP HANA Schemas & HDI Containers  | hdi-shared  | 1                   |
+| SAP HANA Cloud                     |             |                     |
+| Cloud Foundry runtime              |             |                     |
+| Application Autoscaler             | standard    | 1                   |
+| [Optional] SAP Private Link (BETA) | standard    | 1                   |
 
 
 Subscriptions required in your SAP Business Technology Platform Account:
@@ -72,15 +72,17 @@ Subscriptions required in your SAP Business Technology Platform Account:
 ### Step 1: [Identify APIs in API Business Hub](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/01-IdentifyAPIFromAPIBusinessHub.md)
 ### Step 2: [S/4HANA Enable OData Service for business partner](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/02-configure-oData-Service)
 
-### Step 3a: [Setup SAP BTP Environment](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/03-PrepareBTP)
+> Either follow Step 3a or 3b (not both) depending on whether you use an SAP BTP trial account or an SAP BTP enterprise account
+### Step 3a: [Setup SAP BTP Enterprise Environment](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/03-PrepareBTP)
 ### Step 3b: [Setup SAP BTP Trial Environment](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/03-PrepareBTPTrial)
 ### Step 4: [Create SAP HANA Cloud instance](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/04-SetupHANACloud)
 
 
-There are to Options to establish connectivity between S/4HANA system and SAP BTP:
-   * First one (see Step 5a) is the well known connectivity via **SAP Cloud Connector**
+There are two Options to establish connectivity between S/4HANA system and SAP BTP:
+   * First one (see Step 5a) is the well know connectivity via **SAP Cloud Connector**
   
    * Second option (see Step 5b) is through new **SAP Private Link (BETA)** Service. In this way Cloud Foundry applications running on SAP BTP with Microsoft Azure as IaaS provider can communicate with Azure Private Link services via a private connection. This ensures that traffic is not routed through the public internet but stays within the Azure infrastructure.
+  
    >Note: Currently, we only support the connection from SAP BTP Cloud Foundry to Azure Private Link services. 
 
    >Note, For the beta release, you can connect to Microsoft Azure Private Link Service running behind the Azure Standard Load Balancer.
@@ -100,13 +102,11 @@ Please continue either with Step 5a or 5b based on your scenario/requirement
 ### Step 12: [Setup Alert Notification ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/12-SetupANS)
 ### Step 13 (optional): [Setup Application Autoscaler ](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/13-SetupAppAutoscaler)
 
-## Download and Installation
 
-## Known Issues
-No known issues.
+
 ## How to obtain support
 
-[Create an issue](https://github.com/SAP-samples/s4hana-btp-extension-devops/issues) in this repository if you find a bug or have questions about the content.
+[Create an issue](https://github.com/SAP-samples/<repository-name>/issues) in this repository if you find a bug or have questions about the content.
  
 For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html).
 
