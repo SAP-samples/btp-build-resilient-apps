@@ -1,4 +1,4 @@
-# Prepare and configure your SAP Business Technology Platform environment with the help of boosters
+# Prepare and configure your SAP Business Technology Platform Enterprise environment with the help of boosters
 
 ## Introduction
 
@@ -9,18 +9,16 @@ You will now prepare your SAP Business Technology Platform (Enterprise) account,
 >
 
 
-### Prepare your SAP Business Technology Platform Account
+### Prepare your SAP Business Technology Platform Enterprise Account
 
 1. Navigate to *Boosters* 
 2. Search for 'Prepare an Account for Developing Extension Applications' (This booster is not available for the SAP BTP Trial account, please follow the manual steps to [setup the trial account](../03-PrepareBTPTrial/README.md))
-
 
    ![Search Booster](./images/booster1.png)
 
 3. Click on the tile and chosse the *Start* button to start the creation of your account
 
    ![Start Booster](./images/booster2.png)
-
 
 4. Check if you fulfill all prerequisites and then choose *Next*
 
@@ -62,14 +60,13 @@ You will now prepare your SAP Business Technology Platform (Enterprise) account,
 
 13. Then choose *Add Service Plans*
 
-![Add Service Plans](./images/booster8.png)
+   ![Add Service Plans](./images/booster8.png)
 
 14. Search for "HANA" in the pop-up window and select *SAP HANA Cloud*
 
 15. Click on the checkbox below "Available Plans" for HANA
-    
 
-![Add Service Plan](./images/booster9.png)
+   ![Add Service Plan](./images/booster9.png)
 
 16. Search for "Alert Notification" in the pop-up window and select Alert Notification
 
@@ -77,7 +74,11 @@ You will now prepare your SAP Business Technology Platform (Enterprise) account,
 
 18. Click on *Add 2 Service Plan* and save
 
-![Add Service Plan](./images/booster11.png)
+   ![Add Service Plan](./images/booster11.png)
+
+--- 
+
+Congrats! You can now continue with setting up your SAP HANA Cloud instance - Step 4.
 
 
 

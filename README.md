@@ -41,19 +41,19 @@ The required systems and components are:
 
 Entitlements/Quota required in your SAP Business Technology Platform Account:
 
-| Service                           | Plan        | Number of instances |
-| --------------------------------- | ----------- | ------------------- |
-| Connectivity                      | lite        | 1                   |
-| Destination                       | lite        | 1                   |
-| HTML5 Application Repository      | app-host    | 1                   |
-| Event Mesh                        | default     | 1                   |
-| Application Logging               | lite        | 1                   |
-| Authorization & Trust Management  | application | 1                   |
-| SAP HANA Schemas & HDI Containers | hdi-shared  | 1                   |
-| SAP HANA Cloud                    |             |                     |
-| Cloud Foundry runtime             |             |                     |
-| Application Autoscaler            | standard    | 1                   |
-| [Optional] SAP Private Link (BETA)| standard    | 1                   |
+| Service                            | Plan        | Number of instances |
+| ---------------------------------- | ----------- | ------------------- |
+| Connectivity                       | lite        | 1                   |
+| Destination                        | lite        | 1                   |
+| HTML5 Application Repository       | app-host    | 1                   |
+| Event Mesh                         | default     | 1                   |
+| Application Logging                | lite        | 1                   |
+| Authorization & Trust Management   | application | 1                   |
+| SAP HANA Schemas & HDI Containers  | hdi-shared  | 1                   |
+| SAP HANA Cloud                     |             |                     |
+| Cloud Foundry runtime              |             |                     |
+| Application Autoscaler             | standard    | 1                   |
+| [Optional] SAP Private Link (BETA) | standard    | 1                   |
 
 
 Subscriptions required in your SAP Business Technology Platform Account:
@@ -72,15 +72,17 @@ Subscriptions required in your SAP Business Technology Platform Account:
 ### Step 1: [Identify APIs in API Business Hub](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/01-IdentifyAPIFromAPIBusinessHub.md)
 ### Step 2: [S/4HANA Enable OData Service for business partner](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/02-configure-oData-Service)
 
-### Step 3a: [Setup SAP BTP Environment](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/03-PrepareBTP)
+> Either follow Step 3a or 3b (not both) depending on whether you use a SAP BTP trial account or an SAP BTP enterprise account
+### Step 3a: [Setup SAP BTP Enterprise Environment](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/03-PrepareBTP)
 ### Step 3b: [Setup SAP BTP Trial Environment](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/03-PrepareBTPTrial)
 ### Step 4: [Create SAP HANA Cloud instance](https://github.com/SAP-samples/s4hana-btp-extension-devops/tree/mission/04-SetupHANACloud)
 
 
-There are to Options to establish connectivity between S/4HANA system and SAP BTP:
+There are two Options to establish connectivity between S/4HANA system and SAP BTP:
    * First one (see Step 5a) is the well know connectivity via **SAP Cloud Connector**
   
    * Second option (see Step 5b) is through new **SAP Private Link (BETA)** Service. In this way Cloud Foundry applications running on SAP BTP with Microsoft Azure as IaaS provider can communicate with Azure Private Link services via a private connection. This ensures that traffic is not routed through the public internet but stays within the Azure infrastructure.
+  
    >Note: Currently, we only support the connection from SAP BTP Cloud Foundry to Azure Private Link services. 
 
    >Note, For the beta release, you can connect to Microsoft Azure Private Link Service running behind the Azure Standard Load Balancer.

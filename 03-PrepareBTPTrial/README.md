@@ -14,11 +14,11 @@ You will now prepare your SAP Business Technology Platform (Trial) account for t
 
 3.  Click on **"+"** button to create a new Role Collection. 
 
-    ![Prepare-Configure](./images/trail/prepAndConfig7.png)
+   ![Prepare-Configure](./images/trail/prepAndConfig7.png)
 
 4. Provide _Extension Developer_ as the name for the new Role Collection and click **Create**.
 
-    ![Prepare-Configure](./images/trail/prepAndConfig8.png)
+   ![Prepare-Configure](./images/trail/prepAndConfig8.png)
 
 #### Event Mesh Setup
 
@@ -48,10 +48,9 @@ You will now prepare your SAP Business Technology Platform (Trial) account for t
 
    ![Prepare-Configure](./images/trail/prepAndConfig15.png)
 
-
 8. **Edit** the Role Collection. 
 
-    ![Prepare-Configure](./images/trail/prepAndConfig10.png)
+   ![Prepare-Configure](./images/trail/prepAndConfig10.png)
 
 9. Search for available Roles via clicking on the icon next to the role input field. 
 
@@ -69,7 +68,7 @@ You will now prepare your SAP Business Technology Platform (Trial) account for t
    
 2. Click on _Actions_ button and choose **Create**.
 
-​     ![Prepare-Configure](./images/trail/prepAndConfig13.png)
+​  ![Prepare-Configure](./images/trail/prepAndConfig13.png)
 
 3. Select **Standard** Plan and click **Create**.
 
@@ -81,7 +80,7 @@ You will now prepare your SAP Business Technology Platform (Trial) account for t
 
 5.  **Edit** the Role Collection and search for available Roles via clicking on the icon next to the role input field. 
 
- ![Prepare-Configure](./images/trail/prepAndConfig16.png)
+   ![Prepare-Configure](./images/trail/prepAndConfig16.png)
 
 6. Search for _Administrator ( alm-ts!t1603 ), ImportOperator and  ExportOperator_ Roles and click **Add** to save the changes. 
 
@@ -91,7 +90,7 @@ You will now prepare your SAP Business Technology Platform (Trial) account for t
 
 7. The Role Collection should now have the following roles: 
 
-![Prepare-Configure](./images/trail/prepAndConfig19.png)
+   ![Prepare-Configure](./images/trail/prepAndConfig19.png)
 
 #### Continuous Integration & Delivery Setup
 
@@ -113,7 +112,7 @@ You will now prepare your SAP Business Technology Platform (Trial) account for t
 
 5. Repeat the same for _Developer_ Role as well and then click on **add**. Don't forget to **Save** the Role Collection.
 
-​     ![Prepare-Configure](./images/trail/prepAndConfig23.png)  
+​  ![Prepare-Configure](./images/trail/prepAndConfig23.png)  
 
 #### Launchpad Service Setup
 
@@ -151,7 +150,7 @@ You will now prepare your SAP Business Technology Platform (Trial) account for t
 
 5. Search For _Developer_ (application identifier contains _app-studio_), select it and Click on **Add**. 
 
-![Prepare-Configure](./images/trail/prepAndConfig30.png)
+   ![Prepare-Configure](./images/trail/prepAndConfig30.png)
 
 6. Don't forget to **Save** the Role Collection.
 
@@ -167,7 +166,7 @@ You will now prepare your SAP Business Technology Platform (Trial) account for t
 
 3. Enter your SAP BTP Email Address in **ID** and Click on **"+"** to add Email.
 
-![Prepare-Configure](./images/trail/prepAndConfig33.png)
+   ![Prepare-Configure](./images/trail/prepAndConfig33.png)
 
 4. Click on **Save** to save it.
 
@@ -175,4 +174,4 @@ You will now prepare your SAP Business Technology Platform (Trial) account for t
 
 --- 
 
-Congratulations, you have now configured your SAP BTP Trial account sucesfully for the subsequent steps.
+Congrats! You can now continue with setting up your SAP HANA Cloud instance - Step 4.
