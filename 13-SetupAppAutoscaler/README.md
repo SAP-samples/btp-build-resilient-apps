@@ -79,7 +79,7 @@ A better approach is the Application Autoscaler service provided by SAP BTP on C
 6. Create the test script:
 
    - create *load_test.py* and copy following snipped
-   - replace *token* with JWT token: see step 8
+   - replace *token* with JWT token: see step 7
    
     ```py
 
