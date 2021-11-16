@@ -136,6 +136,7 @@ A better approach is the Application Autoscaler service provided by SAP BTP on C
    - *Authorization Type:* OAuth 2.0
    - *Grant Type:* Password Credentials
    - *Access Token URL:* BusinessPartnerVerification-uaa -> url
+     > Note: Please Add "/oauth/token" at the end of url
    - *Client ID:* BusinessPartnerVerification-uaa -> clientid
    - *Client Secret:* BusinessPartnerVerification-uaa -> clientsecret
    - *Username:* BTP Email
