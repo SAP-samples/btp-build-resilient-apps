@@ -10,16 +10,18 @@
     },
     "dependencies": {
         "@sap-cloud-sdk/core": "^1.52.0",
-        "@sap/cds": "^5.6.2",
+        "@sap/cds": "^5.6.3",
         "@sap/cloud-sdk-vdm-business-partner-service": "^1.28.0",
         "@sap/hana-client": "^2.10.15",
-        "@sap/xb-msg-amqp-v100": "^0.9.54",
+        "@sap/xb-msg-amqp-v100": "^0.9.56",
         "@sap/xsenv": "^3.1.1",
         "@sap/xssec": "^3.2.10",
+        "@xmldom/xmldom": "^0.7.5",
         "express": "^4",
         "hdb": "^0.19.0",
         "lodash": "^4.17.21",
-        "passport": "^0.5.0"
+        "passport": "^0.5.0",
+        "tar": "^6.1.11"
     },
     "devDependencies": {
         "@sap/approuter": "10.9.x",
