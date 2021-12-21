@@ -1,0 +1,43 @@
+### Post new Address Data
+POST http://localhost:4004/admin/BusinessPartnerVerification
+Content-Type: application/json
+Authorization: Basic YnAtYWRtaW46MTIz
+
+{
+"createdAt": "2021-11-16T10:47:10.394Z",
+"createdBy": "anonymous",
+"modifiedAt": "2021-11-16T10:48:49.996Z",
+"modifiedBy": "anonymous",
+"businessPartnerId": "1000456",
+"businessPartnerFirstName": "Nishnant",
+"businessPartnerLastName": "P",
+"verificationStatus_code": "U",
+"businessPartnerIsBlocked": false,
+"IsActiveEntity": true,
+"HasActiveEntity": false,
+"HasDraftEntity": false
+}
+
+### get Business Partner
+GET http://localhost:4004/admin/BusinessPartnerVerification
+Content-Type: application/json
+Authorization: Basic YnAtYWRtaW46MTIz
+
+
+
+### Create Address
+PATCH http://localhost:4004/admin/Addresses(ID=104169d4-3283-49a3-b574-6ce535810b38,IsActiveEntity=false)
+Content-Type: application/json
+Authorization: Basic YnAtYWRtaW46MTIz
+
+{"houseNumber": "19"}
+
+//"addressId":"124465",
+### Get Address Data
+GET http://localhost:4004/admin/Addresses
+Content-Type: application/json
+Authorization: Basic YnAtYWRtaW46MTIz
+
+### update s4 data
+
+POST
