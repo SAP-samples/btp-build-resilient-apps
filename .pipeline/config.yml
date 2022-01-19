@@ -6,8 +6,11 @@ general:
 # Stages configuration
 stages:
   Build:
-    npmExecuteLint: true                  # true, if you want to run a lint check that verifies the syntax of your JavaScript code
+    npmExecuteLint: true               # true, if you want to run a lint check that verifies the syntax of your JavaScript code
 
+  Additional Unit Tests:
+    npmExecuteScripts: true
+    
   Release:
     cloudFoundryDeploy: true   # true, if you want to deploy to Cloud Foundry. If you set this parameter to true, the CloudFoundryDeploy step is mandatory
     tmsUpload: false            # true if you want to upload your artifact to SAP Cloud Transport Management. If you set this parameter to true, the tmsUpload step is mandatory
@@ -17,6 +20,12 @@ steps:
 
   npmExecuteLint:
     failOnError: false    # true, if you want your pipeline to fail, if the lint check reveals any errors
+
+
+  npmExecuteScripts: # only relevant, if you set the npmExecuteScripts parameter in the Additional Unit Tests stage to true
+    runScripts:
+      - "test:odata"
+      - "test:odata_negative"
 
   mtaBuild:
     buildTarget: "CF"

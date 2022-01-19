@@ -1,0 +1,53 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: update-dependencies-test
+
+on:
+  #schedule: 
+   # - cron: "0 13 * * 1" # every monday at 1 pm --- "* * * * *" -every minute --- "*/10 * * * *" -every 10 minute
+  workflow_dispatch: # To run the workflow manually
+    branches: main
+
+ # push:
+  #  branches: [test_dep_updt  ]
+  #pull_request:
+   # branches: [ test_dep_updt ]
+
+ 
+jobs:
+  test:
+    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: ['12']
+        os: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node_version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node_version }}
+
+    - name: npm install, build and test # to check if the install, build and test the code in github actions
+      run: |
+        npm install -g npm-check-updates
+        ncu -u
+        npm install
+        npm run build --if-present
+        npm run "test:odata"  
+        npm run "test:odata_negative"  
+
+    - name: Update changes in GitHub repository # enter the Email and UserName for changes in github repository
+      run:  |
+        git config --global user.name '<username>' 
+        git config --global user.email '<email>'
+        if [[ `git status --porcelain` ]]; then
+          git add -A
+          git commit -m '[automated commit] add updated dependencies'
+          git push
+          exit
+        fi
+        

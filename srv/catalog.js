@@ -15,13 +15,14 @@ module.exports = cds.service.impl(async function () {
 
     const { BusinessPartnerVerification, Addresses: AddressVerification } = this.entities
     const bupaSrv = await cds.connect.to('OP_API_BUSINESS_PARTNER_SRV')
+    const messaging = await cds.connect.to("messaging")
     const S4Srv = await cds.connect.to('tfe.service.businessPartnerValidation.S4Service')
     const { BusinessPartners: ExtBupa, BusinessPartnerAddresses: ExtBupaAddresses } = S4Srv.entities
     const addressColumns = ['addressId', 'streetName', 'country', 'cityName', 'postalCode', 'houseNumber']
 
 
 
-    bupaSrv.on('BusinessPartnerCreated', async (msg, req) => {
+    messaging.on('tfe/bpem/em/ce/sap/s4/beh/businesspartner/v1/BusinessPartner/Created/v1', async (msg, req) => {
         try {
             let bupaID = msg.data.BusinessPartner
             console.log("<< BusinessPartnerCreated event caught", bupaID)
