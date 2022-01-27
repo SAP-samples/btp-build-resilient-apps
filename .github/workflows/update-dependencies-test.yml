@@ -42,8 +42,8 @@ jobs:
 
     - name: Update changes in GitHub repository # enter the Email and UserName for changes in github repository
       run:  |
-        git config --global user.name '<username>' 
-        git config --global user.email '<email>'
+        git config --global user.name 'Nishnanth Payani' 
+        git config --global user.email 'nishnanth.payani@sap.com'
         if [[ `git status --porcelain` ]]; then
           git add -A
           git commit -m '[automated commit] add updated dependencies'
