@@ -30,7 +30,7 @@
         "@sap/hdi-deploy": "4.2.3",
         "@sap/html5-repo-mock": "2.1.x",
         "@sap/ui5-builder-webide-extension": "^1.1.7",
-        "@sap/ux-specification": "^1.96.2",
+        "@sap/ux-specification": "^1.96.3",
         "@sapui5/ts-types": "1.98.x",
         "@ui5/cli": "2.14.4",
         "bestzip": "2.2.0",
@@ -43,7 +43,7 @@
         "npm-run-all": "^4.1.5",
         "rimraf": "3.0.2",
         "sqlite3": "5.0.2",
-        "npm-check-updates": "^12.2.1"
+        "npm-check-updates": "^12.3.0"
     },
     "scripts": {
         "update-dependencies": "ncu -u",
