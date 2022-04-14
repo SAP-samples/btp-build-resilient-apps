@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:commons="sap.suite.ui.commons" >
+	<commons:MicroProcessFlow core:require="{handler: 'com/sap/tfe/bp/businesspartners/ext/MicroProcessFlow'}">
+		<commons:content>
+        
+			<commons:MicroProcessFlowItem state="{ parts: ['workflowStatus','i18n>stepone'],formatter: 'handler.FormatValue'}" press="handler.itemPressColumn">
+				<commons:customData>                
+					<core:CustomData key="title" value="Work Flow Start"/>
+                    <core:CustomData key="icon" value="{ parts: ['workflowStatus','i18n>stepone'],formatter: 'handler.FormatValueIcon'}"/>					
+					<core:CustomData key="subTitle" value="{ parts: ['workflowStatus','i18n>stepone'],formatter: 'handler.FormatValueSubtitle'}"/>
+					<core:CustomData key="description"
+									 value="{ parts: ['workflowStatus','i18n>stepone'],formatter: 'handler.FormatValueDescription'}"/>
+				</commons:customData>
+			</commons:MicroProcessFlowItem>
+			<commons:MicroProcessFlowItem state="{ parts: ['workflowStatus','i18n>steptwo'],formatter: 'handler.FormatValue'}" press="handler.itemPressColumn">
+				<commons:customData>
+					<core:CustomData key="title" value="Work Flow Approval"/>
+                    <core:CustomData key="icon" value="{ parts: ['workflowStatus','i18n>steptwo'],formatter: 'handler.FormatValueIcon'}"/>				
+					<core:CustomData key="subTitle" value="{ parts: ['workflowStatus','i18n>steptwo'],formatter: 'handler.FormatValueSubtitle'}"/>
+					<core:CustomData key="description" value="{ parts: ['workflowStatus','i18n>steptwo'],formatter: 'handler.FormatValueDescription'}"/>
+				</commons:customData>
+			</commons:MicroProcessFlowItem>
+			<commons:MicroProcessFlowItem state="{ parts: ['workflowStatus','i18n>stepthree'],formatter: 'handler.FormatValue'}" press="handler.itemPressColumn">
+				<commons:customData>
+					<core:CustomData key="title" value="Work Flow Complete"/>		
+                    <core:CustomData key="icon" value="{ parts: ['workflowStatus','i18n>stepthree'],formatter: 'handler.FormatValueIcon'}"/>			
+					<core:CustomData key="subTitle" value="{ parts: ['workflowStatus','i18n>stepthree'],formatter: 'handler.FormatValueSubtitle'}"/>
+					<core:CustomData key="description"
+									 value="{ parts: ['workflowStatus','i18n>stepthree'],formatter: 'handler.FormatValueDescription'}"/>
+				</commons:customData>
+			</commons:MicroProcessFlowItem>
+		</commons:content>
+	</commons:MicroProcessFlow>
+</core:FragmentDefinition>

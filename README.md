@@ -1,14 +1,12 @@
-# Safeguard key business processes with resilient applications on SAP BTP
+# Safeguard key business processes with resilient applications on SAP BTP with SAP business process workflows
 
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/s4hana-btp-extension-devops)](https://api.reuse.software/info/github.com/SAP-samples/s4hana-btp-extension-devops)
 
-
-
 ## Business Scenario
 
-A business scenario is used to showcase how to build a S/4 HANA on premise extension Application on SAP BTP.
+A business scenario is used to showcase how to build an extension application for a process on an SAP S/4HANA on-premise system using SAP Business Technology Platform. The scenario in a nutshell:
 
-John who is an employee of Business Partner Validation Firm iCredible, which is a third-party vendor of ACME Corporation would like to get notifications whenever new Business Partners are added in the S/4HANA backend system of ACME Corporation. John would then be able to review the Business Partner details in his extension app. He would proceed to visit the Business Partner’s registered office and do some background verification. John would then proceed to update/validate the verification details into the extension app. Once the details are verified, the Business Partner gets activated in the S/4HANA system of ACME Corporation.
+John who is an employee of Business Partner Validation Firm iCredible, which is a third-party vendor of ACME Corporation would like to get notifications whenever  Business Partners are created/updated in the SAP S/4HANA backend system of ACME Corporation. John would then be able to review the Business Partner details in his extension app on the SAP Business Technology Platform. He would proceed to visit the Business Partner’s registered office and do some background verification. John would then proceed to update/validate the verification details into the extension app. Once the details are verified, the Business Partner gets activated in the SAP S/4HANA system of ACME Corporation. 
 
 This means:
 
@@ -18,16 +16,17 @@ This means:
 
 - The Vendor personnel only needs access to the extension application and not to SAP S/4HANA
 
+
 ### Solution Diagram
 
-![solution diagram](./tutorials/documentation/images/solutiondiagramm-1.png)
+![solution diagram](./tutorials/documentation/s4ext-workflow.png)
 
-The Business Partner Validation application is developed using the SAP Cloud Application programming Model (CAP) and runs on the SAP BTP, Cloud Foundry runtime. It leverages platform services like SAP Event Mesh, SAP HANA Cloud and the SAP Private Link (BETA) service. Whenever a change in the SAP S/4HANA on-premise system occurs, an event on SAP Event Mesh is triggered. The CAP application on SAP BTP will asynchronously consume the event and process the payload. This means, some additional data is read using OData APIs from the SAP S/4HANA on-premise backend and stored in SAP HANA Cloud on SAP BTP to be independent from the actual SAP S/4HANA system. In case of changes, the SAP Cloud Application Programming Model is again used to write data back into the SAP S/4HANA system. 
+The Business Partner Validation application is developed using the SAP Cloud Application programming Model (CAP) and runs on the SAP BTP, Cloud Foundry runtime. It leverages platform services like SAP Event Mesh, SAP HANA Cloud and the SAP Private Link (BETA) service. Whenever a change in the SAP S/4HANA on-premise system occurs, an event on SAP Event Mesh is triggered. The CAP application on SAP BTP will asynchronously consume the event and process the payload. This means, some additional data is read using OData APIs from the SAP S/4HANA on-premise backend and stored in SAP HANA Cloud on SAP BTP to be independent from the actual SAP S/4HANA system. In case of changes, the SAP Cloud Application Programming Model is again used to write data back into the SAP S/4HANA system.
 
 ## Requirements
 The required systems and components are:
 
-- SAP S/4HANA on premise system.
+- SAP S/4HANA on-premise system.
 - SAP BTP account
 
 Entitlements/Quota required in your SAP Business Technology Platform Account:
@@ -43,7 +42,9 @@ Entitlements/Quota required in your SAP Business Technology Platform Account:
 | SAP HANA Schemas & HDI Containers  | hdi-shared  | 1                   |
 | SAP HANA Cloud                     |             |                     |
 | Cloud Foundry runtime              |             |                     |
-| Application Autoscaler             | standard    | 1                   |
+| Application Autoscaler             | standard    | 1                  |
+| Workflow             | lite / standard    | 1                   
+| Business Rules             |lite / internal   | 1                   |
 
 
 Subscriptions required in your SAP Business Technology Platform Account:
@@ -55,6 +56,7 @@ Subscriptions required in your SAP Business Technology Platform Account:
 | Launchpad Service                 | standard         |
 | Continuous Integration & Delivery | default          |
 | Cloud Transport Management        | saas-application |
+| Workflow Management        | saas-application |
 
 
 ## Setup & Configuration
@@ -66,14 +68,10 @@ Subscriptions required in your SAP Business Technology Platform Account:
 - Step 3b: [Setup SAP BTP Trial Environment](./tutorials/03-PrepareBTPTrial)
 - Step 4: [Create SAP HANA Cloud instance](./tutorials/04-SetupHANACloud)
 - Step 5: [Setup connectivity between S/4HANA system, SAP BTP - SAP Cloud Connector](./tutorials/05-CloudConnector)
-- Step 6: [Configure Business Application Studio and Build/Deploy the CAP application ](./tutorials/06-ConfigureCAPApp)
-- Step 7: [Configure Event Based Communication between S/4HANA and Event Mesh](./tutorials/07-SetupEventMesh)
-- Step 8: [Test scenario End to End](./tutorials/08-TestApplication)
-- Step 9: [Access and Discover Application Logs and Metrics](./tutorials/09-ApplicationLogging)
-- Step 10: [Setup of Continuous Integration and Continuous Delivery (CI/CD) ](./tutorials/10-SetupCICD)
-- Step 11: [Setup Cloud Transport Management ](./tutorials/11-SetupTMS)
-- Step 12: [Setup Alert Notification ](./tutorials/12-SetupANS)
-- Step 13 (optional): [Setup Application Autoscaler ](./tutorials/13-SetupAppAutoscaler)
+- Step 6: [Setup SAP Workflow for approving or rejecting a Business Partner](./tutorials/06-configureWorkflow)
+- Step 7: [Configure Business Application Studio and Build/Deploy the CAP application ](./tutorials/07-ConfigureCAPApp)
+- Step 8: [Configure Event Based Communication between S/4HANA and Event Mesh](./tutorials/08-SetupEventMesh)
+- Step 9: [Test scenario End to End](./tutorials/09-TestApplication)
 
 ## How to obtain support
 

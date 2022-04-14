@@ -8,6 +8,9 @@ modules:
 - name: BusinessPartnerVerification-srv
   parameters:
     instances: 1
+  properties:
+    RULE_SERVICE_ID: "a837184c5f7a4b0ea81d6b79ecffe97e"
+    
 resources:
   - name: BusinessPartnerVerification-ems
     parameters:

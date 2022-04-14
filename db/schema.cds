@@ -9,6 +9,8 @@ entity Verifications : managed, cuid {
     @readonly businessPartnerId : String;
     businessPartnerFirstName    : String;
     businessPartnerLastName     : String;
+    workflowId                  : String;
+    workflowStatus              : String;
     verificationStatus          : Association to StatusValues;
     addresses                   : Composition of many Addresses
                                       on addresses.verifications = $self;
@@ -36,4 +38,6 @@ entity StatusValues {
 annotate Verifications with {
     businessPartnerId  @title : 'BusinessPartner ID'  @readonly;
     verificationStatus @title : 'Verfication Status'  @assert.enum;
+    workflowId @title: 'Workflow ID';
+    workflowStatus @title: 'Workflow Status String'
 }

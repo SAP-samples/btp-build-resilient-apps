@@ -118,7 +118,26 @@
                                 }
                             },
                             "controlConfiguration": {
-                                "@com.sap.vocabularies.UI.v1.LineItem": {}
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "columns": {
+                                                                              
+                                        "CustomColumnMFlow": {
+                                            "key": "customColumnMFlow",
+                                            "header": "Work Flow Status",
+                                            "template": "com.sap.tfe.bp.businesspartners.ext.MicroProcessFlow",
+                                            "visible": false,
+                                            "availability": "Default",                                            
+                                            "width": "auto",
+                                            "properties": [
+                                                "workflowStatus"                                                
+                                            ],
+                                            "position": {
+                                                "placement": "Before",
+                                                "anchor": "DataField::businessPartnerIsBlocked"
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

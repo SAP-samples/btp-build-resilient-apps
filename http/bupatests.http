@@ -14,10 +14,15 @@ Content-Type: application/json
 {"BusinessPartner": "HARUT", "FirstName": "Updated", "LastName": "Name"}
 
 ### Update a particular adress
-PUT http://localhost:4004/op-api-business-partner-srv/A_BusinessPartnerAddress(BusinessPartner='HARUT',AddressID='124462')
+PATCH http://localhost:4004/op-api-business-partner-srv/A_BusinessPartnerAddress(BusinessPartner='HARUT',AddressID='124462')
 Content-Type: application/json
 
 {"Country": "US", "CityName": "new city", "StreetName": "new street", "PostalCode": "9999"}
+
+# get Address details
+
+GET http://localhost:4004/op-api-business-partner-srv/A_BusinessPartnerAddress(BusinessPartner='HARUT',AddressID='124462')
+Content-Type: application/json
 
 ### Update a particular adress
 POST http://localhost:4004/op-api-business-partner-srv/A_BusinessPartnerAddress

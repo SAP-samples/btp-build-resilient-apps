@@ -144,7 +144,7 @@ annotate service.BusinessPartnerVerification with @(UI : {
             $Type : 'UI.DataField',
             Value : modifiedAt,
 
-        },
+        }
     ],
     HeaderFacets        : [
         {

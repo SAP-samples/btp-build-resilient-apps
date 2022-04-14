@@ -10,14 +10,15 @@
     },
     "dependencies": {
         "@sap-cloud-sdk/core": "^1.54.0",
-        "@sap/cds": "^5.8.0",
-        "@sap/cloud-sdk-vdm-business-partner-service": "^1.28.2",
-        "@sap/hana-client": "^2.11.14",
+        "@sap/cds": "^5.8.2",
+        "@sap/cloud-sdk-vdm-business-partner-service": "^2.0.0",
+        "@sap/cloud-sdk-workflow-service-cf": "^2.0.0",
+        "@sap/hana-client": "^2.11.20",
         "@sap/xb-msg-amqp-v100": "^0.9.58",
         "@sap/xsenv": "^3.2.0",
-        "@sap/xssec": "^3.2.12",
-        "@xmldom/xmldom": "^0.8.0",
-        "express": "^4.17.2",
+        "@sap/xssec": "^3.2.13",
+        "@xmldom/xmldom": "^0.8.1",
+        "express": "^4.17.3",
         "hdb": "^0.19.1",
         "lodash": "^4.17.21",
         "passport": "^0.5.2",
@@ -30,20 +31,20 @@
         "@sap/hdi-deploy": "4.2.3",
         "@sap/html5-repo-mock": "2.1.x",
         "@sap/ui5-builder-webide-extension": "^1.1.7",
-        "@sap/ux-specification": "^1.96.3",
-        "@sapui5/ts-types": "1.98.x",
-        "@ui5/cli": "2.14.4",
+        "@sap/ux-specification": "^1.96.4",
+        "@sapui5/ts-types": "1.90.x",
+        "@ui5/cli": "2.14.6",
         "bestzip": "2.2.0",
         "chai": "^4.3.6",
         "chai-as-promised": "^7.1.1",
         "chai-http": "^4.3.0",
         "chai-subset": "^1.6.0",
-        "eslint": "8.8.x",
-        "mocha": "^9.2.0",
+        "eslint": "8.9.x",
+        "mocha": "^9.2.1",
         "npm-run-all": "^4.1.5",
         "rimraf": "3.0.2",
         "sqlite3": "5.0.2",
-        "npm-check-updates": "^12.3.0"
+        "npm-check-updates": "^12.4.0"
     },
     "scripts": {
         "update-dependencies": "ncu -u",
@@ -68,6 +69,13 @@
                     "kind": "enterprise-messaging-shared"
                 },
                 "file": "../msg-box"
+            },
+            "BlockStatusWfDestService": {
+                "kind": "rest",
+                "credentials": {
+                    "destination": "BlockStatusWfDest",
+                    "requestTimeout": 1000000
+                }
             },
             "[production]": {
                 "OP_API_BUSINESS_PARTNER_SRV": {

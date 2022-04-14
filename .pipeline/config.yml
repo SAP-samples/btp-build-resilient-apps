@@ -13,7 +13,7 @@ stages:
     
   Release:
     cloudFoundryDeploy: true   # true, if you want to deploy to Cloud Foundry. If you set this parameter to true, the CloudFoundryDeploy step is mandatory
-    tmsUpload: false            # true if you want to upload your artifact to SAP Cloud Transport Management. If you set this parameter to true, the tmsUpload step is mandatory
+    #tmsUpload: true            # true if you want to upload your artifact to SAP Cloud Transport Management. If you set this parameter to true, the tmsUpload step is mandatory
 
 # Steps configuration
 steps:
@@ -29,18 +29,18 @@ steps:
 
   mtaBuild:
     buildTarget: "CF"
-    extensions: "live.mtaext"  # live.mtaext for BTP Live landscape or trial.mtaext for BTP Trial Account
+    extensions: "trial.mtaext"  # live.mtaext for BTP Live landscape or trial.mtaext for BTP Trial Account
     mtaBuildTool: "cloudMbt"
   
   cloudFoundryDeploy:   # only relevant, if you set the cloudFoundryDeploy parameter in the Release stage to true
     cloudFoundry:
-      credentialsId: 'cf-credential'
-      apiEndpoint: <cf-api>    # for example, https://api.cf.eu10.hana.ondemand.com
-      org: <cf-org> # your cloud foundry org name
-      space: <cf-space> # your cloud foundry space name
+      credentialsId: 'nishnanth-cf-credentials'
+      apiEndpoint: https://api.cf.eu10.hana.ondemand.com # for example, https://api.cf.eu10.hana.ondemand.com
+      org: tfe-dev # your cloud foundry org name
+      space: DEV # your cloud foundry space name
     mtaDeployParameters: '-f --version-rule ALL'
     
-  # tmsUpload:            # only relevant, if you set the tmsUpload parameter in the Release stage to true
-  #   nodeName: 'QA'
-  #   credentialsId: 'tms'
-  #   customDescription: 'TMS Upload'
+  #tmsUpload:            # only relevant, if you set the tmsUpload parameter in the Release stage to true
+   # nodeName: 'trial'
+    #credentialsId: 'tms-services-key'
+    #customDescription: 'TMS Upload'

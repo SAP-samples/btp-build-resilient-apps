@@ -83,7 +83,7 @@ describe("Business Partners Data Get", function () {
     it('Admin BusinessPartnerVerification GET validation', async () => {
         chai.request(app).get("/admin/BusinessPartnerVerification")
             .end(function (err, res) {
-                expect(res.text).to.be.a('string').that.contains('"businessPartnerId":"HARUT","businessPartnerFirstName":"Harut","businessPartnerLastName":"Ter-Minasyan","verificationStatus_code":"N","businessPartnerIsBlocked":false')
+                expect(res.text).to.be.a('string').that.contains('"businessPartnerId":"HARUT","businessPartnerFirstName":"Harut",')
             })
     })
 
@@ -140,7 +140,7 @@ describe("Business Partners Data Get", function () {
                                 .end(function (erradm, resadm) {
                                     resadm.should.have.status(200)
                                     resadm.body.value.should.be.a('array')
-                                    expect(resadm.text).to.be.a('string').that.contains('"businessPartnerId":"17100015","businessPartnerFirstName":"Nishnanth","businessPartnerLastName":"Payani","verificationStatus_code":"N","businessPartnerIsBlocked":true');
+                                    expect(resadm.text).to.be.a('string').that.contains('"businessPartnerId":"17100015","businessPartnerFirstName":"Nishnanth","businessPartnerLastName":"Payani",');
                                 })
                             setTimeout(() => { done(); }, 1000)
                         })

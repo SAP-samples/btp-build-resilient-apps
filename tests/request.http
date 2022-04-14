@@ -1,5 +1,5 @@
 ### Post new Address Data
-POST http://localhost:4004/admin/BusinessPartnerVerification
+POST http://localhost:39383/admin/BusinessPartnerVerification
 Content-Type: application/json
 Authorization: Basic YnAtYWRtaW46MTIz
 
@@ -40,4 +40,31 @@ Authorization: Basic YnAtYWRtaW46MTIz
 
 ### update s4 data
 
-POST
+POST http://localhost:4004/op-api-business-partner-srv/A_BusinessPartner
+Content-Type: application/json
+
+
+{
+            "BusinessPartner": "17100015",
+            "BusinessPartnerIsBlocked": true,
+            "FirstName": "Nishnanth",
+            "LastName": "Payani"
+        }
+
+### get s4 data
+
+GET http://localhost:4004/op-api-business-partner-srv/A_BusinessPartnerAddress(BusinessPartner='HARUT', AddressID='124462')
+Content-Type: application/json
+
+# test patch request
+
+PATCH http://localhost:4004/op-api-business-partner-srv/A_BusinessPartnerAddress(BusinessPartner='HARUT',AddressID='124462')
+Content-Type: application/json
+
+{
+                "Country": "DE",
+                "StreetName": "Nancgbgbgbgbgystr.",
+                "HouseNumber": "20",
+                "PostalCode": "76187",
+                "CityName": "Karlsruhe"
+            }
