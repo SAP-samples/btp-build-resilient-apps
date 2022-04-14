@@ -1,0 +1,23 @@
+{
+    "RequestId": "Block_Status_Nishnanth",
+    "ruleServiceId":"a837184c5f7a4b0ea81d6b79ecffe97e",
+    "blockUnblockStatus":"Blocked",
+    "Requester": {        
+        "Comment":"Please Approve"
+    },
+    "BusinessPartnerDetails": {
+        "businessPartnerId": "1000199",
+        "businessPartnerFirstName": "Nishnanth",
+        "businessPartnerLastName": "Payani",
+        "businessPartnerIsBlocked": true
+    },
+    "BusinessPartnerAddress": {
+        "businessPartnerId": "1000199",
+        "addressId": "25945",
+        "cityName": "Karlsruhe",
+        "country": "DE",
+        "houseNumber": "20",
+        "postalCode": "76187",
+        "streetName": "Nancystr."
+    }
+}

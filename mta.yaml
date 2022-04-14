@@ -1,0 +1,30 @@
+_schema-version: "3.2"
+ID: Block_Unblock_Status_Workflow
+version: 0.0.1
+modules:
+- name: Block_Unblock_Status_Workflow_Module
+  type: com.sap.application.content
+  path: Block_Unblock_Status_Workflow_Module
+  requires:
+  - name: BusinessPartnerVerification-wf
+    parameters:
+      content-target: true
+
+resources:
+- name: BusinessPartnerVerification-wf
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: workflow
+    service-plan: lite # use lite when running in trial account and standard for live account
+    config:
+        authorities:
+          - WORKFLOW_INSTANCE_GET
+          - WORKFLOW_INSTANCE_START
+          - WORKFLOW_DEFINITION_GET
+          - WORKFLOW_INSTANCE_GET_ATTRIBUTES
+          - TASK_GET
+          - WORKFLOW_INSTANCES_UPDATE
+          - TASK_GET_CONTEXT
+          - WORKFLOW_INSTANCE_GET_CONTEXT
+          - WORKFLOW_INSTANCE_GET_ERROR_MESSAGES
+          - WORKFLOW_INSTANCE_GET_EXECUTION_LOGS

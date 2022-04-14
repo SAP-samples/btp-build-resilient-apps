@@ -1,0 +1,126 @@
+{
+    "id": "block_unblock_approval",
+    "schemaVersion": "1.1.0",
+    "name": "Block_Unblock_Approval",
+    "revision": "1.0",
+    "type": "task",
+    "readOnly": false,
+    "content": [
+        {
+            "id": "Business_Partner_Details",
+            "type": "section",
+            "title": "Business Partner Details",
+            "content": [
+                {
+                    "id": "businessPartnerId",
+                    "type": "string",
+                    "label": "Business Partner ID",
+                    "readOnly": true,
+                    "value": "${context.BusinessPartnerDetails.businessPartnerId}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "businessPartnerFirstName",
+                    "type": "string",
+                    "label": "First Name",
+                    "readOnly": true,
+                    "value": "${context.BusinessPartnerDetails.businessPartnerFirstName}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "businessPartnerLastName",
+                    "type": "string",
+                    "label": "Last Name",
+                    "readOnly": true,
+                    "value": "${context.BusinessPartnerDetails.businessPartnerLastName}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "businessPartnerIsBlocked",
+                    "type": "boolean",
+                    "label": "Is Blocked?",
+                    "readOnly": true,
+                    "value": "${context.BusinessPartnerDetails.businessPartnerIsBlocked}",
+                    "constraints": {
+                        "required": false
+                    }
+                }
+            ]
+        },
+        {
+            "id": "BusinessPartnerAddress",
+            "type": "section",
+            "title": "Business Partner Address",
+            "content": [
+                {
+                    "id": "cityName",
+                    "type": "string",
+                    "label": "City Name",
+                    "readOnly": true,
+                    "value": "${context.BusinessPartnerAddress.cityName}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "country",
+                    "type": "string",
+                    "label": "Country",
+                    "readOnly": true,
+                    "value": "${context.BusinessPartnerAddress.country}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "houseNumber",
+                    "type": "string",
+                    "label": "House Number",
+                    "readOnly": true,
+                    "value": "${context.BusinessPartnerAddress.houseNumber}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "postalcode",
+                    "type": "string",
+                    "label": "Postal Code",
+                    "readOnly": true,
+                    "value": "${context.BusinessPartnerAddress.postalCode}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "streetName",
+                    "type": "string",
+                    "label": "Street Name",
+                    "readOnly": true,
+                    "value": "${context.BusinessPartnerAddress.streetName}",
+                    "constraints": {
+                        "required": false
+                    }
+                }
+            ]
+        }
+    ],
+    "decisions": [
+        {
+            "id": "Approve",
+            "text": "Approve",
+            "decisionType": "positive"
+        },
+        {
+            "id": "Reject",
+            "text": "Reject",
+            "decisionType": "negative"
+        }
+    ]
+}
