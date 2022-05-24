@@ -120,7 +120,7 @@ A better approach is to use Application Autoscaler service on SAP BTP, Cloud Fou
    - *Password:* SAP BTP password
    ![Postman access token](images/as01.png)
 
-8. Open a new terminal and navigate to the directory in which you have stored the **load_test.py** file previously. Then execute the following command:
+8. Open a new terminal and navigate to the directory in which you have stored the **load_test.py** file previously. Open the file, replace `<JWT Token>` with the actual JWT Token you have produced in the previous step and **Save**. Then execute the following command:
 
     ```bash
      locust -f 'load_test.py'
