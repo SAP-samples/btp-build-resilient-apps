@@ -36,11 +36,11 @@ steps:
     cloudFoundry:
       credentialsId: 'maxpersonalcf'
       apiEndpoint:  "https://api.cf.eu10.hana.ondemand.com"   # for example, https://api.cf.eu10.hana.ondemand.com
-      org: "tfe-qa" # your cloud foundry org name
-      space: "qa" # your cloud foundry space name
+      org: "tfe-dev" # your cloud foundry org name
+      space: "dev" # your cloud foundry space name
     mtaDeployParameters: '-f --version-rule ALL'
     
   tmsUpload:            # only relevant, if you set the tmsUpload parameter in the Release stage to true
-   nodeName: 'PROD'
+   nodeName: 'QA'
    credentialsId: 'tms'
    customDescription: 'TMS Upload'
