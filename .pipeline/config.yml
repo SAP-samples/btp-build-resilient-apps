@@ -6,10 +6,10 @@ general:
 # Stages configuration
 stages:
   Build:
-    npmExecuteLint: true               # true, if you want to run a lint check that verifies the syntax of your JavaScript code
+    npmExecuteLint: false               # true, if you want to run a lint check that verifies the syntax of your JavaScript code
 
   Additional Unit Tests:
-    npmExecuteScripts: true
+    npmExecuteScripts: false
     
   Release:
     cloudFoundryDeploy: true   # true, if you want to deploy to Cloud Foundry. If you set this parameter to true, the CloudFoundryDeploy step is mandatory
