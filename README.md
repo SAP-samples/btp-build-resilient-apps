@@ -4,7 +4,7 @@
 
 
 
-## Business Scenario
+## Business Scenario 
 
 A business scenario is used to showcase how to build a S/4 HANA on premise extension Application on SAP BTP.
 
