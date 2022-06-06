@@ -34,7 +34,7 @@ steps:
   
   cloudFoundryDeploy:   # only relevant, if you set the cloudFoundryDeploy parameter in the Release stage to true
     cloudFoundry:
-      credentialsId: 'cf-credential'
+      credentialsId: 'maxpersonalcf'
       apiEndpoint:  "https://api.cf.eu10.hana.ondemand.com"   # for example, https://api.cf.eu10.hana.ondemand.com
       org: "tfe-qa" # your cloud foundry org name
       space: "qa" # your cloud foundry space name
