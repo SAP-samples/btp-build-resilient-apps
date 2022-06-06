@@ -13,7 +13,7 @@ stages:
     
   Release:
     cloudFoundryDeploy: true   # true, if you want to deploy to Cloud Foundry. If you set this parameter to true, the CloudFoundryDeploy step is mandatory
-    tmsUpload: false            # true if you want to upload your artifact to SAP Cloud Transport Management. If you set this parameter to true, the tmsUpload step is mandatory
+    tmsUpload: true            # true if you want to upload your artifact to SAP Cloud Transport Management. If you set this parameter to true, the tmsUpload step is mandatory
 
 # Steps configuration
 steps:
@@ -40,7 +40,7 @@ steps:
       space: "qa" # your cloud foundry space name
     mtaDeployParameters: '-f --version-rule ALL'
     
-  # tmsUpload:            # only relevant, if you set the tmsUpload parameter in the Release stage to true
-  #   nodeName: 'QA'
-  #   credentialsId: 'tms'
-  #   customDescription: 'TMS Upload'
+  tmsUpload:            # only relevant, if you set the tmsUpload parameter in the Release stage to true
+   nodeName: 'PROD'
+   credentialsId: 'tms'
+   customDescription: 'TMS Upload'
