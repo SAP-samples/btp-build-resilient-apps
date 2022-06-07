@@ -60,7 +60,18 @@
         },
         "requires": {
             "db": {
-                "kind": "sql"
+                "kind": "sql",
+                "[production]": {
+                    "db": {
+                        "kind": "hana",
+                        "pool": {
+                            "acquireTimeoutMillis": 5000,
+                            "min": 10,
+                            "max": 1000,
+                            "fifo": true
+                        }
+                    }
+                }
             },
             "messaging": {
                 "kind": "file-based-messaging",
