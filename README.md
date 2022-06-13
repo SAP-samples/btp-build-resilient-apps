@@ -61,9 +61,7 @@ Subscriptions required in your SAP Business Technology Platform Account:
 
 - Step 1: [Identify APIs in API Business Hub](./tutorials/01-IdentifyAPIFromAPIBusinessHub.md)
 - Step 2: [S/4HANA Enable OData Service for business partner](./tutorials/02-configure-oData-Service)
- > Either follow Step 3a or 3b (not both) depending on whether you use an SAP BTP trial account or an SAP BTP enterprise account
-- Step 3a: [Setup SAP BTP Enterprise Environment](./tutorials/03-PrepareBTP)
-- Step 3b: [Setup SAP BTP Trial Environment](./tutorials/03-PrepareBTPTrial)
+- Step 3: [Setup SAP BTP Enterprise Environment](./tutorials/03-PrepareBTP)
 - Step 4: [Create SAP HANA Cloud instance](./tutorials/04-SetupHANACloud)
 - Step 5: [Setup connectivity between S/4HANA system, SAP BTP - SAP Cloud Connector](./tutorials/05-CloudConnector)
 - Step 6: [Configure Business Application Studio and Build/Deploy the CAP application ](./tutorials/06-ConfigureCAPApp)
