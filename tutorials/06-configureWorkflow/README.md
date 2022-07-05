@@ -103,9 +103,11 @@ git checkout workflow_module
 #### Deploying Workflow Project
  
 1. Go back to your workflow project in the **SAP Business Application Studio**. Right-Click on the **mta.yaml** file and select **Build MTA Project**.
+
   ![click rules button](./images/build_mta_project.png)
 
 2. Navigate to **mta_archives** and deploy the produced MTA Archive file.
+
   ![click rules button](./images/deploy_mta_archive.png)
 
 3. Follow the Deployment progress in the terminal. Your workflow is now being deployed. 
