@@ -21,24 +21,6 @@ modules:
       - name: BusinessPartnerVerification-dest
       - name: BusinessPartnerVerification-uaa
       - name: BusinessPartnerVerification-logging
-      - name: BusinessPartnerVerification-autoscaler
-        parameters:
-          config:
-            instance_min_count: 1
-            instance_max_count: 5
-            scaling_rules:
-            - metric_type: cpu
-              threshold: 6
-              operator: '>'
-              adjustment: '+1'
-              breach_duration_secs: 60
-              cool_down_secs: 60
-            - metric_type: cpu
-              threshold: 6
-              operator: '<='
-              adjustment: '-1'
-              breach_duration_secs: 60
-              cool_down_secs: 60
     provides:
       - name: srv-api
         properties:
@@ -180,10 +162,4 @@ resources:
     type: org.cloudfoundry.managed-service
     parameters:
       service: application-logs
-      service-plan: lite
-    # Application Logging
-  - name: BusinessPartnerVerification-autoscaler
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: autoscaler
       service-plan: lite
