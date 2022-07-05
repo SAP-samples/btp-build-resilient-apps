@@ -28,7 +28,7 @@ In this step, you are going to use SAP Workflow Management to enhance the alread
 
 1. Fork and clone the repository into SAP Business Application Studio.
 ```
-https://github.com/SAP-samples/btp-build-resilient-apps.git
+git clone https://github.com/SAP-samples/btp-build-resilient-apps.git
 ```
 then 
 ```
