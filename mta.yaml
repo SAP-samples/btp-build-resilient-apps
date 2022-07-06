@@ -1,6 +1,6 @@
 _schema-version: "3.1"
 ID: BusinessPartnerVerification
-version: 1.4.0
+version: 1.5.0
 description: A simple CAP project.
 parameters:
   enable-parallel-deployments: true
