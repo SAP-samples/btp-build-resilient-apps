@@ -1,4 +1,4 @@
-# Setup Application Autoscaler
+# Test Application Autoscaler
 
 The CAP application running on SAP BTP, Cloud Foundry Runtime produces different metrics such as CPU usage, memory utilized, response times and network traffic.
 
@@ -10,7 +10,8 @@ A better approach is to use Application Autoscaler service on SAP BTP, Cloud Fou
 
 ---
 
-1. The application autoscaler service instance was created during the deployment of the Multi-Target Application (MTA) using the [mta.yaml](../../mta.yaml#L13-L41) file. The relevant service instance is called **BusinessPartnerVerification-autoscaler** and gets the relevant policy passed directly. 
+1. The application autoscaler service instance was created during the deployment of the Multi-Target Application (MTA) using the [mta.yaml](../../mta.yaml#L13-L41) file. The relevant service instance is called **BusinessPartnerVerification-autoscaler** and gets the relevant policy passed directly. **Note: You don't need to do anything here, it's just an explanation what has already happened in earlier steps.**
+
    ```yaml
    - name: BusinessPartnerVerification-autoscaler
         parameters:
