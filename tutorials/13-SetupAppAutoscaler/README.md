@@ -10,40 +10,30 @@ A better approach is to use Application Autoscaler service on SAP BTP, Cloud Fou
 
 ---
 
-1. Go to Service Marketplace and create new service instance of the **Application Autoscaler** service. Select the **lite plan**.
-   ![Autoscaler service instance](images/as05.png)
+1. The application autoscaler service instance was created during the deployment of the Multi-Target Application (MTA) using the [mta.yaml](../../mta.yaml#L13-L41) file. The relevant service instance is called **BusinessPartnerVerification-autoscaler** and gets the relevant policy passed directly. 
+   ```yaml
+   - name: BusinessPartnerVerification-autoscaler
+        parameters:
+          config:
+            instance_min_count: 1
+            instance_max_count: 5
+            scaling_rules:
+            - metric_type: cpu
+              threshold: 6
+              operator: '>'
+              adjustment: '+1'
+              breach_duration_secs: 60
+              cool_down_secs: 60
+            - metric_type: cpu
+              threshold: 6
+              operator: '<='
+              adjustment: '-1'
+              breach_duration_secs: 60
+              cool_down_secs: 60
+   ```
    
-   
-2. Go to the recently created service instance and bind it to BusinessPartnerVerification-srv application. Use the following configuration and paste it into the parameters field: 
 
-    ```json
-    {
-        "instance_min_count": 1,
-        "instance_max_count": 5,
-        "scaling_rules": [
-            {
-                "metric_type": "cpu",
-                "breach_duration_secs": 60,
-                "threshold": 6,
-                "operator": ">",
-                "cool_down_secs": 60,
-                "adjustment": "+1"
-            },
-            {
-                "metric_type": "cpu",
-                "breach_duration_secs": 60,
-                "threshold": 6,
-                "operator": "<=",
-                "cool_down_secs": 60,
-                "adjustment": "-1"
-            }
-        ]
-    }
-    ```
-  
-   ![Autoscaler binding](images/as06.png)
-
-> To begin scaling an application, you must first define a policy. A policy is a JSON file that contains an array of rules or a single scaling rule. Scaling policies are classified into two types: 
+> To begin scaling an application, you must first define a policy. A policy an array of rules or a single scaling rule. Scaling policies are classified into two types: 
 > - **Dynamic Scaling Policy:** Scale your application instances according to memory/CPU usage, response time, throughput, or custom metrics. -
 > - **Schedule-Based Scaling Policy** - Use schedules to scale your application instances.
 
