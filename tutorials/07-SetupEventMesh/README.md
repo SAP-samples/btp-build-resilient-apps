@@ -69,15 +69,19 @@ If you are using an S/4HANA 1909 (or older version), please follow the following
    ![import-certificate](./images/importCertificate2.png)
 
 3. Click on **Certification is Valid**.
+
    ![import-certificate](./images/importCertificate3.png)
 
 4. Go to **Certificate Path** and then to **View Certificate**.
+
    ![import-certificate](./images/importCertificate4.png)
 
 5. View the **Details**. Select **Copy to File** and Click **Next**.
+
    ![import-certificate](./images/importCertificate5.png)
 
 6. Select **Base 64 Encoded X.509(.cer)**, click **Next** to specify a filename.
+
    ![import-certificate](./images/importCertificate6.png)
 
 7. Logon to your SAP S/4HANA on-premise system open the transaction **STRUST**. 
