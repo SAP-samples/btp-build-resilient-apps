@@ -4,7 +4,7 @@
 
 
 
-## Business Scenario
+## Business Scenario  
 
 A business scenario is used to showcase how to build a S/4 HANA on premise extension Application on SAP BTP.
 
@@ -71,7 +71,7 @@ Subscriptions required in your SAP Business Technology Platform Account:
 - Step 10: [Setup of Continuous Integration and Continuous Delivery (CI/CD) ](./tutorials/10-SetupCICD)
 - Step 11: [Setup Cloud Transport Management ](./tutorials/11-SetupTMS)
 - Step 12: [Setup Alert Notification ](./tutorials/12-SetupANS)
-- Step 13 (optional): [Setup Application Autoscaler ](./tutorials/13-SetupAppAutoscaler)
+- Step 13 (optional): [Test Application Autoscaler ](./tutorials/13-SetupAppAutoscaler)
 
 ## How to obtain support
 
