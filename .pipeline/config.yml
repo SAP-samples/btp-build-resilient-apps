@@ -6,14 +6,14 @@ general:
 # Stages configuration
 stages:
   Build:
-    npmExecuteLint: false               # true, if you want to run a lint check that verifies the syntax of your JavaScript code
+    npmExecuteLint: true               # true, if you want to run a lint check that verifies the syntax of your JavaScript code
 
   Additional Unit Tests:
-    npmExecuteScripts: false
+    npmExecuteScripts: true
     
   Release:
     cloudFoundryDeploy: true   # true, if you want to deploy to Cloud Foundry. If you set this parameter to true, the CloudFoundryDeploy step is mandatory
-    tmsUpload: true            # true if you want to upload your artifact to SAP Cloud Transport Management. If you set this parameter to true, the tmsUpload step is mandatory
+    tmsUpload: false            # true if you want to upload your artifact to SAP Cloud Transport Management. If you set this parameter to true, the tmsUpload step is mandatory
 
 # Steps configuration
 steps:
@@ -34,13 +34,13 @@ steps:
   
   cloudFoundryDeploy:   # only relevant, if you set the cloudFoundryDeploy parameter in the Release stage to true
     cloudFoundry:
-      credentialsId: 'maxpersonalcf'
-      apiEndpoint:  "https://api.cf.eu10.hana.ondemand.com"   # for example, https://api.cf.eu10.hana.ondemand.com
-      org: "tfe-dev" # your cloud foundry org name
-      space: "dev" # your cloud foundry space name
+      credentialsId: 'cf-credential'
+      apiEndpoint: <cf-api>    # for example, https://api.cf.eu10.hana.ondemand.com
+      org: <cf-org> # your cloud foundry org name
+      space: <cf-space> # your cloud foundry space name
     mtaDeployParameters: '-f --version-rule ALL'
     
-  tmsUpload:            # only relevant, if you set the tmsUpload parameter in the Release stage to true
-   nodeName: 'QA'
-   credentialsId: 'tms'
-   customDescription: 'TMS Upload'
+  # tmsUpload:            # only relevant, if you set the tmsUpload parameter in the Release stage to true
+  #   nodeName: 'QA'
+  #   credentialsId: 'tms'
+  #   customDescription: 'TMS Upload'
