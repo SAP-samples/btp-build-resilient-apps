@@ -1,4 +1,4 @@
-# Safeguard key business processes with resilient applications on SAP BTP
+# Enhance core ERP business processes with resilient applications on SAP BTP
 
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/btp-build-resilient-apps)](https://api.reuse.software/info/github.com/SAP-samples/btp-build-resilient-apps)
 
@@ -18,14 +18,14 @@ Infuse qualities of resilience into your extension applications from the first s
 
 ### Implementations
 
-#### [Safeguard key business processes with resilient applications on SAP BTP](https://github.com/SAP-samples/btp-build-resilient-apps/tree/extension)
+#### [Enhance core ERP business processes with resilient applications on SAP BTP](https://github.com/SAP-samples/btp-build-resilient-apps/tree/extension)
 
 This scenario showcases how to build an extension application for an SAP S/4HANA on-premise system. The extension application receives realtime changes communicated via SAP Event Mesh and is using DevOps services from SAP like SAP Continuous Integration and Delivery, SAP Cloud Transport Management, Alert Notification and alike.
 
-#### [Safeguard key business processes with resilient applications on SAP BTP - SAP Private Link Service](https://github.com/SAP-samples/btp-build-resilient-apps/tree/extension-privatelink)
+#### [Enhance core ERP business processes with resilient applications on SAP BTP - SAP Private Link Service](https://github.com/SAP-samples/btp-build-resilient-apps/tree/extension-privatelink)
 
 This scenario uses mostly the same services as the above scenario and also depicts the same process. However, instead of the SAP Cloud Connector, the SAP Private Link service is used to establish a connection between SAP Business Technology Platform and the SAP S/4HANA system.  In this way, applications running on SAP BTP, Cloud Foundry Runtime with Microsoft Azure as IaaS provider can communicate with Azure Private Link services via a private connection. This ensures that traffic is not routed through the public internet but stays within the Azure infrastructure.
 
-#### [Safeguard key business processes with resilient applications on SAP BTP - Integrate SAP business process workflows](https://github.com/SAP-samples/btp-build-resilient-apps/tree/extension-workflow)
+#### [Enhance core ERP business processes with resilient applications on SAP BTP - Integrate SAP business process workflows](https://github.com/SAP-samples/btp-build-resilient-apps/tree/extension-workflow)
 
 This scenario demonstrates how to integrate the above shown architectures with SAP business process workflows.
