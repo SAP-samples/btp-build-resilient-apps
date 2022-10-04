@@ -6,7 +6,7 @@
 
 ## Business Scenario  
 
-A business scenario is used to showcase how to build a S/4 HANA on premise extension Application on SAP BTP.
+A business scenario is used to showcase how to build an SAP S/4HANA on-premise extension application on SAP BTP.
 
 John who is an employee of Business Partner Validation Firm iCredible, which is a third-party vendor of ACME Corporation would like to get notifications whenever new Business Partners are added in the S/4HANA backend system of ACME Corporation. John would then be able to review the Business Partner details in his extension app. He would proceed to visit the Business Partner’s registered office and do some background verification. John would then proceed to update/validate the verification details into the extension app. Once the details are verified, the Business Partner gets activated in the S/4HANA system of ACME Corporation.
 
@@ -14,7 +14,7 @@ This means:
 
 - You will deploy a custom extension application on SAP Business Technology Platform that works independently from the SAP S/4HANA system
 
-- Changes in the SAP S/4HANA system are communicated via events in real time to the extension application
+- Changes in the SAP S/4HANA system are communicated via events in real-time to the extension application
 
 - The Vendor personnel only needs access to the extension application and not to SAP S/4HANA
 
@@ -22,7 +22,7 @@ This means:
 
 ![solution diagram](./tutorials/documentation/images/solutiondiagramm-1.png)
 
-The Business Partner Validation application is developed using the SAP Cloud Application programming Model (CAP) and runs on the SAP BTP, Cloud Foundry runtime. It leverages platform services like SAP Event Mesh, SAP HANA Cloud and the SAP Private Link service. Whenever a change in the SAP S/4HANA on-premise system occurs, an event on SAP Event Mesh is triggered. The CAP application on SAP BTP will asynchronously consume the event and process the payload. This means, some additional data is read using OData APIs from the SAP S/4HANA on-premise backend and stored in SAP HANA Cloud on SAP BTP to be independent from the actual SAP S/4HANA system. In case of changes, the SAP Cloud Application Programming Model is again used to write data back into the SAP S/4HANA system. 
+The Business Partner Validation application is developed using the SAP Cloud Application Programming Model (CAP) and runs on the SAP BTP, Cloud Foundry runtime. It leverages platform services like SAP Event Mesh, SAP HANA Cloud and the SAP Private Link service. Whenever a change in the SAP S/4HANA on-premise system occurs, an event on SAP Event Mesh is triggered. The CAP application on SAP BTP will asynchronously consume the event and process the payload. This means, some additional data is read using OData APIs from the SAP S/4HANA on-premise backend and stored in SAP HANA Cloud on SAP BTP to be independent from the actual SAP S/4HANA system. In case of changes, the SAP Cloud Application Programming Model is again used to write data back into the SAP S/4HANA system. 
 
 ## Requirements
 The required systems and components are:
