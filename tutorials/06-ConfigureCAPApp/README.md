@@ -84,7 +84,7 @@ Clone an existing CAP application in SAP Business Application Studio and deploy 
 15. Build the Multi-Target Application Archive (MTA Archive) by executing the following command in the root directory of your project in the terminal:
 
     ```
-    mbt build -e trial.mtaext
+    mbt build -e trial.mtaext --mtar BPVerification.mtar
     ```
 
 > **IMPORTANT:** this will produce a .mtar file in the mta_archives directory. Some of the values for the service instance creation depend on the environment you are deploying to, that's why the *-e* for *extension* is used here. If you are using a production environment, use <code>mbt build -e live.mtaext</code>
@@ -92,7 +92,7 @@ Clone an existing CAP application in SAP Business Application Studio and deploy 
 16. Deploy the application to SAP BTP, Cloud Foundry Runtime by executing the following command in the root directory of your project in the terminal:
 
     ```
-    cf deploy mta_archives/BusinessPartnerVerification_1.2.0.mtar
+    cf deploy mta_archives/BPVerification.mtar
     ```
 
     This will trigger the deployment to SAP BTP, Cloud Foundry Runtime including the creation of the necessary service instances and service bindings to the corresponding apps. 

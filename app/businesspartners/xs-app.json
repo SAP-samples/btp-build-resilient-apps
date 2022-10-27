@@ -6,7 +6,7 @@
       "authenticationType": "xsuaa",
       "csrfProtection": false,
       "source": "^/srv-api/(.*)$",
-      "destination": "BusinessPartnerVerification-srv-api",
+      "destination": "BPVerification-srv-api",
       "target": "$1"
     },
     {

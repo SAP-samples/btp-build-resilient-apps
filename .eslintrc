@@ -6,7 +6,10 @@
         "jest": true
     },
     "parserOptions": {
-        "ecmaVersion": 2017
+        "ecmaVersion": 2020,
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
     },
     "globals": {
         "SELECT": true,
@@ -21,4 +24,5 @@
         "no-console": "off",
         "require-atomic-updates": "off"
     }
+
 }

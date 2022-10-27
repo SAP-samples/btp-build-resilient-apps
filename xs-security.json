@@ -1,5 +1,5 @@
 {
-    "xsappname": "BusinessPartnerVerification",
+    "xsappname": "BPVerification",
     "tenant-mode": "dedicated",
     "scopes": [
         {

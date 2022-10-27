@@ -10,10 +10,10 @@ A better approach is to use Application Autoscaler service on SAP BTP, Cloud Fou
 
 ---
 
-1. The application autoscaler service instance was created during the deployment of the Multi-Target Application (MTA) using the [mta.yaml](../../mta.yaml#L13-L41) file. The relevant service instance is called **BusinessPartnerVerification-autoscaler** and gets the relevant policy passed directly. **Note: You don't need to do anything here, it's just an explanation what has already happened in earlier steps.**
+1. The application autoscaler service instance was created during the deployment of the Multi-Target Application (MTA) using the [mta.yaml](../../mta.yaml#L13-L41) file. The relevant service instance is called **BPVerification-autoscaler** and gets the relevant policy passed directly. **Note: You don't need to do anything here, it's just an explanation what has already happened in earlier steps.**
 
    ```yaml
-   - name: BusinessPartnerVerification-autoscaler
+   - name: BPVerification-autoscaler
         parameters:
           config:
             instance_min_count: 1
@@ -96,17 +96,17 @@ A better approach is to use Application Autoscaler service on SAP BTP, Cloud Fou
 
     ```
 
-7. Go the SAP BTP Cockpit, select the BusinessPartnerVerification-srv application and Select **View credentials**. Note down the **url, clientid and clientsecret**. You are going to use them in the next step to generate a JWT Token, which will allow you hit the secured endpoints of the CAP application from Locust. 
+7. Go the SAP BTP Cockpit, select the BPVerification-srv application and Select **View credentials**. Note down the **url, clientid and clientsecret**. You are going to use them in the next step to generate a JWT Token, which will allow you hit the secured endpoints of the CAP application from Locust. 
    ![Postman access token](images/as10.png)
 
 8. Use Postman (or curl or any other tool) to get an access token from the UAA instance.
    
    - *Authorization Type:* OAuth 2.0
    - *Grant Type:* Password Credentials
-   - *Access Token URL:* BusinessPartnerVerification-srv -> url
+   - *Access Token URL:* BPVerification-srv -> url
      > Note: Please Add "/oauth/token" at the end of url
-   - *Client ID:* BusinessPartnerVerification-srv -> clientid
-   - *Client Secret:* BusinessPartnerVerification-srv -> clientsecret
+   - *Client ID:* BPVerification-srv -> clientid
+   - *Client Secret:* BPVerification-srv -> clientsecret
    - *Username:* SAP BTP email
    - *Password:* SAP BTP password
    ![Postman access token](images/as01.png)

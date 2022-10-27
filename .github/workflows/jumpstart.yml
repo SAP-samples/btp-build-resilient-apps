@@ -51,12 +51,12 @@ jobs:
       - name: Disable package-lock.json
         run: npm config set package-lock false
       - name: Build MTA
-        run: mbt build -p cf --mtar BusinessPartnerVerification.mtar -e trial.mtaext
+        run: mbt build -p cf --mtar BPVerification.mtar -e trial.mtaext
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: mta
-          path: ./mta_archives/BusinessPartnerVerification.mtar
+          path: ./mta_archives/BPVerification.mtar
 
   deploy:
     needs: build
@@ -75,7 +75,7 @@ jobs:
           cf_password: ${{ secrets.CF_PASSWORD }}
           cf_org: ${{ secrets.CF_ORG }}
           cf_space: ${{ secrets.CF_SPACE }}
-          command: deploy ./BusinessPartnerVerification.mtar -f
+          command: deploy ./BPVerification.mtar -f
 
   assignrolecollections:
     needs: deploy

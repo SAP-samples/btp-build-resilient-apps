@@ -2,26 +2,28 @@
 
 const cds = require('@sap/cds')
 const _ = require('lodash')
-const businessPartnerDestination = {
-    "destinationName": "BusinessPartner"
-}
 
 
 
 module.exports = cds.service.impl(async function () {
 
-    const { BusinessPartnerVerification, Addresses: AddressVerification } = this.entities
-    const bupaSrv = await cds.connect.to('OP_API_BUSINESS_PARTNER_SRV')
+    //Use SAP Cloud SDK to find out the destination type (in case of Cloud Connector vs. Private Link)
+    const { getDestination } = require("@sap-cloud-sdk/core")
+    const bupaDestination = await getDestination("BusinessPartner")
+    if (bupaDestination === null) throw Error(`Destination "BusinessPartner" not found`)
+    let destinationType = bupaDestination['proxyType']
 
+    //Connect to services
+    const bupaSrv = await cds.connect.to('OP_API_BUSINESS_PARTNER_SRV')
     const messaging = await cds.connect.to("messaging")
     const S4Srv = await cds.connect.to('tfe.service.businessPartnerValidation.S4Service')
-    const { BusinessPartners: ExtBupa, BusinessPartnerAddresses: ExtBupaAddresses } = S4Srv.entities
 
+    //Use entity definition
+    const { BusinessPartnerVerification, Addresses: AddressVerification } = this.entities
+    const { BusinessPartners: ExtBupa, BusinessPartnerAddresses: ExtBupaAddresses } = S4Srv.entities
     const addressColumns = ['addressId', 'streetName', 'country', 'cityName', 'postalCode', 'houseNumber']
 
-
-
-    messaging.on('tfe/bpem/em/ce/sap/s4/beh/businesspartner/v1/BusinessPartner/Created/v1', async (msg, req) => {
+    messaging.on('tfe/bp/em/ce/sap/s4/beh/businesspartner/v1/BusinessPartner/Created/v1', async (msg, req) => {
         try {
             let bupaID = msg.data.BusinessPartner
             console.log("<< BusinessPartnerCreated event caught", bupaID)
@@ -33,6 +35,7 @@ module.exports = cds.service.impl(async function () {
             extBupa.addresses = await bupaSrv.tx(msg).run(SELECT.from(ExtBupaAddresses).columns(addressColumns).where({ businessPartnerId: bupaID }))
             extBupa.verificationStatus_code = 'N'
             let insertResult = await cds.tx(msg).run(INSERT.into(BusinessPartnerVerification).entries(extBupa))
+            console.log(`Saved BusinessPartner ${bupaID} to the HDI Container on SAP HANA Cloud`)
 
             if (_.isUndefined(insertResult)) {
                 console.error(`ERROR: couldn't insert new verification entry for BusinessPartner ${bupaID}, skip processing`)
@@ -45,104 +48,74 @@ module.exports = cds.service.impl(async function () {
 
     })
 
-    this.after("PATCH", AddressVerification, async (data, req) => {
+    this.before('SAVE', BusinessPartnerVerification, async (req) => {
 
-        let bupaVerification = await getBusinessPartnerIDByUUID(data.verifications_ID, req)
-        try {
-          
-            let payload = {
-                streetName: data.streetName,
-                postalCode: data.postalCode,
-                cityName: data.cityName,
-                houseNumber: data.houseNumber
-            }
-            await bupaSrv.run(UPDATE(ExtBupaAddresses).set(payload).where({ businessPartnerId: bupaVerification.businessPartnerId, addressId: data.addressId }))        
-        }
-        catch (error) {
-
-            if (_.isUndefined(error.rootCause)) {
-                console.log('Error:', error);
-                return req.error("400", "technical problem occured")
-            } else {
-                console.log('Root cause:', error.rootCause.message);
-                return req.error(error.rootCause.response.status, error.rootCause.response.data.error.message.value);
+        for (const currentAddress of req.data.addresses) {
+            const payload = {
+                streetName: currentAddress.streetName,
+                postalCode: currentAddress.postalCode,
+                cityName: currentAddress.cityName,
+                houseNumber: currentAddress.houseNumber
             }
 
-
+            try {
+                const result = await bupaSrv.run(UPDATE(ExtBupaAddresses).set(payload).where({ businessPartnerId: req.data.businessPartnerId, addressId: currentAddress.addressId }))
+                console.log(`Updated the BusinessPartnerAddress ${req.data.businessPartnerId} in SAP S/4HANA via ProxyType ${destinationType}`)
+                if (result != 0) req.notify(204, `Updated [${req.data.businessPartnerFirstName} ${req.data.businessPartnerLastName}] in SAP S/4HANA`)
+            } catch (error) {
+                handleS4Error(error, req)
+            }
         }
     })
 
     this.on("block", async (req) => {
-        try {
-            console.log(req.params[0].ID)
-            let result = await cds.tx(req).run(UPDATE(BusinessPartnerVerification).set({ 'businessPartnerIsBlocked': true }).where({ ID: req.params[0].ID }))
-            console.log(result)
-        } catch (error) {
-            if (_.isUndefined(error.rootCause)) {
-                console.log('Error:', error);
-                return req.reject("400", "technical problem occured")
-            } else {
-                console.log('Root cause:', error.rootCause.message);
-                return req.reject(error.rootCause.response.status, error.rootCause.response.data.error.message.value);
-            }
 
-        }
 
         //convert verification ID to BusinessPartnerID
         let businessPartner = await getBusinessPartnerIDByUUID(req.params[0].ID, req)
         try {
             if (!_.isUndefined(businessPartner)) {
-                await bupaSrv.run(UPDATE(ExtBupa, businessPartner.businessPartnerId).with({ "businessPartnerIsBlocked": true }))
-
-            }
-        } catch (error) {
-            if (_.isUndefined(error.rootCause)) {
-                console.log('Error:', error);
-                return req.reject("400", "technical problem occured")
-            } else {
-                console.log('Root cause:', error.rootCause.message);
-                if (_.isUndefined(error.rootCause.response.data.error)) {
-                    req.reject(error.rootCause.response.status, error.rootCause.response.data);
-                } else {
-                    req.reject(error.rootCause.response.status, error.rootCause.response.data.error.message.value);
+                const s4result = await bupaSrv.run(UPDATE(ExtBupa, businessPartner.businessPartnerId).with({ "businessPartnerIsBlocked": true }))
+                console.log(`Blocked BusinessPartner ${businessPartner.businessPartnerId} in SAP S/4HANA via ProxyType ${destinationType}`)
+                try {
+                    let result = await cds.tx(req).run(UPDATE(BusinessPartnerVerification).set({ 'businessPartnerIsBlocked': true }).where({ ID: req.params[0].ID }))
+                    if (result != 0) req.notify(204, `Blocked [${businessPartner.businessPartnerFirstName} ${businessPartner.businessPartnerLastName}] in SAP S/4HANA`)
+                } catch (error) {
+                    console.error(error)
+                    req.error(400, "couldn't unblock businesspartner in SAP HANA Cloud:" + error);
                 }
             }
+        } catch (error) {
+            handleS4Error(error, req)
         }
     })
 
     this.on("unblock", async (req) => {
-        try {
-            let result = await cds.tx(req).run(UPDATE(BusinessPartnerVerification).set({ 'businessPartnerIsBlocked': false }).where({ ID: req.params[0].ID }))
-            console.log(result)
-        } catch (error) {
-            console.error(error)
-            req.reject(400, "couldn't unblock businesspartner:" + error);
-        }
 
         //convert verification ID to BusinessPartnerID
         let businessPartner = await getBusinessPartnerIDByUUID(req.params[0].ID, req)
         try {
             if (!_.isUndefined(businessPartner)) {
-                await bupaSrv.run(UPDATE(ExtBupa, businessPartner.businessPartnerId).with({ "businessPartnerIsBlocked": false }))
-
-            }
-        } catch (error) {
-            if (_.isUndefined(error.rootCause)) {
-                console.log('Error:', error);
-                return req.reject("400", "technical problem occured")
-            } else {
-                console.log('Root cause:', error.rootCause.message);
-                if (_.isUndefined(error.rootCause.response.data.error)) {
-                    req.reject(error.rootCause.response.status, error.rootCause.response.data);
-                } else {
-                    req.reject(error.rootCause.response.status, error.rootCause.response.data.error.message.value);
+                const s4result = await bupaSrv.run(UPDATE(ExtBupa, businessPartner.businessPartnerId).with({ "businessPartnerIsBlocked": false }))
+                console.log(`Unblocked BusinessPartner ${businessPartner.businessPartnerId} in SAP S/4HANA via ProxyType ${destinationType}`)
+                try {
+                    let result = await cds.tx(req).run(UPDATE(BusinessPartnerVerification).set({ 'businessPartnerIsBlocked': false }).where({ ID: req.params[0].ID }))
+                    if (result != 0) req.notify(204, `Unblocked [${businessPartner.businessPartnerFirstName} ${businessPartner.businessPartnerLastName}] in SAP S/4HANA`)
+                } catch (error) {
+                    console.error(error)
+                    req.error(400, "couldn't unblock businesspartner in SAP HANA Cloud:" + error);
                 }
             }
+        } catch (error) {
+            handleS4Error(error, req)
         }
-
     })
 
+
     bupaSrv.on('BusinessPartnerChanged', async msg => {
+
+        //Otherwise a businesspartnerchanged event is consumed before the created event..
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         try {
             let bupaID = msg.data.BusinessPartner
@@ -168,7 +141,9 @@ module.exports = cds.service.impl(async function () {
                 externalAddress.verifications_ID = bupaVerification.ID
             }
 
+            Object.assign(bupaVerification, extBupa)
             let updateResult = await cds.tx(msg).run(UPDATE(BusinessPartnerVerification).set(bupaVerification).where({ businessPartnerId: bupaID }))
+            console.log(`Updating BusinessPartner ${bupaID} in SAP HANA Cloud`)
 
             if (_.isUndefined(updateResult)) {
                 console.error(`ERROR: couldn't update entry for BusinessPartner ${bupaID}, skip processing`)
@@ -181,9 +156,11 @@ module.exports = cds.service.impl(async function () {
 
     })
 
+
+
     async function getExternalBusinessPartner(bupaID, req) {
         let extBupa = await bupaSrv.tx(req).run(SELECT.one(ExtBupa).where({ businessPartnerId: bupaID }))
-
+        console.log(`Reading BusinessPartner ${bupaID} from SAP S/4HANA via ProxyType ${destinationType}`)
         if (!extBupa) {
             console.error(`ERROR: couldn't find BusinessPartner ${bupaID}, skip processing`)
             return undefined;
@@ -202,5 +179,14 @@ module.exports = cds.service.impl(async function () {
             return businessPartner
         }
     }
-})
 
+    function handleS4Error(error, request) {
+        if (_.isUndefined(error.reason?.response?.body?.error?.message?.value)) {
+            console.log('Error:', error);
+            return request.error("400", "technical problem occured")
+        } else {
+            console.log(error.reason.response.body.error.message.value)
+            return request.error(error.statusCode, error.reason.response.body.error.message.value)
+        }
+    }
+})

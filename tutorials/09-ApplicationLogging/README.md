@@ -7,7 +7,7 @@ This section guides you through how to access the [Application Logging service](
 2. Click on the number of apps of the Cloud Foundry space your application is running in. 
    ![Navigate to CF space](images/applogging1.png)
 
-3. Click on the **BusinessPartnerVerification-srv** app. 
+3. Click on the **BPVerification-srv** app. 
    ![Open CF app](images/applogging2.png)
 
 4. Open the **Logs** page. 
@@ -28,9 +28,9 @@ This section guides you through how to access the [Application Logging service](
    > This pages do not only display and visualize the logs of the application you used to navigate here. It contains all the logs of the entire region (for instance EU10) but only of those subaccounts you are assigned to. 
    ![App logging drill down](images/applogging6.png) 
 
-10. Hover the line of **BusinessPartnerVerification-srv** in the **Components** section. Then click on the icon to **Filter for value**. 
+10. Hover the line of **BPVerification-srv** in the **Components** section. Then click on the icon to **Filter for value**. 
    ![Filter for value](images/applogging7.png) 
-   As a result of that, you'll only receive data for the application **BusinessPartnerVerification-srv** wherever you navigate in Kibana until you remove the filter again. 
+   As a result of that, you'll only receive data for the application **BPVerification-srv** wherever you navigate in Kibana until you remove the filter again. 
    ![Global Filter](images/applogging8.png) 
 
 11.  Use the navigation section in the upper part of the page to navigate to different predefined dashboards that visualize more data in detail. For instance, use the **Metrics** link to get some more insights about CPU and Memory usage. 

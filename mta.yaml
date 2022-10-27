@@ -1,7 +1,7 @@
 _schema-version: "3.1"
-ID: BusinessPartnerVerification
-version: 1.6.0
-description: A simple CAP project.
+ID: BPVerification
+version: 1.8.0
+description: Verifying Business Partners with a extension application for SAP BTP
 parameters:
   enable-parallel-deployments: true
 build-parameters:
@@ -11,80 +11,80 @@ build-parameters:
         - npm install --production
         - npx -p @sap/cds-dk cds build --production
 modules:
-  - name: BusinessPartnerVerification-srv
+  - name: BPVerification-srv
     type: nodejs
     path: gen/srv
     requires:
-      - name: BusinessPartnerVerification-db
-      - name: BusinessPartnerVerification-ems
-      - name: BusinessPartnerVerification-cs
-      - name: BusinessPartnerVerification-dest
-      - name: BusinessPartnerVerification-uaa
-      - name: BusinessPartnerVerification-logging
-      - name: BusinessPartnerVerification-autoscaler
+      - name: BPVerification-db
+      - name: BPVerification-ems
+      - name: BPVerification-cs
+      - name: BPVerification-dest
+      - name: BPVerification-uaa
+      - name: BPVerification-logging
+      - name: BPVerification-autoscaler
         parameters:
           config:
             instance_min_count: 1
             instance_max_count: 5
             scaling_rules:
-            - metric_type: cpu
-              threshold: 6
-              operator: '>'
-              adjustment: '+1'
-              breach_duration_secs: 60
-              cool_down_secs: 60
-            - metric_type: cpu
-              threshold: 6
-              operator: '<='
-              adjustment: '-1'
-              breach_duration_secs: 60
-              cool_down_secs: 60
+              - metric_type: cpu
+                threshold: 6
+                operator: ">"
+                adjustment: "+1"
+                breach_duration_secs: 60
+                cool_down_secs: 60
+              - metric_type: cpu
+                threshold: 6
+                operator: "<="
+                adjustment: "-1"
+                breach_duration_secs: 60
+                cool_down_secs: 60
     provides:
       - name: srv-api
         properties:
           srv-url: "${default-url}"
-  - name: BusinessPartnerVerification-db-deployer
+  - name: BPVerification-db-deployer
     type: hdb
     path: gen/db
     parameters:
       buildpack: nodejs_buildpack
     requires:
-      - name: BusinessPartnerVerification-db
-  - name: BusinessPartnerVerification-destination-content
+      - name: BPVerification-db
+  - name: BPVerification-destination-content
     type: com.sap.application.content
     requires:
-      - name: BusinessPartnerVerification-destination-service
+      - name: BPVerification-destination-service
         parameters:
           content-target: true
-      - name: BusinessPartnerVerification_html_repo_host
+      - name: BPVerification_html_repo_host
         parameters:
           service-key:
-            name: BusinessPartnerVerification_html_repo_host-key
-      - name: BusinessPartnerVerification-uaa
+            name: BPVerification_html_repo_host-key
+      - name: BPVerification-uaa
         parameters:
           service-key:
-            name: BusinessPartnerVerification-uaa-key
+            name: BPVerification-uaa-key
     parameters:
       content:
         instance:
           destinations:
-            - Name: bpui_BusinessPartnerVerification_html_repo_host
-              ServiceInstanceName: BusinessPartnerVerification-html5-app-host-service
-              ServiceKeyName: BusinessPartnerVerification_html_repo_host-key
+            - Name: bpui_BPVerification_html_repo_host
+              ServiceInstanceName: BPVerification-html5-app-host-service
+              ServiceKeyName: BPVerification_html_repo_host-key
               sap.cloud.service: tfe.bp
             - Authentication: OAuth2UserTokenExchange
-              Name: bpui_uaa_BusinessPartnerVerification
-              ServiceInstanceName: BusinessPartnerVerification-uaa
-              ServiceKeyName: BusinessPartnerVerification-uaa-key
+              Name: bpui_uaa_BPVerification
+              ServiceInstanceName: BPVerification-uaa
+              ServiceKeyName: BPVerification-uaa-key
               sap.cloud.service: tfe.bp
           existing_destinations_policy: ignore
     build-parameters:
       no-source: true
-  - name: BusinessPartnerVerification_ui_deployer
+  - name: BPVerification_ui_deployer
     type: com.sap.application.content
     path: app
     requires:
-      - name: BusinessPartnerVerification_html_repo_host
+      - name: BPVerification_html_repo_host
         parameters:
           content-target: true
     build-parameters:
@@ -98,7 +98,7 @@ modules:
     type: html5
     path: app/businesspartners
     requires:
-      - name: BusinessPartnerVerification-logging
+      - name: BPVerification-logging
     build-parameters:
       builder: custom
       commands:
@@ -106,7 +106,7 @@ modules:
       supported-platforms: []
 resources:
   # HANA HDI Container
-  - name: BusinessPartnerVerification-db
+  - name: BPVerification-db
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
@@ -114,7 +114,7 @@ resources:
     properties:
       hdi-service-name: "${service-name}"
   # Destination Service
-  - name: BusinessPartnerVerification-destination-service
+  - name: BPVerification-destination-service
     type: org.cloudfoundry.managed-service
     parameters:
       config:
@@ -124,34 +124,34 @@ resources:
             destinations:
               - Authentication: NoAuthentication
                 HTML5.ForwardAuthToken: true
-                Name: BusinessPartnerVerification-srv-api
+                Name: BPVerification-srv-api
                 ProxyType: Internet
                 Type: HTTP
                 URL: "~{srv-api/srv-url}"
             existing_destinations_policy: ignore
         version: 1.0.0
       service: destination
-      service-name: BusinessPartnerVerification-destination-service
+      service-name: BPVerification-destination-service
       service-plan: lite
     requires:
       - name: srv-api
   # HTML Repository
-  - name: BusinessPartnerVerification_html_repo_host
+  - name: BPVerification_html_repo_host
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
-      service-name: BusinessPartnerVerification-html5-app-host-service
+      service-name: BPVerification-html5-app-host-service
       service-plan: app-host
   # Authorization & Trust Management
-  - name: BusinessPartnerVerification-uaa
+  - name: BPVerification-uaa
     type: org.cloudfoundry.managed-service
     parameters:
       path: ./xs-security.json
       service: xsuaa
-      service-name: BusinessPartnerVerification-uaa
+      service-name: BPVerification-uaa
       service-plan: application
   # Event Mesh
-  - name: BusinessPartnerVerification-ems
+  - name: BPVerification-ems
     type: org.cloudfoundry.managed-service
     parameters:
       path: # empty, comes from mtaext
@@ -164,25 +164,25 @@ resources:
         optional: false
 
   # Connectivity Service
-  - name: BusinessPartnerVerification-cs
+  - name: BPVerification-cs
     parameters:
       service: connectivity
       service-plan: lite
     type: org.cloudfoundry.managed-service
   # Destination Service
-  - name: BusinessPartnerVerification-dest
+  - name: BPVerification-dest
     parameters:
       service: destination
       service-plan: lite
     type: org.cloudfoundry.managed-service
   # Application Logging
-  - name: BusinessPartnerVerification-logging
+  - name: BPVerification-logging
     type: org.cloudfoundry.managed-service
     parameters:
       service: application-logs
       service-plan: lite
     # Application Logging
-  - name: BusinessPartnerVerification-autoscaler
+  - name: BPVerification-autoscaler
     type: org.cloudfoundry.managed-service
     parameters:
       service: autoscaler
