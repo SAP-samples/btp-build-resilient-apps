@@ -40,3 +40,5 @@ default-env.json
 # auto generated wildcard
 .env*
 *businesspartners-content.zip
+# added by cds bind
+.cdsrc-private.json

@@ -1,7 +1,7 @@
 ### Post new Address Data
 POST http://localhost:4004/admin/BusinessPartnerVerification
 Content-Type: application/json
-Authorization: Basic YnAtYWRtaW46MTIz
+Authorization: Basic bp-admin 123
 
 {
 "createdAt": "2021-11-16T10:47:10.394Z",
@@ -40,4 +40,51 @@ Authorization: Basic YnAtYWRtaW46MTIz
 
 ### update s4 data
 
-POST
+GET http://localhost:4004/admin/testFunction()
+
+### 
+POST http://localhost:4004/op-api-business-partner-srv/A_BusinessPartner
+Content-Type: application/json
+Authorization: Basic bp-admin 123
+
+{"BusinessPartner": "TEST11",
+ "FirstName": "Max",
+ "LastName": "Streifeneder", 
+ "BusinessPartnerIsBlocked": true,
+ "to_BusinessPartnerAddress": [{"BusinessPartner": "TEST11",
+ "AddressID": "HALLO",
+ "HouseNumber": "2",
+ "CityName": "Munich",
+ "Country": "DE", 
+ "StreetName": "Straße", 
+ "PostalCode": "81371"
+ }]
+}
+
+###
+
+
+GET http://localhost:4004/op-api-business-partner-srv/A_BusinessPartner('TEST11')?$expand=to_BusinessPartnerAddress
+Content-Type: application/json
+Authorization: Basic bp-admin 123
+
+###
+
+GET http://localhost:4004/admin/BusinessPartnerVerification?$expand=addresses&$filter=BusinessPartner eq 'TEST11'
+Content-Type: application/json
+Authorization: Basic bp-admin 123
+
+
+
+
+
+### 
+
+PATCH http://localhost:4004/op-api-business-partner-srv/A_BusinessPartner('TEST11')
+Content-Type: application/json
+Authorization: Basic bp-admin 123
+
+{ "BusinessPartner": "TEST11",
+ "BusinessPartnerIsBlocked": false
+ }
+
