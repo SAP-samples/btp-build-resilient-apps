@@ -42,3 +42,5 @@ default-env.json
 *businesspartners-content.zip
 # added by cds bind
 .cdsrc-private.json
+
+mochawesome-report/
