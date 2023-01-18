@@ -111,17 +111,13 @@ For more information on how to configure and run predefined pipelines for your o
     - **Job Name**: Enter a freely chosen name for your job, which is unique in your SAP BTP subaccount, for example **ResilientAppsFork**.
     - **Repository**: Pick the previously created repository
     - **Branch**: **extension** (❗️not main or any other since you are going to be working with the extension branch)
-    - **Pipeline** SAP Cloud Application Programming Model
+    - **Pipeline** SAP Cloud Application Programming Model 
      
     In the Stages section, select **Source Repository** from the Configuration Mode dropdown list. As an alternative, you can also use the Job Editor to configure the pipeline steps through the user interface. In this example, the pipeline configuration is already provided and part of the forked repository. The configuration for the pipeline can be found in the root directory, in the *.pipeline/config.yml* file.
 
     ![Configure Job in CI/CD service](./images/configure_job.png)
 
-18. Update the following values for your deployment target and **Save** the file after you have made the changes.
-
-    ![Create Job](./images/config-api-endpoint.png)
-
-19. Go to the terminal and execute the commands below to push the changes to your fork. This will also trigger the first job if everything went fine. 
+18. Go to the terminal and execute the commands below to push the changes to your fork. This will also trigger the first job if everything went fine. 
 
 ```shell
 git add .

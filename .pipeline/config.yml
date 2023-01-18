@@ -22,8 +22,7 @@ steps:
 
   npmExecuteScripts: # only relevant, if you set the npmExecuteScripts parameter in the Additional Unit Tests stage to true
     runScripts:
-      - 'test:odata'
-      - 'test:odata_negative'
+      - test
 
   mtaBuild:
     buildTarget: 'CF'
