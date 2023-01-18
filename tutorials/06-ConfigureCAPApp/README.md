@@ -2,13 +2,12 @@
 
 ## Introduction
 
-Clone a Node.js application utilizing the SAP Cloud Application Programming Model (CAP) in SAP Business Application Studio and deploy it to SAP BTP, Cloud Foundry Runtime.
+Deploy a ready-to-use Node.js application utilizing the SAP Cloud Application Programming Model (CAP) to SAP BTP, Cloud Foundry Runtime using SAP Business Application Studio.
+
+*Please note that this tutorial is based on using SAP Business Application Studio. While the steps are similar if you prefer to use Visual Studio Code, we recommend using SAP Business Application Studio for this type of application due to its use of the SAP Cloud Connector, which cannot be accessed outside of SAP BTP. Keep in mind that without SAP Business Application Studio, running the application locally in your IDE will not be possible as the SAP S/4HANA APIs accessed through the SAP Cloud Connector are not reachable.*
 
 ### Clone the existing application in SAP Business Application Studio
 
-
-*If you prefer to work with Visual Studio code, the steps are almost identical. We'd recommend to use SAP Business Application Studio for this kind of application because of the usage of SAP Cloud Connector which is not reachable by design outside of SAP BTP. If you'd like to run the application locally in your IDE, you won't be able to do that straight forward without SAP Business Application Studio.* 
----
 1. Open the SAP BTP Cockpit: <https://cockpit.eu10.hana.ondemand.com/cockpit/>
 2. Navigate to the subaccount you want to deploy the application to.
    ![Open SAP Business Application Studio](./images/open_subaccount.png)
@@ -55,22 +54,22 @@ Clone a Node.js application utilizing the SAP Cloud Application Programming Mode
     npm i -g typescript ts-node && npm install
     ```
 
-   The installation of dependencies will take a few momements.
+    The installation of dependencies will take a few momements.
 
 14. In order to verify, if the setup in your SAP Business Application Studio is fine, run the test for the application: 
-   ```
-   npm run test
-   ```
+    ```
+    npm run test
+    ```
 
-   The tests take a few seconds and will produce the following output: 
-   ![Open Workspace](./images/run_test_output.png)
+    The tests take a few seconds and will produce the following output: 
+    ![Open Workspace](./images/run_test_output.png)
 
 15. You are now good to go to deploy the entire application to the SAP BTP, Cloud Foundry Runtime following these steps:
 
     - Search for **Login to Cloud Foundry** and press **Enter** to confirm.
       ![Open CF Command Palette](./images/login_cf.png)
 
-    - Copy & Paste the API Endpoint of your subaccount from the SAP BTP Cockpit.
+    - Copy & Paste the API Endpoint of your subaccount from the SAP BTP Cockpit and paste it into the field **Cloud Foundry Endpoint**.
       ![Login to Cloud Foundry](./images/api_endpoint.png)
 
     - Enter your SAP BTP password and username and continue with **Sign in**. 
@@ -106,8 +105,23 @@ Clone a Node.js application utilizing the SAP Cloud Application Programming Mode
 
     ![Deployment completed message](./images/deployment_completed.png)
 
-19. Verify the result of the recent deployment using the [SAP BTP Cockpit](https://cockpit.eu10.hana.ondemand.com/cockpit/). Navigate to the subaccount and open the **HTML Applications** menu and check, if the application was deployed to the HTML5 Application repository. This was succesful, once the following entry in the list appears:
+19. Verify the result of the recent deployment using the [SAP BTP Cockpit](https://cockpit.eu10.hana.ondemand.com/cockpit/). Navigate to the subaccount and open the **HTML Applications** menu and check if the Frontend (as in the SAP Fiori Elements application) was deployed to the HTML5 Application repository. This was succesful, once the following entry in the list appears:
 ![HTML5 Application repository completed message](./images/html5_app.png)
+
+20. To ensure that the backend was also deployed successfully, go to **Cloud Foundry > Spaces** and select the Cloud Foundry space that you have chosen as the deployment target in the SAP Business Application Studio. 
+![Space Navigation](./images/open_space.png)
+
+21. The list of apps should contain 2 entries: 
+    - **BPVerification-db-deployer:** This app is on purpose in state **Stopped** as this is a Cloud Foundry task that only runs once to deploy the database artefacts to SAP HANA Cloud.
+    - **BPVerification-srv:** This is the app built with the SAP Cloud Application Programming Model (CAP) that serves as the backend for the SAP Fiori Elements frontend. The state has to be **Started**. 
+   ![List of applications](./images/app_state.png)
+
+---
+
+Congrats! You have succesfully deployed the CAP application that connects all the involved pieces of this solution. You will configure the needed roles in one of the following steps to be ready to use the application! 
+
+
+
 
 
 
