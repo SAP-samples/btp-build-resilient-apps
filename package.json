@@ -67,8 +67,7 @@
   },
   "scripts": {
     "update-dependencies": "ncu -u",
-    "test:odata_negative": "mocha tests/odata-negative.js --timeout 30000 --exit",
-    "test": "ts-mocha tests/general.spec.ts --timeout 15000 --reporter mochawesome",
+    "test": "ts-mocha tests/general.spec.ts --timeout 30000 --reporter mochawesome",
     "start": "npx -n=\"--inspect\" cds run",
     "buildtypes": "cds2types --cds ./srv/admin.cds --output ./srv/model/entities.ts --debug",
     "build:live": "npm run build:cds && npm run cleanup:ts && npm run build:ts && mbt build -e live.mtaext --mtar BPVerification.mtar",

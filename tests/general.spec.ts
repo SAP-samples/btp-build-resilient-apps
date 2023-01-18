@@ -159,7 +159,6 @@ describe('Test changes in S/4 through mocks', function () {
   it('Create Business Partner', async () => {
     const res = (await POST('op-api-business-partner-srv/A_BusinessPartner', newBupa)) as AxiosResponse
     expect(res.status).to.be.equal(201)
-    //expect(res.data['@odata.context']).to.be.equal('$metadata#A_BusinessPartner(to_BusinessPartnerAddress(BusinessPartner()))/$entity')
     await new Promise((resolve) => setTimeout(resolve, 1000))
     const verResponse = await GET(`admin/BusinessPartnerVerification?$expand=addresses`, AUTH)
     const verification = verResponse.data.value[0]
@@ -189,11 +188,9 @@ describe('Test changes in S/4 through mocks', function () {
       BusinessPartner: newBupa.BusinessPartner,
       BusinessPartnerIsBlocked: !newBupa.BusinessPartnerIsBlocked
     }
-    const { data: dataGet1, status: statusGet1 } = (await GET(`admin/BusinessPartnerVerification?$expand=addresses`, AUTH)) as AxiosResponse
-
     const { status } = (await PATCH(`op-api-business-partner-srv/A_BusinessPartner('${newBupa.BusinessPartner}')`, updateJson)) as AxiosResponse
     expect(status).to.be.equal(200)
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    await new Promise((resolve) => setTimeout(resolve, 2000)) // make sure that the service can process the event
     const { data: dataGet, status: statusGet } = (await GET(`admin/BusinessPartnerVerification?$expand=addresses&$filter=BusinessPartner eq '${newBupa.BusinessPartner}'`, AUTH)) as AxiosResponse
     expect(statusGet).to.be.equal(200)
     expect(dataGet.value).to.have.lengthOf(1)
@@ -224,7 +221,6 @@ describe('Test changes in S/4 through mocks', function () {
 
     for (const address of newBupa.to_BusinessPartnerAddress) {
       for (const key of Object.keys(address)) {
-        console.log(key + ' -> ' + address[key])
         if (key != 'BusinessPartner' && key != 'AddressID') {
           address[key] = 'changed'
         }
@@ -241,7 +237,7 @@ describe('Test changes in S/4 through mocks', function () {
     const payload = { BusinessPartner: newBupa.BusinessPartner }
     messaging.emit('tfe/bp/em/ce/sap/s4/beh/businesspartner/v1/BusinessPartner/Changed/v1', payload)
     console.log('<< event emitted', payload)
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    await new Promise((resolve) => setTimeout(resolve, 2000)) // make sure that the service can process the event
     const { data: dataGet, status: statusGet } = (await GET(`admin/BusinessPartnerVerification?$expand=addresses`, AUTH)) as AxiosResponse
     expect(statusGet).to.be.equal(200)
     expect(dataGet.value).to.have.lengthOf(1)
