@@ -75,7 +75,7 @@
     "deploy:trial": "mbt build -e trial.mtaext --mtar BPVerification.mtar && cf deploy mta_archives/BPVerification.mtar",
     "build:ts": "tsc",
     "build:cds": "cds build --production",
-    "cleanup:ts": "npx --yes rimraf ./gen/srv/srv/**/*.ts" --allow-root,
+    "cleanup:ts": "npx --yes rimraf ./gen/srv/srv/**/*.ts --allow-root",
     "ts-typecheck": "tsc --noEmit",
     "prettier-format": "prettier --check --config .prettierrc './{srv,tests}/**/*.{ts,js}' --write",
     "lint": "eslint . --ext .ts",
