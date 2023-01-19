@@ -25,7 +25,8 @@
     "lodash": "^4.17.21",
     "passport": "^0.6.0",
     "supertest": "^6.2.4",
-    "tar": "^6.1.11"
+    "tar": "^6.1.11",
+    "typescript": "^4.5.3"
   },
   "devDependencies": {
     "@sap/approuter": "^13.0.2",
@@ -63,8 +64,7 @@
     "prettier": "^2.8.1",
     "rimraf": "3.0.2",
     "sqlite3": "^5.0.11",
-    "ts-mocha": "^10.0.0",
-    "typescript": "^4.5.3"
+    "ts-mocha": "^10.0.0"
   },
   "scripts": {
     "update-dependencies": "ncu -u",
