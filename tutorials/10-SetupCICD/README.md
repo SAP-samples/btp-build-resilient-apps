@@ -96,10 +96,11 @@ For more information on how to configure and run predefined pipelines for your o
     ![add credentials](./images/provide_payload.png)
 
 15. Go back to SAP Business Application Studio where you have cloned your fork to your local file system. Open the *.pipeline/config.yml* file. 
+    
 16. Replace the following placeholder with the information of your SAP BTP subaccount and Cloud Foundry org and space name. This can be found in the SAP BTP subaccount overview: 
-    - <cf-org>
-    - <cf-space>
-    - <cf-api>
+    - `<cf-org>`
+    - `<cf-space>`
+    - `<cf-api>`
 
     > The left half of the screenshot shows the config.yml file, the right half of the screenshot shows the subaccount information of SAP BTP Cockpit with the needed values.
     > NOTE: In case you are using SAP BTP Trial enviroment, change the **_mtaBuild > extensions_ ** to **"trial.mtaext"**
@@ -108,16 +109,16 @@ For more information on how to configure and run predefined pipelines for your o
 
 17.  In the **Jobs** tab in SAP Continuous Integration and Delivery, select the **plus icon** to create a new job and provide the following details:
 
-    - **Job Name**: Enter a freely chosen name for your job, which is unique in your SAP BTP subaccount, for example **ResilientAppsFork**.
-    - **Repository**: Pick the previously created repository
-    - **Branch**: **extension** (❗️not main or any other since you are going to be working with the extension branch)
-    - **Pipeline** SAP Cloud Application Programming Model 
-     
-    In the Stages section, select **Source Repository** from the Configuration Mode dropdown list. As an alternative, you can also use the Job Editor to configure the pipeline steps through the user interface. In this example, the pipeline configuration is already provided and part of the forked repository. The configuration for the pipeline can be found in the root directory, in the *.pipeline/config.yml* file.
+- **Job Name**: Enter a freely chosen name for your job, which is unique in your SAP BTP subaccount, for example **ResilientAppsFork**.
+- **Repository**: Pick the previously created repository
+- **Branch**: **extension** (❗️not main or any other since you are going to be working with the extension branch)
+- **Pipeline** SAP Cloud Application Programming Model 
 
-    ![Configure Job in CI/CD service](./images/configure_job.png)
+In the Stages section, select **Source Repository** from the Configuration Mode dropdown list. As an alternative, you can also use the Job Editor to configure the pipeline steps through the user interface. In this example, the pipeline configuration is already provided and part of the forked repository. The configuration for the pipeline can be found in the root directory, in the *.pipeline/config.yml* file.
 
-18. Go to the terminal and execute the commands below to push the changes to your fork. This will also trigger the first job if everything went fine. 
+![Configure Job in CI/CD service](./images/configure_job.png)
+
+18  Go to the terminal and execute the commands below to push the changes to your fork. This will also trigger the first job if everything went fine. 
 
 ```shell
 git add .
