@@ -118,7 +118,7 @@ In the Stages section, select **Source Repository** from the Configuration Mode 
 
 ![Configure Job in CI/CD service](./images/configure_job.png)
 
-18  Go to the terminal and execute the commands below to push the changes to your fork. This will also trigger the first job if everything went fine. 
+18. Now go to the terminal of the SAP Business Application Studio and and execute the commands below to push the changes to your fork. This will also trigger the first job if everything went fine. 
 
 ```shell
 git add .
@@ -126,9 +126,11 @@ git commit -m "config.yml configured for deployment target"
 git push
 ```
 
+ ![test_pipeline](./images/git_commit.png)
+
 20. Go back to the SAP Continous Integration & Delivery service, navigate to Jobs and make sure the Job ran through succesfully. 
 
- ![test_pipeline](./images/cicd11.png)
+ ![test_pipeline](./images/new-job.png)
 
 
 
