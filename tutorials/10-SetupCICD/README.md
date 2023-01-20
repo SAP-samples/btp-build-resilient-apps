@@ -124,11 +124,11 @@ In the Stages section, select **Source Repository** from the Configuration Mode 
 git add .
 git commit -m "config.yml configured for deployment target"
 git push
-```
+``` 
 
  ![test_pipeline](./images/git_commit.png)
 
-20. Go back to the SAP Continous Integration & Delivery service, navigate to Jobs and make sure the Job ran through succesfully. 
+19. Go back to the SAP Continous Integration and Delivery service. The previous *git commit* and *git push* should have triggered a job in the SAP Continuous Integration and Delivery service. Wait a few minutes until the job has succesfully finished and. 
 
  ![test_pipeline](./images/new-job.png)
 
