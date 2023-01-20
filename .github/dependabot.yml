@@ -12,5 +12,5 @@ updates:
     target-branch: "extension"
     reviewers: 
       - "maxstreifeneder"
-    assignee: 
+    assignees: 
       - "maxstreifeneder"
