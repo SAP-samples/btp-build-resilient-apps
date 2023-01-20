@@ -128,7 +128,7 @@ git push
 
  ![test_pipeline](./images/git_commit.png)
 
-19. Go back to the SAP Continous Integration and Delivery service. The previous *git commit* and *git push* should have triggered a job in the SAP Continuous Integration and Delivery service. Wait a few minutes until the job has succesfully finished and. 
+19. Go back to the SAP Continous Integration and Delivery service. The previous *git commit* and *git push* should have triggered a job in the SAP Continuous Integration and Delivery service. Wait a few minutes until the job has succesfully finished. The entire application should now be available in your SAP BTP subaccount. Double-check if the artifacts have been deployed using the SAP BTP Cockpit - similarly to what you have done after the manual deployment. 
 
  ![test_pipeline](./images/new-job.png)
 
