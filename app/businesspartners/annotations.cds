@@ -1,4 +1,4 @@
-using tfe.service.businessPartnerValidation.AdminService as service from '../../srv/catalog';
+using AdminService as service from '../../srv/admin';
 
 annotate service.Addresses with @(UI : {
     HeaderInfo        : {
@@ -6,46 +6,46 @@ annotate service.Addresses with @(UI : {
         TypeNamePlural : 'Addresses',
         Title          : {
             $Type : 'UI.DataField',
-            Value : addressId
+            Value : AddressID
         }
     },
     SelectionFields   : [
-        addressId,
-        streetName,
-        cityName,
-        country,
-        postalCode
+        AddressID,
+        StreetName,
+        CityName,
+        Country,
+        PostalCode
     ],
     LineItem          : [
 
         {
             $Type : 'UI.DataField',
-            Value : verifications.businessPartnerId
+            Value : verifications.BusinessPartner
         },
         {
             $Type : 'UI.DataField',
-            Value : addressId
+            Value : AddressID
         },
 
         {
             $Type : 'UI.DataField',
-            Value : streetName
+            Value : StreetName
         },
         {
             $Type : 'UI.DataField',
-            Value : houseNumber
+            Value : HouseNumber
         },
         {
             $Type : 'UI.DataField',
-            Value : postalCode
+            Value : PostalCode
         },
         {
             $Type : 'UI.DataField',
-            Value : cityName
+            Value : CityName
         },
         {
             $Type : 'UI.DataField',
-            Value : country
+            Value : Country
         }
 
     ],
@@ -62,7 +62,7 @@ annotate service.Addresses with @(UI : {
         }
     ],
     DataPoint #BP     : {
-        Value : verifications.businessPartnerId,
+        Value : verifications.BusinessPartner,
         Title : 'Business Partner ID'
     },
     DataPoint #Status : {
@@ -73,21 +73,21 @@ annotate service.Addresses with @(UI : {
 });
 
 annotate service.Addresses with {
-    addressId         @(Common.Label : 'Address ID')  @readonly;
-    businessPartnerId @(Common.Label : 'Business Partner ID')  @readonly;
-    streetName        @(Common.Label : 'Street Name');
-    cityName          @(Common.Label : 'City Name');
-    country           @(Common.Label : 'Country');
-    postalCode        @(Common.Label : 'Postal Code');
-    houseNumber       @(Common.Label : 'House Number');
+    AddressID        @(Common.Label : 'Address ID')           @readonly;
+    BusinessPartner  @(Common.Label : 'Business Partner ID')  @readonly;
+    StreetName       @(Common.Label : 'Street Name');
+    CityName         @(Common.Label : 'City Name');
+    Country          @(Common.Label : 'Country');
+    PostalCode       @(Common.Label : 'Postal Code');
+    HouseNumber      @(Common.Label : 'House Number');
 }
 
 annotate service.BusinessPartnerVerification with {
-    businessPartnerId        @(Common.Label : 'Business Partner ID');
-    businessPartnerFirstName @(Common.Label : 'First Name')  @readonly;
-    businessPartnerLastName  @(Common.Label : 'Last Name')  @readonly;
+    BusinessPartner          @(Common.Label : 'Business Partner ID');
+    FirstName                @(Common.Label : 'First Name')  @readonly;
+    LastName                 @(Common.Label : 'Last Name')   @readonly;
     verificationStatus       @(Common.Label : 'Verification Status');
-    businessPartnerIsBlocked @(Common.Label : 'Blocked?');
+    BusinessPartnerIsBlocked @(Common.Label : 'Blocked?');
 }
 
 annotate service.BusinessPartnerVerification with @(UI : {
@@ -98,38 +98,38 @@ annotate service.BusinessPartnerVerification with @(UI : {
         TypeNamePlural : '{i18n>Verifications}',
         Title          : {
             $Type : 'UI.DataField',
-            Value : businessPartnerId
+            Value : BusinessPartner
         }
     },
     SelectionFields     : [
-        businessPartnerId,
-        businessPartnerFirstName,
-        businessPartnerLastName,
+        BusinessPartner,
+        FirstName,
+        LastName,
         verificationStatus_code,
-        businessPartnerIsBlocked
+        BusinessPartnerIsBlocked
     ],
     LineItem            : [
         {
             $Type  : 'UI.DataFieldForAction',
-            Action : 'tfe.service.businessPartnerValidation.AdminService.block',
+            Action : 'AdminService.block',
             Label  : 'Block'
         },
         {
             $Type  : 'UI.DataFieldForAction',
-            Action : 'tfe.service.businessPartnerValidation.AdminService.unblock',
+            Action : 'AdminService.unblock',
             Label  : 'Unblock'
         },
         {
             $Type : 'UI.DataField',
-            Value : businessPartnerId
+            Value : BusinessPartner
         },
         {
             $Type : 'UI.DataField',
-            Value : businessPartnerFirstName
+            Value : FirstName
         },
         {
             $Type : 'UI.DataField',
-            Value : businessPartnerLastName
+            Value : LastName
         },
         {
             $Type       : 'UI.DataField',
@@ -138,7 +138,7 @@ annotate service.BusinessPartnerVerification with @(UI : {
         },
         {
             $Type : 'UI.DataField',
-            Value : businessPartnerIsBlocked
+            Value : BusinessPartnerIsBlocked
         },
         {
             $Type : 'UI.DataField',
@@ -169,11 +169,11 @@ annotate service.BusinessPartnerVerification with @(UI : {
         Label  : 'Address Facet'
     }, ],
     DataPoint #BpFName  : {
-        Value : businessPartnerFirstName,
+        Value : FirstName,
         Title : 'First Name'
     },
     DataPoint #BpLName  : {
-        Value : businessPartnerLastName,
+        Value : LastName,
         Title : 'Last Name'
     },
     PresentationVariant : {
@@ -226,6 +226,6 @@ annotate service.StatusValues with {
     code  @Common : {
         Text            : value,
         TextArrangement : #TextOnly
-    }     @title :  'Code';
+    }  @title : 'Code';
     value @title  : 'Verification Status';
 };

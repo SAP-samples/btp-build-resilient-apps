@@ -1,143 +1,130 @@
-
-
 # Deploy SAP Cloud Application Programming Model (CAP) Application
 
 ## Introduction
 
-Clone an existing CAP application in SAP Business Application Studio and deploy it to SAP BTP, Cloud Foundry Runtime.
+Deploy a ready-to-use Node.js application utilizing the SAP Cloud Application Programming Model (CAP) to SAP BTP, Cloud Foundry Runtime using SAP Business Application Studio.
+
+*Please note that this tutorial is based on using SAP Business Application Studio. While the steps are similar if you prefer to use Visual Studio Code, we recommend using SAP Business Application Studio for this type of application due to its use of the SAP Cloud Connector, which cannot be accessed outside of SAP BTP. Keep in mind that without SAP Business Application Studio, running the application locally in your IDE will not be possible as the SAP S/4HANA APIs accessed through the SAP Cloud Connector are not reachable.*
 
 ### Clone the existing application in SAP Business Application Studio
 
-1.	Make sure you have opened your *SAP BTP Account* and navigate to your *subaccount*.
-   
-2.	Go to *Services* and select *Instances and Subscriptions*.
-   
-3.	Select **SAP Business Application Studio** located in the *Subscriptions* tab and click on the icon to open the application.
-   ![Open SAP Business Application Studio](./images/dev-cap-app-1.png)
+1. Open the SAP BTP Cockpit: <https://cockpit.eu10.hana.ondemand.com/cockpit/>
+2. Navigate to the subaccount you want to deploy the application to.
+   ![Open SAP Business Application Studio](./images/open_subaccount.png)
 
-4. Create a **Dev Space** once the SAP Business Application Studio home appears.
+3. Go to _Services_ and select _Instances and Subscriptions_.
+
+4. Select **SAP Business Application Studio** located in the _Subscriptions_ tab and click on the icon to open the application.
+   ![Open SAP Business Application Studio](./images/open_bas.png)
+
+5. Create a **Dev Space** once the SAP Business Application Studio home appears.
    ![Create Dev Space](./images/dev-cap-app-3.png)
 
-5.	Enter a **Dev Space name** e.g 'BusinessProcess', select the type *Full Stack Cloud Application*.
-   Don´t forget to click on the button *Create Dev Space*
+6. Enter a **Dev Space name** e.g 'BusinessProcessDev', select the type _Full Stack Cloud Application_. Hit **Create Dev Space** to create the Dev Space.
    ![Configure Dev Space](./images/dev-cap-app-4.png)
-    
-6.	Your Dev Space is now being created. As soon as the Dev Space is running you can click on your Dev Space name to  access it.
 
-7. Go to <https://github.com/SAP-samples/btp-build-resilient-apps> and fork the repository. So that you have a dedicated fork on github.com. In one of the subsequent steps you can connect your fork with the SAP Continuous Integration and Delivery service to run certain pipelines. 
+7. Your Dev Space is now being created. As soon as the Dev Space is running you can click on your Dev Space name to access it.
+   ![Configure Dev Space](./images/open_devspace.png)
+
+8. Go to <https://github.com/SAP-samples/btp-build-resilient-apps> and **fork** the repository. So that you have your own fork on github.com. (In one of the subsequent steps you will then connect your fork with the SAP Continuous Integration and Delivery service to run certain pipelines.)
    ![Fork Repo](./images/fork-repo.png)
-   > the screenshot was created when the repository was still private. that's why the fork button appears to be disabled. 
 
-8. Choose your user as destination for the fork. 
+9. Fork the repository by selecting **your user** as the destination, ensuring that the option to **copy the main branch only** is NOT selected (all branches should be included!), and selecting **Create fork**.
    ![Choose user for fork](./images/fork-repo-user.png)
 
-   You should now have the following repository: github.com/**YourUser**/btp-build-resilient-apps.git.
-   > To Update the dependencies automatically using GitHub Actions [GitHub Actions to Update Dependencies](#gitHub-actions-to-update-dependencies)
+   You should now have the following repository: github.com/**YourUser**/btp-build-resilient-apps
 
-9.	Choose *Terminal -> New Terminal* in the menu on the top of your screen.
-   ![Open Terminal](./images/dev-cap-app-5.png)
+10. Go back to the **SAP Business Application Studio**. Type in **> New Terminal** in the menu on the top of your screen and select the first entry using the cursor.
+    ![Open Terminal](./images/new_terminal.png)
 
-10. In the opened terminal go to projects folder with executing
-
-   ``` 
-   cd projects
+11. Navigate to the **projects** directory and clone your forked sample GitHub repository by using the following command in the terminal:
    ```
+   cd projects && git clone -b extension https://github.com/YourUser/btp-build-resilient-apps
+   ```
+   > **IMPORTANT:** ❗️Replace **YourUser** with your actual username.
 
-11. Clone your forked sample GitHub repository for this mission. 
+   ![Open Terminal](./images/cd_and_clone.png)
 
-    ```
-    git clone -b extension https://github.com/YourUser/btp-build-resilient-apps
-    ```
-    
-    > **IMPORTANT:** Replace **YourUser** with your actual username. 
+12. Select the **file** icon in the side menu, click on **Open Folder** and provide the path to the cloned repo. (*/home/user/projects/btp*)
+    ![Open Workspace](./images/open_folder.png)
 
-12. Click on *File* in the menu on the top and choose *Open Workspace* in the Dropdown menu.
-   ![Open Workspace](./images/dev-cap-app-7.png)
-
-13. Open the project by selecting projects -> btp-build-resilient-apps and click on *Open*
-
-14. Run the application locally in your SAP Business Application Studio environment by executing the following command in the root directory of your project in the terminal:
+13. Install the needed npm dependencies (like TypeScript globally and all the other packages defined in the package.json file):
 
     ```
-    cds watch
+    npm i -g typescript ts-node && npm install
     ```
 
-    Click on `Expose and Open` in the appearing PopUp. 
-   ![Open App](./images/bas-0.png)
+    The installation of dependencies will take a few momements.
 
+14. In order to verify, if the setup in your SAP Business Application Studio is fine, run the test for the application: 
+    ```
+    npm run test
+    ```
 
-14. To logon to the SAP BTP, Cloud Foundry Runtime follow these steps:
+    The tests take a few seconds and will produce the following output: 
+    ![Open Workspace](./images/run_test_output.png)
 
-    - Click on **View > Find Command** in the menu on the top.
-     ![Find Command](./images/bas-1.png)
-     
+15. You are now good to go to deploy the entire application to the SAP BTP, Cloud Foundry Runtime following these steps:
+
     - Search for **Login to Cloud Foundry** and press **Enter** to confirm.
-      ![Login to Cloud Foundry](./images/bas-2.png)
+      ![Open CF Command Palette](./images/login_cf.png)
 
-    - Copy & Paste the API Endpoint of your subaccount from the SAP BTP Cockpit. 
-      ![Login to Cloud Foundry](./images/bas-3.png)
+    - Copy & Paste the API Endpoint of your subaccount from the SAP BTP Cockpit and paste it into the field **Cloud Foundry Endpoint**.
+      ![Login to Cloud Foundry](./images/api_endpoint.png)
 
-    - Follow the process by entering the credentials of your SAP BTP account and by selecting the Cloud Foundry org and space you want to deploy the application to.
+    - Enter your SAP BTP password and username and continue with **Sign in**. 
 
-> NOTE: to add test cases please check [Test cases for SAP CAP Application](#test-cases-for-sap-cap-application)
+16. Pick the Cloud Foundry organization and Cloud Foundry space you want to deploy the application to from the dropdown lists and continue with **Apply**.
+    ![Provide CF space and Org from the dropdown](./images/cf_space_org.png)
+    ![Success message](./images/org_was_set.png)
 
-15. Build the Multi-Target Application Archive (MTA Archive) by executing the following command in the root directory of your project in the terminal:
-
+17. Build the Multi-Target Application Archive (MTA Archive) by executing the following command in the root directory of your project in the terminal:
     ```
-    mbt build -e trial.mtaext --mtar BPVerification.mtar
-    ```
-
-> **IMPORTANT:** this will produce a .mtar file in the mta_archives directory. Some of the values for the service instance creation depend on the environment you are deploying to, that's why the *-e* for *extension* is used here. If you are using a production environment, use <code>mbt build -e live.mtaext</code>
-
-16. Deploy the application to SAP BTP, Cloud Foundry Runtime by executing the following command in the root directory of your project in the terminal:
-
-    ```
-    cf deploy mta_archives/BPVerification.mtar
+    npm run build:cf
     ```
 
-    This will trigger the deployment to SAP BTP, Cloud Foundry Runtime including the creation of the necessary service instances and service bindings to the corresponding apps. 
-    
-    
-## Test cases for SAP CAP Application
+    This will create a **gen** directory in the root of your project, containing the generated artifacts that will be used for deployment.
 
-1. Please find the test cases available in the directory **btp-build-resilient-apps/tests/**.
+    ![Build result](./images/build_result.png)
 
- ![github actions](./images/test-1.png)
+    > If you're curious about what the npm script is doing, take a look at the package.json file in the root of your project. Specifically, check line 74 of the [package.json](../../package.json#L74) file.
 
-2. The test cases are split up into two seperate files, namely **odata-negative.js** and **odata.js**.
+18. Deploy the application to SAP BTP, Cloud Foundry Runtime by executing the following command in the root directory of your project in the terminal:
 
- ![github actions](./images/test-2.png)
- 
-3. All the test cases are written in [Chai](https://www.chaijs.com/) - (Chai is a BDD / TDD assertion library for node). An example can look as follows:
+    If you want to deploy it to the SAP BTP, Cloud Foundry Runtime in the trial environment:
+    ```
+    npm run deploy:trial
+    ```
 
- ![github actions](./images/test-3.png)
- 
-4. The "/admin/$metadata" Path (the metadata service document of one of the OData services from the deployed CAP application) is validated against two conditions -  the response code and response header. 
+    If you want to deploy the application to the SAP BTP, Cloud Foundry Runtime in your non-trial environment:
+    ```
+    npm run deploy:live
+    ```
 
- ![github actions](./images/test-4.png)
- 
- The respone code needs to to be **200** and the response header should contain **content-type** to equal **"application/xml"** and **odata-version** to be **4.0**.
+    This will trigger the deployment to SAP BTP, Cloud Foundry Runtime including the creation of the necessary service instances and service bindings to the corresponding apps.
 
-5. Adding these scripts to the package.json has already been done.
+    ![Deployment completed message](./images/deployment_completed.png)
 
-![github actions](./images/test-5.png)
+19. Verify the result of the recent deployment using the [SAP BTP Cockpit](https://cockpit.eu10.hana.ondemand.com/cockpit/). Navigate to the subaccount and open the **HTML Applications** menu and check if the Frontend (as in the SAP Fiori Elements application) was deployed to the HTML5 Application repository. This was succesful, once the following entry in the list appears:
+![HTML5 Application repository completed message](./images/html5_app.png)
 
-6. These test cases can now be executed from the terminal using <code>npm run test:odata_negative</code> or <code>npm run test:odata</code> 
+20. To ensure that the backend was also deployed successfully, go to **Cloud Foundry > Spaces** and select the Cloud Foundry space that you have chosen as the deployment target in the SAP Business Application Studio. 
+![Space Navigation](./images/open_space.png)
 
-![github actions](./images/test-6.png)
+21. The list of apps should contain 2 entries: 
+    - **BPVerification-db-deployer:** This app is on purpose in state **Stopped** as this is a Cloud Foundry task that only runs once to deploy the database artefacts to SAP HANA Cloud.
+    - **BPVerification-srv:** This is the app built with the SAP Cloud Application Programming Model (CAP) that serves as the backend for the SAP Fiori Elements frontend. The state has to be **Started**. 
+   ![List of applications](./images/app_state.png)
 
->Note: Adding the Test Cases to SAP Continuous Integration & Delivery pipeline will be shown in the [Setup CI/CD Pipeline](../10-SetupCICD/README.md)
+---
+
+Congrats! You have succesfully deployed the CAP application that connects all the involved pieces of this solution. You will configure the needed roles in one of the following steps to be ready to use the application! 
 
 
-## APPENDIX
 
-### GitHub Actions to Update Dependencies
 
-1. After forking the repository go to **.github/workflows/update-dependencies-test.yml** 
-   ![github actions](./images/github-act-1.png)
 
-2. To Schedule the workflow uncomment the **Schedule** and **Cron** entries and also specify the required  **Cron Expression**.
-   > The workflow can also be triggered on **Push** events and **Pull Requests**.
 
-3. Enter the **username** and **email** to push the GitHub commits after dependency updates.
-   ![github actions](./images/github-act-2.png)
+
+
+

@@ -1,4 +1,4 @@
-BusinessPartner;FirstName;MiddleName;LastName;BusinessPartnerIsBlocked;
-HARUT;Harut;;Ter-Minasyan;false;
+BusinessPartner;FirstName;LastName;BusinessPartnerIsBlocked;
+MAXSTR;Max;;Streifeneder;false;
 BOB;Mocked Bob;The;Builder;false;
 JABBA;Mocked Jabba;The;Hutt;true;

@@ -6,23 +6,36 @@ using {
 } from '@sap/cds/common';
 
 entity Verifications : managed, cuid {
-    @readonly businessPartnerId : String;
-    businessPartnerFirstName    : String;
-    businessPartnerLastName     : String;
-    verificationStatus          : Association to StatusValues;
-    addresses                   : Composition of many Addresses
-                                      on addresses.verifications = $self;
-    businessPartnerIsBlocked    : Boolean default false;
+    @readonly BusinessPartner : String;
+    FirstName                 : String;
+    LastName                  : String;
+    verificationStatus        : Association to StatusValues;
+    addresses                 : Composition of many Addresses
+                                    on addresses.verifications = $self;
+    BusinessPartnerIsBlocked  : Boolean default false;
 }
 
-entity Addresses : cuid {
-    verifications       : Association to Verifications;
-    @readonly addressId : String;
-    country             : String;
-    cityName            : String;
-    streetName          : String;
-    postalCode          : String;
-    houseNumber         : String;
+entity Addresses: cuid {
+        verifications : Association to Verifications;
+        AddressID     : String;
+        Country       : String;
+        CityName      : String;
+        StreetName    : String;
+        PostalCode    : String;
+        HouseNumber   : String;
+}
+
+entity Backlogs : managed, cuid {
+    method       : String;
+    verification : Association to Verifications;
+    updateNeeded : Boolean;
+    criticality  : Criticality;
+}
+
+type Criticality : String enum {
+    INFO;
+    WARNING;
+    ERROR;
 }
 
 @cds.autoexpose
@@ -34,6 +47,6 @@ entity StatusValues {
 }
 
 annotate Verifications with {
-    businessPartnerId  @title : 'BusinessPartner ID'  @readonly;
-    verificationStatus @title : 'Verfication Status'  @assert.enum;
+    BusinessPartner     @title : 'BusinessPartner ID'  @readonly;
+    verificationStatus  @title : 'Verfication Status'  @assert.enum;
 }
