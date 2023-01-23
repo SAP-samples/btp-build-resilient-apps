@@ -31,7 +31,7 @@
   "devDependencies": {
     "@sap/approuter": "^13.0.2",
     "@sap/eslint-plugin-ui5-jsdocs": "2.0.x",
-    "@sap/hdi-deploy": "4.5.1",
+    "@sap/hdi-deploy": "4.5.3",
     "@sap/html5-repo-mock": "2.1.1",
     "@sap/ui5-builder-webide-extension": "^1.1.9",
     "@sap/ux-specification": "^1.102.14",
