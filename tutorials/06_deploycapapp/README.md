@@ -120,7 +120,29 @@ Deploy a ready-to-use Node.js application utilizing the SAP Cloud Application Pr
 
 Congrats! You have succesfully deployed the CAP application that connects all the involved pieces of this solution. You will configure the needed roles in one of the following steps to be ready to use the application! 
 
+## Optional 
 
+
+In case you are interested how to figure out the available out-of-the-box APIs using the SAP API Business Hub and how to further use them in applications like SAP Cloud Application Programming Model. 
+
+### Find and download API
+
+1. Open http://api.sap.com, enter "business partner" in the search field, and click the Search Button.
+![Enter search term](./images/enter_searchterm.png)
+
+2. Switch to the **API** tab and toggle the **Show Filters** option.
+![Enable filter for APIs](./images/show_apifilter.png)
+ 
+3. To narrow your search results, expand the **Products** filter and select **SAP S/4HANA** from the available entries. Don't forget to hit the **Apply Filter** button to update the search results.
+![Filter for APIs](./images/apply_filter.png)
+
+4. Select **Business Partner(A2X)** from the results list. 
+![Pick Bussiness Partner (A2X) from the results list](./images/a2x_result.png)
+
+5. Select **API Specification** from the list of **API Resources** and hit the Download icon for the **EDMX** file. (You'll need to login or already be logged in)
+ ![Download EDMX](./images/download_edmx.png)
+
+ 6. With that, you could use `cds import` in your existing SAP Cloud Application Programming Model project: The details are described here: <https://cap.cloud.sap/docs/guides/using-services#import-api>
 
 
 

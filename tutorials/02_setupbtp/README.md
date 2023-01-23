@@ -24,49 +24,50 @@ You will now prepare your SAP Business Technology Platform (Enterprise) account,
    - In case you see **DONE**, it means _all necessary services_ are entitled and you can continue with next step
    
 6. On the next screen you can set up your Subaccount: 
-    - Configure the Entitlements
-    - Remove: XFS Runtime and Extension Center
-    - Add 1 Quota to Application Autoscaler
+    - Enter Subaccount name - eg: "BTP Extensions"
+    - Choose a region and a provider for your SAP BTP subaccount. 
+    - You can change **Subdomain**, **Org Name** and **Space Name** depending to your needs. 
+    - Continue with **Next**.
    ![Setup Services](./images/booster5.png)
 
-    - Enter Subaccount name - eg: "Development"
-    - You can edit the smaller org name, space name (optional)
-    
-7. Select **Next**.
-
-   ![Enter name](./images/booster4.png)
-
-8. On the next screen you can add your needed Users:
+7. On the next screen you can add your needed Users:
  - Enter email addresses of the SAP BTP account you want to assign the **Administrator** Role Collection.
  - Enter email addresses of the SAP BTP account you want to assign the **Developer** Role Collection.
+   ![Setup Services](./images/add_users.png)
+
+   > In case you are using a custom Identity Provider already, make sure to choose the right value for **Custom Identity Provider for Platform Users**. Otherwise stick to **acounts.sap.com**.
  
-9. Select **Next**.
+8. Select **Next**.
 
- ![Add Users](./images/booster10.png)
+9.  After you reviewed your account click on **Finish**.
 
-10. After you reviewed your account click on *Finish* 
-   ![Review Account](./images/booster6.png)
+   ![Creation in Progress](./images/creation_in_progress.png)
+   ![Booster has finished](./images/booster_finished.png)
 
-11. To navigate to the subaccount, click on the subaccounts name. 
+10. Hit **Navigate to Subaccount**.
 
-12. Navigate to *Entitlements* and select on *Configure Entitlements*.
+11. Navigate to **Entitlements** and select on **Configure Entitlements**.
    ![Configure Entitlements](./images/booster7.png)
 
-13. Choose *Add Service Plans*.
+12. Choose *Add Service Plans*.
    ![Add Service Plans](./images/booster8.png)
 
-14. Search for **HANA** and select **SAP HANA Cloud**.
+13. Search for **HANA** and select **SAP HANA Cloud**.
 
-15. Click on the checkbox below *Available Plans* for HANA.
+14. Click on the checkbox below **Available Plans** for either **hana** or **hana-free** depending on your requirements. The technical limitations for the SAP BTP Free Tier (plan **hana-free**) can be found in the the corresponding service description in the SAP Discovery Center.
    ![Add Service Plan](./images/booster9.png)
+   
+   > NOTE: SAP HANA Cloud instances with plan **hana-free* are stopped on a nightly basis. You have 30 days to restart your instances or they will be deleted.
 
-16. Search for **Alert Notification** in the pop-up window and select **Alert Notification**.
+15. Search for **Alert Notification** in the pop-up window instead of **HANA** and select **Alert Notification**.
 
-17. Click on the checkbox below *Available Plans* for standard.
+16. Click on the checkbox below **Available Plans** for either **standard** or **free** depending on your requirements. The technical limitiations for the SAP BTP Free Tier (plan **free**) can be found in corresponding [service description](https://discovery-center.cloud.sap/serviceCatalog/alert-notification?region=all&tab=service_plan) in the SAP Discovery Center.
 
-18. Click on *Add 2 Service Plan* and **save** the changes.
+17. Click on **Add 2 Service Plan**. 
    ![Add Service Plan](./images/booster11.png)
 
+18. Don't forget to **Save** the changes you made. 
+   ![Save changes to the entitlements](./images/save_changes.png)
 --- 
 
-Congrats! You can now continue with setting up your SAP HANA Cloud instance - Step 4.
+Congratulations! You have successfully entitled your SAP BTP subaccount. Now, let's proceed to setting up your SAP HANA Cloud instance.

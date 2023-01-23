@@ -59,19 +59,19 @@ Subscriptions required in your SAP Business Technology Platform Account:
 
 ## Setup & Configuration
 
-- Step 1: [Identify APIs in API Business Hub](./tutorials/01-IdentifyAPIFromAPIBusinessHub.md)
-- Step 2: [S/4HANA Enable OData Service for business partner](./tutorials/02-configure-oData-Service)
-- Step 3: [Setup SAP BTP Enterprise Environment](./tutorials/03-PrepareBTP)
-- Step 4: [Create SAP HANA Cloud instance](./tutorials/04-SetupHANACloud)
-- Step 5: [Setup connectivity between S/4HANA system, SAP BTP - SAP Cloud Connector](./tutorials/05-CloudConnector)
-- Step 6: [Configure Business Application Studio and Build/Deploy the CAP application ](./tutorials/06-ConfigureCAPApp)
-- Step 7: [Configure Event Based Communication between S/4HANA and Event Mesh](./tutorials/07-SetupEventMesh)
-- Step 8: [Test scenario End to End](./tutorials/08-TestApplication)
-- Step 9: [Access and Discover Application Logs and Metrics](./tutorials/09-ApplicationLogging)
-- Step 10: [Setup of Continuous Integration and Continuous Delivery (CI/CD) ](./tutorials/10-SetupCICD)
-- Step 11: [Setup Cloud Transport Management ](./tutorials/11-SetupTMS)
-- Step 12: [Setup Alert Notification ](./tutorials/12-SetupANS)
-- Step 13 (optional): [Test Application Autoscaler ](./tutorials/13-SetupAppAutoscaler)
+- Step 1: [Enable OData API in SAP S/4HANA on-premise](./tutorials/01_enable_odata_apis/)
+- Step 2a: [Create and Entitle SAP BTP subaccount](./tutorials/02_setupbtp/) or
+- Step 2a: [Create and Entitle SAP BTP Trial subaccount](./tutorials/03_setupbtptrial/) or
+- Step 3: [Create SAP HANA Cloud instance](./tutorials/04_setuphanacloud/)
+- Step 5: [Connect SAP BTP subaccount and SAP S/4HANA using Cloud Connector ](./tutorials/05_setupcloudconnector/)
+- Step 6: [Configure Business Application Studio and Build/Deploy the CAP application ](./tutorials/06_deploycapapp/)
+- Step 7: [Configure Event Based Communication between S/4HANA and Event Mesh](./tutorials/07_setupeventmesh/)
+- Step 8: [Test scenario End to End](./tutorials/08_testappe2e/)
+- Step 9: [Access and Discover Application Logs and Metrics](./tutorials/09_setuplogging/)
+- Step 10: [Setup of Continuous Integration and Continuous Delivery (CI/CD) service](./tutorials/10_setupcicd/)
+- Step 11: [Setup Cloud Transport Management ](./tutorials/11_setuptms/)
+- Step 12: [Setup Alert Notification ](./tutorials/12_setupans/)
+- Step 13 (optional): [Test Application Autoscaler ](./tutorials/13_setupautoscaler/)
 
 ## How to obtain support
 
