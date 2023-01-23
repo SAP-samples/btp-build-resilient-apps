@@ -40,7 +40,6 @@ You will now prepare your SAP Business Technology Platform (Enterprise) account,
 8. Select **Next**.
 
 9.  After you reviewed your account click on **Finish**.
-
    ![Creation in Progress](./images/creation_in_progress.png)
    ![Booster has finished](./images/booster_finished.png)
 

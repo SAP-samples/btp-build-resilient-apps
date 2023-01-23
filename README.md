@@ -63,15 +63,15 @@ Subscriptions required in your SAP Business Technology Platform Account:
 - Step 2a: [Create and Entitle SAP BTP subaccount](./tutorials/02_setupbtp/) or
 - Step 2a: [Create and Entitle SAP BTP Trial subaccount](./tutorials/03_setupbtptrial/) or
 - Step 3: [Create SAP HANA Cloud instance](./tutorials/04_setuphanacloud/)
-- Step 5: [Connect SAP BTP subaccount and SAP S/4HANA using Cloud Connector ](./tutorials/05_setupcloudconnector/)
-- Step 6: [Configure Business Application Studio and Build/Deploy the CAP application ](./tutorials/06_deploycapapp/)
-- Step 7: [Configure Event Based Communication between S/4HANA and Event Mesh](./tutorials/07_setupeventmesh/)
-- Step 8: [Test scenario End to End](./tutorials/08_testappe2e/)
-- Step 9: [Access and Discover Application Logs and Metrics](./tutorials/09_setuplogging/)
-- Step 10: [Setup of Continuous Integration and Continuous Delivery (CI/CD) service](./tutorials/10_setupcicd/)
-- Step 11: [Setup Cloud Transport Management ](./tutorials/11_setuptms/)
-- Step 12: [Setup Alert Notification ](./tutorials/12_setupans/)
-- Step 13 (optional): [Test Application Autoscaler ](./tutorials/13_setupautoscaler/)
+- Step 4: [Connect SAP BTP subaccount and SAP S/4HANA using Cloud Connector ](./tutorials/05_setupcloudconnector/)
+- Step 5: [Configure Business Application Studio and Build/Deploy the CAP application ](./tutorials/06_deploycapapp/)
+- Step 6: [Configure Event Based Communication between S/4HANA and Event Mesh](./tutorials/07_setupeventmesh/)
+- Step 7: [Test scenario End to End](./tutorials/08_testappe2e/)
+- Step 8: [Access and Discover Application Logs and Metrics](./tutorials/09_setuplogging/)
+- Step 9: [Setup of Continuous Integration and Continuous Delivery (CI/CD) service](./tutorials/10_setupcicd/)
+- Step 10: [Setup Cloud Transport Management ](./tutorials/11_setuptms/)
+- Step 11: [Setup Alert Notification ](./tutorials/12_setupans/)
+- Step 12 (optional): [Test Application Autoscaler ](./tutorials/13_setupautoscaler/)
 
 ## How to obtain support
 
