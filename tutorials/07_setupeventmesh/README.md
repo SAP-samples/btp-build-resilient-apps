@@ -14,14 +14,14 @@ If you are using an S/4HANA 1909 (or older version), please follow the following
 3. Scroll to the **Instances** and look for the **Event Mesh** service instance in the table. Now click on the 3 dots to open the context menu and choose **Create Service Key**.
    ![Open Event Mesh Instance](./images/service-key-creation.png)
 
-5. Provide a service key name e.g. **EMServiceKey** and **Create** the service key.
+4. Provide a service key name e.g. **EMServiceKey** and **Create** the service key.
    ![create key](./images/EventBased2.png)
 
-6.  Click on your created service key to get the service key details.
+5. Click on your created service key to get the service key details.
    ![open key](./images/open-servicekey.png)
 
-7. Make sure you have the right service key opened. Click **Copy JSON** to copy the entire service key content. 
- ![Token Endpoint](./images/copy-key-json.png)
+6. Make sure you have the right service key opened. Click **Copy JSON** to copy the entire service key content. 
+   ![Token Endpoint](./images/copy-key-json.png)
  
  ### Configure Channel
 
