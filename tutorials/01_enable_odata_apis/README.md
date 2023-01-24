@@ -39,7 +39,7 @@ Now you are going to create an user in the SAP S/4HANA on-premise system and ass
    
 3.	Switch to the **Logon Data** tab, change **User Type** to **Dialog** and create a password for the user (repeat it to verify it). **Save** your user. 
 
-   ![Change User](./images/configure_user.png)
+      ![Change User](./images/configure_user.png)
 
 4.	Navigate to transaction code **/nPFCG**.
 5.	Enter **EVENTMESH** in the *Role* field, then click on the *Single Role* button.
@@ -65,9 +65,9 @@ Now you are going to create an user in the SAP S/4HANA on-premise system and ass
 
 13. Search for **/IWFND/RT_GW_USER** and **/IWXBE/RT_XBE_ADM** in the pop-up window and click on the checkmark for both entries to apply the templates.
     
-   ![/IWFND/RT_GW_USER entry](./images/apply_template1.png)
+      ![/IWFND/RT_GW_USER entry](./images/apply_template1.png)
 
-   ![/IWFND/RT_XBE_ADM entry](./images/apply_template2.png)
+      ![/IWFND/RT_XBE_ADM entry](./images/apply_template2.png)
 
 14. Now click on **Status** and hit the checkmark in appearing pop-up. 
    ![Status apply roles](./images/status_apply.png)
