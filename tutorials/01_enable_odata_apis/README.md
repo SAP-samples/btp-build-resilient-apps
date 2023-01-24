@@ -7,8 +7,8 @@ An OData connection is essential for your extension application to SAP S/4HANA. 
 ### Activate OData service in SAP S/4HANA on-premise backend system
 
 1.	Logon to your SAP S/4HANA system, enter the transaction code **/n/IWFND/MAINT_SERVICE** (*Activate and Maintain Services*) and hit enter.
- 
-   ![Navigate transaction](./images/maintain_service_tcode.png)
+
+      ![Navigate transaction](./images/maintain_service_tcode.png)
 
 2.	Click on **Add Service** in the Service Catalog.
    ![Add Service](./images/add_service.png)
@@ -41,46 +41,46 @@ Now you are going to create an user in the SAP S/4HANA on-premise system and ass
 
    ![Change User](./images/configure_user.png)
 
-6.	Navigate to transaction code **/nPFCG**.
-7.	Enter **EVENTMESH** in the *Role* field, then click on the *Single Role* button.
+4.	Navigate to transaction code **/nPFCG**.
+5.	Enter **EVENTMESH** in the *Role* field, then click on the *Single Role* button.
    ![Assign Transaction](./images/create_singlerole.png)
 
-8.	On the next screen enter a description first, then switch to the **Menu** tab and **save** the role in the pop-up window.
-9.	Click on the **Transaction** button on the menu tab,enter the transaction code **BP** and click on **Assign Transactions** to finish.
+6.	On the next screen enter a description first, then switch to the **Menu** tab and **save** the role in the pop-up window.
+7.	Click on the **Transaction** button on the menu tab,enter the transaction code **BP** and click on **Assign Transactions** to finish.
    ![Business Partner transaction code](./images/bp_transaction.png)
    
-10. Select **Authorization Default** from the Transaction dropdown in the menu tab.
+8. Select **Authorization Default** from the Transaction dropdown in the menu tab.
  
     ![Authorization Default selection](./images/authorization_default.png)
 
-11. Select **SAP Gateway: Service Groups Metadata** as Authorization Default from the pull down menu and enter the name of the activated Business Partner API - you can look this up using the menu - into to the table and click on **Copy**.
+9. Select **SAP Gateway: Service Groups Metadata** as Authorization Default from the pull down menu and enter the name of the activated Business Partner API - you can look this up using the menu - into to the table and click on **Copy**.
    ![give access to ZAPI_BUSINESS_PARTNER_00001](./images/tadir_service.png)
    
-12. Now switch to the **Authorizations** tab and click on **Change Authorization Data**. 
+10. Now switch to the **Authorizations** tab and click on **Change Authorization Data**. 
    ![Insert Authorizations](./images/change_auth_data.png)
    
-13. Don´t forget to **Save** the role first.
-14. Navigate to **Edit -> Insert Authorizations -> From template**
+11. Don´t forget to **Save** the role first.
+12. Navigate to **Edit -> Insert Authorizations -> From template**
    ![Apply Template](./images/inseratuth_fromtemplate.png)
 
-15. Search for **/IWFND/RT_GW_USER** and **/IWXBE/RT_XBE_ADM** in the pop-up window and click on the checkmark for both entries to apply the templates.
+13. Search for **/IWFND/RT_GW_USER** and **/IWXBE/RT_XBE_ADM** in the pop-up window and click on the checkmark for both entries to apply the templates.
    ![/IWFND/RT_GW_USER entry](./images/apply_template1.png)
    ![/IWFND/RT_XBE_ADM entry](./images/apply_template2.png)
 
-16. Now click on **Status** and hit the checkmark in appearing pop-up. 
+14. Now click on **Status** and hit the checkmark in appearing pop-up. 
    ![Status apply roles](./images/status_apply.png)
 
-17. Trigger the generation with the icon on the top and **save** the profile in the pop-up.
+15. Trigger the generation with the icon on the top and **save** the profile in the pop-up.
    ![Role generation](./images/assign_profilename.png)
    
-18. Go back and Switch to the **User** tab.
+16. Go back and Switch to the **User** tab.
    ![Go back in the navigation](./images/go_back.png)
    ![Switch to user tab](./images/user_tab.png)
 
-19. Enter the technical user you have created in one of the previous steps, execute the **User Comparison** and select **full comparison** in the pop-up.
+17. Enter the technical user you have created in one of the previous steps, execute the **User Comparison** and select **full comparison** in the pop-up.
    ![Full comparison](./images/full_comparison.png)
 
-20. **Log off** from the system by entering the transaction **/nEX**.
+18. **Log off** from the system by entering the transaction **/nEX**.
 
 ### Test newly created user
 
