@@ -7,26 +7,23 @@ An OData connection is essential for your extension application to SAP S/4HANA. 
 ### Activate OData service in SAP S/4HANA on-premise backend system
 
 1.	Logon to your SAP S/4HANA system, enter the transaction code **/n/IWFND/MAINT_SERVICE** (*Activate and Maintain Services*) and hit enter. 
-
    ![Navigate transaction](./images/maintain_service_tcode.png)
 
-3.	Click on **Add Service** in the Service Catalog.
-
+2.	Click on **Add Service** in the Service Catalog.
    ![Add Service](./images/add_service.png)
 
-4.	Enter the following values:
-- **System Alias**: LOCAL
-- **External Service Name**: API_BUSINESS_PARTNER
-  
-Hit enter to search for all matching services. 
+3.	Enter the following values:
+   - **System Alias**: LOCAL
+   - **External Service Name**: API_BUSINESS_PARTNER
+   
+   Hit enter to search for all matching services. 
 
-5.	Select the matching line and click on **Add Selected Services**.
-
+4.	Select the matching line and click on **Add Selected Services**.
    ![Select Service](./images/configure-odata-Service-3.png)
    
-6.	On the next screen specify *Package Assignment** e.g. $TMP by clicking on **Local Object**.
+5.	On the next screen specify *Package Assignment** e.g. $TMP by clicking on **Local Object**.
 
-7.	Check checkbox for "Enable OAuth for Service“ and click on *Continue*
+6.	Check checkbox for "Enable OAuth for Service“ and click on *Continue*
    
 ### Create Technical User and Assign Role
 
