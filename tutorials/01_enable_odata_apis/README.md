@@ -35,7 +35,7 @@ Now you are going to create an user in the SAP S/4HANA on-premise system and ass
 1.	Navigate to transaction code **SU01**.
    ![Transaction](./images/configure-oData-Service-5.png)
    
-2.	Enter your Technical User in the field *User* and click on the **Create** button to create new technical user.
+2.	Enter a **new User ID** in the field *User* and click on the **Create** button to create new technical user.
    ![Copy User](./images/configure-oData-Service-6.png)
    
 3.	Change *User Type* to **Dialog**.

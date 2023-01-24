@@ -120,12 +120,12 @@ Deploy a ready-to-use Node.js application utilizing the SAP Cloud Application Pr
 
 Congrats! You have succesfully deployed the CAP application that connects all the involved pieces of this solution. You will configure the needed roles in one of the following steps to be ready to use the application! 
 
-## Optional 
+## Optional: Find and download API metadata 
 
+(*This step is entirely optional since all of the results are already included in the deployed application.*)
+In case you are interested how to figure out the available out-of-the-box APIs using the SAP API Business Hub and how to further use them in applications like SAP Cloud Application Programming Model.
 
-In case you are interested how to figure out the available out-of-the-box APIs using the SAP API Business Hub and how to further use them in applications like SAP Cloud Application Programming Model. 
-
-### Find and download API
+### 
 
 1. Open http://api.sap.com, enter "business partner" in the search field, and click the Search Button.
 ![Enter search term](./images/enter_searchterm.png)
