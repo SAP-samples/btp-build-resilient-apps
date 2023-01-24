@@ -45,6 +45,7 @@ If you are using an S/4HANA 1909 (or older version), please follow the following
 > **Troubleshooting:** In case of errors, please have a look at the following blog post: https://blogs.sap.com/2020/08/27/enterprise-event-enablement-troubleshooting/
 
 7. Select **Outbound Bindings**.
+   
    ![Go to Outbound bindings](./images/outbound-bindings.png) 
 
 8. In the next screen, first click on **Create**.
@@ -54,6 +55,7 @@ If you are using an S/4HANA 1909 (or older version), please follow the following
    ![Create outbound binding](./images/topic-filter.png) 
 
 10. Finish the setup and **Save**. 
+   
    ![Create outbound binding](./images/finish-outbound-binding.png) 
 
 > the topic name in SAP Event Mesh is effectively a combination of the namespace you have provided within the service key ("tfe/bpem/em") concatenated with the actual topic name you have selected in this step. Hence, the resulting topic name is: *tfe/bpem/em/sap/s4/beh/businesspartner/v1/BusinessPartner/*. 
