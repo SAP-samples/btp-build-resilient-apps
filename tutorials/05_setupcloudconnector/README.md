@@ -55,6 +55,7 @@ In this section you are going to configure the SAP Cloud Connector to connect yo
 11.	Add a **Description** for your system mapping.
 
 12.	Don´t forget to **check the Internal Host checkmark** and double-check if all values are correct and finish the setup with **Finish**.
+
     ![Check internal host checkbox](./images/check_internal_host.png)
 
 14.	Click on Button **+** to add a resource.
