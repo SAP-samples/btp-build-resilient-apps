@@ -32,7 +32,7 @@ Now you are going to create an user in the SAP S/4HANA on-premise system and ass
 
 1.	Navigate to transaction code **SU01**.
 
-   ![Transaction](./images/transaction_su01.png)
+      ![Transaction](./images/transaction_su01.png)
    
 2.	Enter a **new User ID** in the field *User* and click on the **Create** button to create new user.
    ![Copy User](./images/create_user_button.png)
@@ -64,7 +64,9 @@ Now you are going to create an user in the SAP S/4HANA on-premise system and ass
    ![Apply Template](./images/inseratuth_fromtemplate.png)
 
 13. Search for **/IWFND/RT_GW_USER** and **/IWXBE/RT_XBE_ADM** in the pop-up window and click on the checkmark for both entries to apply the templates.
+    
    ![/IWFND/RT_GW_USER entry](./images/apply_template1.png)
+
    ![/IWFND/RT_XBE_ADM entry](./images/apply_template2.png)
 
 14. Now click on **Status** and hit the checkmark in appearing pop-up. 
