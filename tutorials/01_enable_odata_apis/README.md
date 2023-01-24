@@ -8,11 +8,11 @@ An OData connection is essential for your extension application to SAP S/4HANA. 
 
 1.	Logon to your SAP S/4HANA system, enter the transaction code **/n/IWFND/MAINT_SERVICE** (*Activate and Maintain Services*) and hit enter. 
 
-   ![Navigate transaction](./images/configure-oData-Service-1.png)
+   ![Navigate transaction](./images/maintain_service_tcode.png)
 
 3.	Click on **Add Service** in the Service Catalog.
 
-   ![Add Service](./images/configure-oData-Service-2.png)
+   ![Add Service](./images/add_service.png)
 
 4.	Enter the following values:
 - **System Alias**: LOCAL
