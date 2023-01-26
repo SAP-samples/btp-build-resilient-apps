@@ -61,7 +61,7 @@ If you are using an S/4HANA 1909 (or older version), please follow the following
 > the topic name in SAP Event Mesh is effectively a combination of the namespace you have provided within the service key ("tfe/bpem/em") concatenated with the actual topic name you have selected in this step. Hence, the resulting topic name is: *tfe/bpem/em/sap/s4/beh/businesspartner/v1/BusinessPartner/*. 
 ### Importing The Certificate 
 
-1. Open the **SAP BTP cockpit** and go to the subaccount verview and cick on **API Endpoint**.
+1. Open the **SAP BTP cockpit** and go to the subaccount verview and click on the **API Endpoint**.
    ![import-certificate](./images/importCertificate1.png)
 
 2. Select **Connection is Secure**.

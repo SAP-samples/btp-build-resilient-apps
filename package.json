@@ -85,7 +85,8 @@
     "start:localapp": "cds-ts watch --in-memory --with-mocks",
     "start:ui": "npm run start:local --prefix router",
     "start:all": "concurrently --names \"APP,UI\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run start:localapp\" \"npm run start:ui\"",
-    "start:wdi5": "npm run wdi5 --prefix app/businesspartners"
+    "start:wdi5": "npm run wdi5 --prefix app/businesspartners",
+    "postinstall": "npm install --prefix app/businesspartners && npm install --prefix router"
   },
   "lint-staged": {
     "*.ts": [
