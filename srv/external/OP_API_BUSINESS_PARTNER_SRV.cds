@@ -965,8 +965,8 @@ entity OP_API_BUSINESS_PARTNER_SRV.A_BusinessPartner {
         to_BuPaIndustry                : Association to many OP_API_BUSINESS_PARTNER_SRV.A_BuPaIndustry {};
 
         @cds.ambiguous     : 'missing on condition?'
-        to_BusinessPartnerAddress      : Association to many OP_API_BUSINESS_PARTNER_SRV.A_BusinessPartnerAddress
-                                             on to_BusinessPartnerAddress.BusinessPartner = BusinessPartner;
+        to_BusinessPartnerAddress      : Composition of many OP_API_BUSINESS_PARTNER_SRV.A_BusinessPartnerAddress
+                                             on to_BusinessPartnerAddress.BusinessPartner = BusinessPartner; 
 
         @cds.ambiguous     : 'missing on condition?'
         to_BusinessPartnerBank         : Association to many OP_API_BUSINESS_PARTNER_SRV.A_BusinessPartnerBank {};

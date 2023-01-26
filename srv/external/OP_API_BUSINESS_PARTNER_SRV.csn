@@ -1431,7 +1431,7 @@
         },
         "to_BusinessPartnerAddress": {
           "@cds.ambiguous": "missing on condition?",
-          "type": "cds.Association",
+          "type": "cds.Composition",
           "cardinality": {
             "max": "*"
           },
