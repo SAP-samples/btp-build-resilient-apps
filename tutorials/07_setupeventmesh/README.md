@@ -25,11 +25,11 @@ If you are using an S/4HANA 1909 (or older version), please follow the following
  
  ### Configure Channel
 
-1. Logon to your SAP S/4HANA on-premise system and open the transaction **/IWXBE/CONFIG**.
+1. Log on to your SAP S/4HANA on-premise system (with an administrative user, not with the user that you have created in one of the previous steps) and open the transaction **/IWXBE/CONFIG**.
 2. Select **via Service Key**.
    ![Configure Channel](./images/EventBased4.png)
 
-3. Choose a **channel name** e.g. 'S4EM', provide a description and paste the **Service Key content** you have received in one of the previous steps. 
+3. Choose a **channel name** e.g. 'S4EM', provide a description and paste the **Service Key content** (JSON) you have received in one of the previous steps. 
    ![Configure Channel](./images/eventmesh-trial.png)
 > **IMPORTANT:** 
 >
@@ -38,7 +38,9 @@ If you are using an S/4HANA 1909 (or older version), please follow the following
 
 4. **Save** the configuration.
 
-5. Once your configuration is saved, click on the **Activate - Deactivate** button.
+5. Once your configuration is saved, select the newly created channel and hit the **Activate - Deactivate** button.
+   ![Hit the activate-deactivate button](./images/activate_channel.png) 
+   
    > Note: In case of errors, please have a look at the [import Certificate](#importing-the-certificate) section.
 
 6. Select **Check connection** to check that everything is fine with the configuration.
@@ -48,13 +50,13 @@ If you are using an S/4HANA 1909 (or older version), please follow the following
    
    ![Go to Outbound bindings](./images/outbound-bindings.png) 
 
-8. In the next screen, first click on **Create**.
+2. In the next screen, first click on **Create**.
    ![Create outbound binding](./images/create-outbound-binding.png) 
 
- 9.  Use the F4 help to look for the **BusinessPartner** topics. Select **BusinessPartner/*** to get all events related to BusinessPartners. (the wildcard enables all BusinessPartner related events such as *Created* or *Changed* )
+ 3.  Use the F4 help to look for the **BusinessPartner** topics. Select **BusinessPartner/*** to get all events related to BusinessPartners. (the wildcard enables all BusinessPartner related events such as *Created* or *Changed* )
    ![Create outbound binding](./images/topic-filter.png) 
 
-10. Finish the setup and **Save**. 
+3.  Finish the setup and **Save**. 
    
    ![Create outbound binding](./images/finish-outbound-binding.png) 
 
@@ -93,5 +95,9 @@ If you are using an S/4HANA 1909 (or older version), please follow the following
 10. Select the **Import Certificate** icon.
    ![import-certificate](./images/importCertificate9.png)
 
-11. Once you have imported the certificate, select**Add to Certificate List** and don't forget to save it.
+11. Once you have imported the certificate, select **Add to Certificate List** and don't forget to save it.
    ![import-certificate](./images/importCertificate10.png)
+
+--- 
+
+Congratulations! You have now done the required steps in the SAP S/4HANA on-premise system, so that the system can proactively send events to the SAP Event Mesh service on SAP BTP. 
