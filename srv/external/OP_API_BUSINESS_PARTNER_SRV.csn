@@ -22,7 +22,7 @@
         },
         "Person": {
           "@sap.display.format": "UpperCase",
-          "@sap.label": "Person Numbe1r",
+          "@sap.label": "Person Number",
           "key": true,
           "type": "cds.String",
           "length": 10
@@ -5514,7 +5514,7 @@
     }
   },
   "meta": {
-    "creator": "CDS Compiler v3.4.4",
+    "creator": "CDS Compiler v3.5.4",
     "flavor": "inferred"
   },
   "$version": "2.0"

@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@sap/approuter": "^13.0.2",
+    "@sap/eslint-plugin-cds": "^2.6.1",
     "@sap/eslint-plugin-ui5-jsdocs": "2.0.x",
     "@sap/hdi-deploy": "4.5.3",
     "@sap/html5-repo-mock": "2.1.1",
@@ -41,7 +42,7 @@
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
-    "@ui5/cli": "2.14.17",
+    "@ui5/cli": "^1.2.1",
     "axios": "^1.2.3",
     "bestzip": "2.2.1",
     "cds2types": "^3",
@@ -71,7 +72,7 @@
     "test": "ts-mocha tests/general.spec.ts --timeout 30000 --reporter mochawesome",
     "start": "npx -n=\"--inspect\" cds run",
     "buildtypes": "cds2types --cds ./srv/admin.cds --output ./srv/model/entities.ts --debug",
-    "build:cf": "npm run build:cds && npm run cleanup:ts && npm run build:ts",
+    "build:cf": "npm run build:cds && npm run cleanup:ts && npm run build:ts && npm run build --prefix app/businesspartners",
     "deploy:live": "mbt build -e live.mtaext --mtar BPVerification.mtar && cf deploy mta_archives/BPVerification.mtar",
     "deploy:trial": "mbt build -e trial.mtaext --mtar BPVerification.mtar && cf deploy mta_archives/BPVerification.mtar",
     "build:ts": "tsc",
@@ -83,9 +84,14 @@
     "prepare": "node -e \"if (process.env.NODE_ENV !== 'production'){process.exit(1)} \" || husky install",
     "pre-commit": "npx lint-staged && npm run test",
     "start:localapp": "cds-ts watch --in-memory --with-mocks",
-    "start:ui": "npm run start:local --prefix router",
-    "start:all": "concurrently --names \"APP,UI\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run start:localapp\" \"npm run start:ui\"",
-    "start:wdi5": "npm run wdi5 --prefix app/businesspartners"
+    "start:hybrid": "cds-ts watch --profile hybrid",
+    "start:tunnelling": "cf ssh BPVerification-srv -N -L 20003:connectivityproxy.internal.cf.eu10-004.hana.ondemand.com:20003",
+    "start:ui": "npm run start:local --prefix app/businesspartners",
+    "start:all-local": "concurrently --names \"CC,APP,UI\" -c \"green,blue,magenta\" \"npm run start:localapp\" \"npm run start:ui\"",
+    "start:all-hybrid": "concurrently --names \"CC,APP,UI\" -c \"bgBlue.bold,bgMagenta.bold\" \"DEBUG=rest,odata npm run start:hybrid\" \"npm run start:ui\"",
+    "start:production-like": "concurrently --names \"CC,APP,UI\" -c \"green,blue,magenta\" \"npm run start:tunnelling\" \"npm run start:hybrid\" \"npm run start:ui\"",
+    "start:wdi5": "npm run wdi5 --prefix app/businesspartners",
+    "postinstall": "npm install --prefix app/businesspartners && npm run build --prefix app/businesspartners"
   },
   "lint-staged": {
     "*.ts": [
