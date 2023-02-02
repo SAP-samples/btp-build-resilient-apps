@@ -85,11 +85,13 @@
     "pre-commit": "npx lint-staged && npm run test",
     "start:localapp": "cds-ts watch --in-memory --with-mocks",
     "start:hybrid": "cds-ts watch --profile hybrid",
-    "start:ui": "npm run start:local --prefix router",
-    "start:all-local": "concurrently --names \"APP,UI\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run start:localapp\" \"npm run start:ui\"",
-    "start:all-hybrid": "concurrently --names \"APP,UI\" -c \"bgBlue.bold,bgMagenta.bold\" \"DEBUG=rest,odata npm run start:hybrid\" \"npm run start:ui\"",
+    "start:tunnelling": "cf ssh BPVerification-srv -N -L 20003:connectivityproxy.internal.cf.eu10-004.hana.ondemand.com:20003",
+    "start:ui": "npm run start:local --prefix app/businesspartners",
+    "start:all-local": "concurrently --names \"CC,APP,UI\" -c \"green,blue,magenta\" \"npm run start:localapp\" \"npm run start:ui\"",
+    "start:all-hybrid": "concurrently --names \"CC,APP,UI\" -c \"bgBlue.bold,bgMagenta.bold\" \"DEBUG=rest,odata npm run start:hybrid\" \"npm run start:ui\"",
+    "start:production-like": "concurrently --names \"CC,APP,UI\" -c \"green,blue,magenta\" \"npm run start:tunnelling\" \"npm run start:hybrid\" \"npm run start:ui\"",
     "start:wdi5": "npm run wdi5 --prefix app/businesspartners",
-    "postinstall": "npm install --prefix app/businesspartners && npm install --prefix router"
+    "postinstall": "npm install --prefix app/businesspartners && npm run build --prefix app/businesspartners && npm install --prefix router"
   },
   "lint-staged": {
     "*.ts": [
