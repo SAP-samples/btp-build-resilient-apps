@@ -1,6 +1,6 @@
 _schema-version: '3.1'
 ID: BPVerification
-version: 1.9.0
+version: 2.0.1
 description: Verifying Business Partners with a extension application for SAP BTP with CI/CD and much more
 parameters:
   enable-parallel-deployments: true

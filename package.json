@@ -1,6 +1,6 @@
 {
   "name": "verificationapp",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Verifying Business Partners with a extension application for SAP BTP",
   "repository": "github:SAP-samples/btp-build-resilient-apps",
   "license": "UNLICENSED",
