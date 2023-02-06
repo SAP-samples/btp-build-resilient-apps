@@ -2,3 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npm run pre-commit
+sed -i "" "s/^version: .*/version: $(jq -r '.version' package.json)/" mta.yaml
+git add mta.yaml

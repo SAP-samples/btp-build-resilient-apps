@@ -90,8 +90,7 @@
     "start:all-local": "concurrently --names \"CC,APP,UI\" -c \"green,blue,magenta\" \"npm run start:localapp\" \"npm run start:ui\"",
     "start:all-hybrid": "concurrently --names \"CC,APP,UI\" -c \"bgBlue.bold,bgMagenta.bold\" \"DEBUG=rest,odata npm run start:hybrid\" \"npm run start:ui\"",
     "start:production-like": "concurrently --names \"CC,APP,UI\" -c \"green,blue,magenta\" \"npm run start:tunnelling\" \"npm run start:hybrid\" \"npm run start:ui\"",
-    "start:wdi5": "npm run wdi5 --prefix app/businesspartners",
-    "postinstall": "npm install --prefix app/businesspartners && npm run build --prefix app/businesspartners"
+    "start:wdi5": "npm run wdi5 --prefix app/businesspartners"
   },
   "lint-staged": {
     "*.ts": [
