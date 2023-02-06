@@ -91,7 +91,7 @@ modules:
     type: nodejs
     path: gen/srv
     requires:
-+      - name: BusinessPartnerVerification-pl
++      - name: BPVerification-pl
       - ...
 
 ...
