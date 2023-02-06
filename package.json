@@ -42,7 +42,7 @@
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
-    "@ui5/cli": "^1.2.1",
+    "@ui5/cli": "^2.14.17",
     "axios": "^1.2.3",
     "bestzip": "2.2.1",
     "cds2types": "^3",
