@@ -1,0 +1,35 @@
+set -e
+wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+sudo apt-get update
+sudo apt-get install cf-cli
+
+cf login -a "$CF_API" -u "$CF_USERNAME" -p "$CF_PASSWORD" -o "$CF_ORG" -s "$CF_SPACE" 
+
+#check if SAP HANA Cloud instance exists
+instance_name=$(cf s | tail -n +4 | grep hana-cloud-trial | awk '{ print $1}')
+
+echo $instance_name
+if [ -z "$instance_name" ]
+then
+    echo "SAP HANA Cloud instance does not exist. Going to create one - creation can take a few minutes"
+    CONFIG=$( jq -c -n \
+                  --arg pw "$CF_PASSWORD" \
+                  '{"data":{"edition":"cloud","memory":30,"systempassword": $pw,"whitelistIPs":["0.0.0.0/0"]}}' )
+    cf create-service hana-cloud-trial hana hana-instance -c "${CONFIG}"
+else
+    echo "SAP HANA Cloud instance exists: $instance_name"
+    exit
+fi
+
+
+status=$(cf s | tail -n +4 | grep hana-cloud-trial | awk '{ print $4,$5}')
+while [[ $status != "create succeeded" ]]
+do
+    echo "status: $status"
+    echo "creation ongoing"
+    sleep 30s
+    status=$(cf s | tail -n +4 | grep hana-cloud-trial | awk '{ print $4,$5}')
+done
+
+echo "SAP HANA Cloud instance created"

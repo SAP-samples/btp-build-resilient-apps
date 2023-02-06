@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+subaccount=$(./sapcp --format json list accounts/subaccount | jq '.value[0].guid' | sed -e 's/^"//' -e 's/"$//')
+./sapcp target --subaccount $subaccount
+
+#read all needed role-collections from a seperate file
+mapfile -t rolecollections < .github/workflows/scripts/config/role-collections.txt
+
+for rolecollection in "${rolecollections[@]}"
+do
+    ./sapcp assign security/role-collection "$rolecollection" --to-user $CF_USERNAME --of-idp sap.default
+   
+done
