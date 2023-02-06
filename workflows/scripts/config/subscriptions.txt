@@ -1,0 +1,4 @@
+sapappstudiotrial:trial
+enterprise-messaging-hub:standard
+SAPLaunchpad:standard
+alm-ts:saas-application

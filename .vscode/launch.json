@@ -1,0 +1,45 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "command": "DEBUG=hana cds-ts watch --profile hybrid",
+      "name": "cds-ts watch",
+      "request": "launch",
+      "type": "node-terminal",
+      "skipFiles": ["<node_internals>/**"],
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "command": "DEBUG=sqlite cds-ts watch --with-mocks --in-memory",
+      "name": "cds-ts in memory",
+      "request": "launch",
+      "type": "node-terminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "command": "DEBUG=sqlite ts-mocha tests/general.spec.ts --timeout 1500000",
+      "name": "ts-mocha tests/general.spec.ts --timeout 15000",
+      "request": "launch",
+      "type": "node-terminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Attach to a Cloud Foundry Instance on Port 9229",
+      "port": 9229,
+      "request": "attach",
+      "type": "node",
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/home/vcap/app"
+    },
+    {
+      "command": "npm run start:wdi5",
+      "name": "npm run wdi5",
+      "request": "launch",
+      "type": "node-terminal",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}

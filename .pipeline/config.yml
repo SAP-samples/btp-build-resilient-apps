@@ -1,0 +1,43 @@
+# Project configuration
+general:
+  pipeline: 'sap-cloud-sdk' # this line is mandatory
+  buildTool: 'mta' # or 'npm'
+
+# Stages configuration
+stages:
+  Build:
+    npmExecuteLint: true # true, if you want to run a lint check that verifies the syntax of your JavaScript code
+
+  Additional Unit Tests:
+    npmExecuteScripts: true
+
+  Release:
+    cloudFoundryDeploy: true # true, if you want to deploy to Cloud Foundry. If you set this parameter to true, the CloudFoundryDeploy step is mandatory
+    tmsUpload: false # true if you want to upload your artifact to SAP Cloud Transport Management. If you set this parameter to true, the tmsUpload step is mandatory
+
+# Steps configuration
+steps:
+  npmExecuteLint:
+    failOnError: false # true, if you want your pipeline to fail, if the lint check reveals any errors
+
+  npmExecuteScripts: # only relevant, if you set the npmExecuteScripts parameter in the Additional Unit Tests stage to true
+    runScripts:
+      - test
+
+  mtaBuild:
+    buildTarget: 'CF'
+    extensions: 'live.mtaext' # live.mtaext for BTP Live landscape or trial.mtaext for BTP Trial Account
+    mtaBuildTool: 'cloudMbt'
+
+  cloudFoundryDeploy: # only relevant, if you set the cloudFoundryDeploy parameter in the Release stage to true
+    cloudFoundry:
+      credentialsId: 'cf-credential'
+      apiEndpoint: 'https://api.cf.eu10-004.hana.ondemand.com/' # for example, https://api.cf.eu10.hana.ondemand.com
+      org: 'tfe-dev-eu10-004' # your cloud foundry org name
+      space: 'dev' # your cloud foundry space name
+    mtaDeployParameters: '-f --version-rule ALL'
+
+  # tmsUpload:            # only relevant, if you set the tmsUpload parameter in the Release stage to true
+  #   nodeName: 'QA'
+  #   credentialsId: 'tms'
+  #   customDescription: 'TMS Upload'

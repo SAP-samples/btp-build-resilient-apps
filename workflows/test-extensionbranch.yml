@@ -1,0 +1,26 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [extension]
+  pull_request:
+    branches: [extension]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 15.x, 16.x, 18.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm cache verify
+      - run: npm install
+      - run: npm run build:cf
+      - run: npm test

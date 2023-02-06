@@ -1,0 +1,4 @@
+BusinessPartner;FirstName;LastName;BusinessPartnerIsBlocked;
+MAXSTR;Max;;Streifeneder;false;
+BOB;Mocked Bob;The;Builder;false;
+JABBA;Mocked Jabba;The;Hutt;true;

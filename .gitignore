@@ -1,0 +1,46 @@
+# CAP BusinessPartnerVerification
+_out
+*.db
+connection.properties
+default-*.json
+gen/*
+node_modules/
+target/
+resources/
+dist/
+*.zip
+*package-lock.json
+
+# Web IDE, App Studio
+.che/
+.gen/
+
+# MTA
+*_mta_build_tmp
+*.mtar
+mta_archives/
+.vscode/settings.json
+Makefile*
+
+# Other
+.DS_Store
+*.orig
+*.log
+
+*.iml
+*.flattened-pom.xml
+
+# IDEs
+# .vscode
+# .idea
+
+# added by cds deploy
+default-env.json
+
+# auto generated wildcard
+.env*
+*businesspartners-content.zip
+# added by cds bind
+.cdsrc-private.json
+
+mochawesome-report/

@@ -1,0 +1,147 @@
+{
+  "name": "verificationapp",
+  "version": "1.0.0",
+  "description": "Verifying Business Partners with a extension application for SAP BTP",
+  "repository": "github:SAP-samples/btp-build-resilient-apps",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": "^16.15"
+  },
+  "dependencies": {
+    "@sap-cloud-sdk/connectivity": "^2.14.0",
+    "@sap-cloud-sdk/core": "^1.54.0",
+    "@sap-cloud-sdk/http-client": "^2.14.0",
+    "@sap-cloud-sdk/util": "^2.14.0",
+    "@sap/cds": "6.4.1",
+    "@sap/cloud-sdk-vdm-business-partner-service": "^2.1.0",
+    "@sap/hana-client": "^2.15.19",
+    "@sap/xb-msg-amqp-v100": "^0.9.58",
+    "@sap/xsenv": "^3.4.0",
+    "@sap/xssec": "^3.2.15",
+    "@xmldom/xmldom": "^0.8.6",
+    "express": "^4.18.2",
+    "hdb": "^0.19.5",
+    "lodash": "^4.17.21",
+    "passport": "^0.6.0",
+    "supertest": "^6.3.3",
+    "tar": "^6.1.13",
+    "typescript": "^4.9.4"
+  },
+  "devDependencies": {
+    "@sap/approuter": "^13.0.2",
+    "@sap/eslint-plugin-cds": "^2.6.1",
+    "@sap/eslint-plugin-ui5-jsdocs": "2.0.x",
+    "@sap/hdi-deploy": "4.5.3",
+    "@sap/html5-repo-mock": "2.1.1",
+    "@sap/ui5-builder-webide-extension": "^1.1.9",
+    "@sap/ux-specification": "^1.102.14",
+    "@sapui5/ts-types": "1.102.x",
+    "@types/expect": "^24.3.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "@ui5/cli": "^1.2.1",
+    "axios": "^1.2.3",
+    "bestzip": "2.2.1",
+    "cds2types": "^3",
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
+    "chai-http": "^4.3.0",
+    "chai-subset": "^1.6.0",
+    "concurrently": "^7.6.0",
+    "eslint": "8.32.x",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "jest": "^29.3.1",
+    "lint-staged": "^13.1.0",
+    "mocha": "^10.2.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-report-generator": "^6.2.0",
+    "npm-check-updates": "^16.6.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.3",
+    "rimraf": "4.1.1",
+    "sqlite3": "^5.1.4",
+    "ts-mocha": "^10.0.0"
+  },
+  "scripts": {
+    "update-dependencies": "ncu -u",
+    "test": "ts-mocha tests/general.spec.ts --timeout 30000 --reporter mochawesome",
+    "start": "npx -n=\"--inspect\" cds run",
+    "buildtypes": "cds2types --cds ./srv/admin.cds --output ./srv/model/entities.ts --debug",
+    "build:cf": "npm run build:cds && npm run cleanup:ts && npm run build:ts && npm run build --prefix app/businesspartners",
+    "deploy:live": "mbt build -e live.mtaext --mtar BPVerification.mtar && cf deploy mta_archives/BPVerification.mtar",
+    "deploy:trial": "mbt build -e trial.mtaext --mtar BPVerification.mtar && cf deploy mta_archives/BPVerification.mtar",
+    "build:ts": "tsc",
+    "build:cds": "cds build --production",
+    "cleanup:ts": "npx rimraf ./gen/srv/srv/**/*.ts",
+    "ts-typecheck": "tsc --noEmit",
+    "prettier-format": "prettier --check --config .prettierrc './{srv,tests}/**/*.{ts,js}' --write",
+    "lint": "eslint . --ext .ts",
+    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production'){process.exit(1)} \" || husky install",
+    "pre-commit": "npx lint-staged && npm run test",
+    "start:localapp": "cds-ts watch --in-memory --with-mocks",
+    "start:hybrid": "cds-ts watch --profile hybrid",
+    "start:tunnelling": "cf ssh BPVerification-srv -N -L 20003:connectivityproxy.internal.cf.eu10-004.hana.ondemand.com:20003",
+    "start:ui": "npm run start:local --prefix app/businesspartners",
+    "start:all-local": "concurrently --names \"CC,APP,UI\" -c \"green,blue,magenta\" \"npm run start:localapp\" \"npm run start:ui\"",
+    "start:all-hybrid": "concurrently --names \"CC,APP,UI\" -c \"bgBlue.bold,bgMagenta.bold\" \"DEBUG=rest,odata npm run start:hybrid\" \"npm run start:ui\"",
+    "start:production-like": "concurrently --names \"CC,APP,UI\" -c \"green,blue,magenta\" \"npm run start:tunnelling\" \"npm run start:hybrid\" \"npm run start:ui\"",
+    "start:wdi5": "npm run wdi5 --prefix app/businesspartners",
+    "postinstall": "npm install --prefix app/businesspartners && npm run build --prefix app/businesspartners"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint",
+      "prettier --check --config .prettierrc --write"
+    ]
+  },
+  "cds": {
+    "features": {
+      "fetch_csrf": true
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
+    },
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "[production]": {
+          "kind": "hana-cloud"
+        },
+        "[hybrid]": {
+          "kind": "hana-cloud"
+        }
+      },
+      "messaging": {
+        "kind": "file-based-messaging",
+        "file": "../msg-box",
+        "[production]": {
+          "kind": "enterprise-messaging-shared"
+        },
+        "[hybrid]": {
+          "kind": "enterprise-messaging-shared"
+        }
+      },
+      "OP_API_BUSINESS_PARTNER_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/OP_API_BUSINESS_PARTNER_SRV"
+      }
+    }
+  },
+  "sapux": [
+    "app/businesspartners"
+  ],
+  "ui5": {
+    "dependencies": [
+      "@sap/ui5-builder-webide-extension"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 20000
+  }
+}

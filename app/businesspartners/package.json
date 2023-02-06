@@ -1,0 +1,47 @@
+{
+  "name": "businesspartners",
+  "version": "0.0.1",
+  "description": "A Fiori application ",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html",
+  "scripts": {
+    "build": "npm i && npm run clean && ui5 build --include-task=generateManifestBundle generateCachebusterInfo && npm run zip",
+    "zip": "cd dist && npx bestzip ../businesspartners-content.zip *",
+    "clean": "npx rimraf businesspartners-content.zip dist",
+    "deploy": "npx -p @sap/ux-ui5-tooling fiori add deploy-config cf",
+    "wdi5": "wdio run ./wdio.conf.js",
+    "start:local": "destinations=`shx cat .destinations` PORT=5002 node node_modules/@sap/html5-repo-mock/index.js"
+  },
+  "devDependencies": {
+    "@sap/html5-repo-mock": "^2.1.1",
+    "@sap/ui5-builder-webide-extension": "1.1.x",
+    "@sap/ux-specification": "latest",
+    "@sap/ux-ui5-tooling": "1",
+    "@ui5/cli": "2.10.3",
+    "@ui5/fs": "2.0.6",
+    "@ui5/logger": "2.0.1",
+    "@wdio/cli": "^7.28.0",
+    "@wdio/local-runner": "^7.28.0",
+    "@wdio/mocha-framework": "^7.26.0",
+    "@wdio/spec-reporter": "^7.28.0",
+    "bestzip": "2.2.0",
+    "chromedriver": "^108.0.0",
+    "dotenv": "^16.0.3",
+    "rimraf": "3.0.2",
+    "shx": "^0.3.4",
+    "wdio-chromedriver-service": "^8.0.1",
+    "wdio-ui5-service": "1.0.3"
+  },
+  "ui5": {
+    "dependencies": [
+      "@sap/ui5-builder-webide-extension"
+    ]
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3"
+  }
+}

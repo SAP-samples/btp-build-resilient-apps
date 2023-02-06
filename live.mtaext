@@ -1,0 +1,16 @@
+_schema-version: 3.3.0
+ID: BPVerification-live
+extends: BPVerification
+
+version: 1.0.0
+
+modules:
+  - name: BPVerification-srv
+    parameters:
+      instances: 1
+resources:
+  - name: BPVerification-ems
+    parameters:
+      path: ./em.json
+      service: enterprise-messaging
+      service-plan: default

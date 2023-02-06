@@ -1,0 +1,38 @@
+{
+  "root": false,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@sap/cds/recommended"
+  ],
+  "env": {
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "globals": {
+    "SELECT": true,
+    "INSERT": true,
+    "UPDATE": true,
+    "DELETE": true,
+    "CREATE": true,
+    "DROP": true,
+    "cds": true
+  },
+  "rules": {
+    "no-console": "warn",
+    "require-atomic-updates": "off",
+    "@typescript-eslint/no-namespace": "off"
+  }
+}
