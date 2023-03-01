@@ -11,6 +11,6 @@ modules:
 resources:
   - name: BPVerification-ems
     parameters:
-      path: ./em.json
+      path: ./event-mesh.json
       service: enterprise-messaging
       service-plan: default

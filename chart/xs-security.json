@@ -31,7 +31,7 @@
   ],
   "role-collections": [
     {
-      "name": "BPAdmin1",
+      "name": "BPAdmin",
       "description": "Business Partner Admin",
       "role-template-references": [
         "$XSAPPNAME.BPAdmin"

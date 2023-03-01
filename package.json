@@ -8,6 +8,9 @@
   "engines": {
     "node": "^16.15"
   },
+  "config": {
+    "imagePrefix": "ghcr.io/maxstreifeneder"
+  },
   "dependencies": {
     "@sap-cloud-sdk/connectivity": "^3.0.0",
     "@sap-cloud-sdk/core": "^1.54.0",
@@ -20,6 +23,7 @@
     "@sap/xsenv": "^3.4.0",
     "@sap/xssec": "^3.2.15",
     "@xmldom/xmldom": "^0.8.6",
+    "cross-var": "^1.1.0",
     "express": "^4.18.2",
     "hdb": "^0.19.5",
     "lodash": "^4.17.21",
@@ -70,7 +74,7 @@
   "scripts": {
     "update-dependencies": "ncu -u",
     "test": "ts-mocha tests/general.spec.ts --timeout 30000 --reporter mochawesome",
-    "start": "npx -n=\"--inspect\" cds run",
+    "start": "DEBUG=remote cds run --profile production",
     "buildtypes": "cds2types --cds ./srv/admin.cds --output ./srv/model/entities.ts --debug",
     "build:cf": "npm run build:cds && npm run cleanup:ts && npm run build:ts && npm run build --prefix app/businesspartners",
     "deploy:live": "mbt build -e live.mtaext --mtar BPVerification.mtar && cf deploy mta_archives/BPVerification.mtar",
@@ -83,14 +87,30 @@
     "lint": "eslint . --ext .ts",
     "prepare": "node -e \"if (process.env.NODE_ENV !== 'production'){process.exit(1)} \" || husky install",
     "pre-commit": "npx lint-staged && npm run test",
+    "----": "----",
+    "build:html5-deployer": "cross-var docker build -t $npm_package_config_imagePrefix/verification-html5-deployer ./app/html5-deployer",
+    "push:html5-deployer": "cross-var docker push $npm_package_config_imagePrefix/verification-html5-deployer",
+    "-----": "------",
     "start:localapp": "cds-ts watch --in-memory --with-mocks",
-    "start:hybrid": "cds-ts watch --profile hybrid",
-    "start:tunnelling": "cf ssh BPVerification-srv -N -L 20003:connectivityproxy.internal.cf.eu10-004.hana.ondemand.com:20003",
+    "start:hybrid": "DEBUG=ALL cds-ts watch --profile hybrid",
+    "start:production": "DEBUG=ALL cds-ts run --profile production",
+    "start:tunnelling": "cf ssh BPVerification-srv -N -L 20003:connectivityproxy.internal.cf.us20.hana.ondemand.com:20003",
     "start:ui": "npm run start:local --prefix app/businesspartners",
     "start:all-local": "concurrently --names \"CC,APP,UI\" -c \"green,blue,magenta\" \"npm run start:localapp\" \"npm run start:ui\"",
     "start:all-hybrid": "concurrently --names \"CC,APP,UI\" -c \"bgBlue.bold,bgMagenta.bold\" \"DEBUG=rest,odata npm run start:hybrid\" \"npm run start:ui\"",
     "start:production-like": "concurrently --names \"CC,APP,UI\" -c \"green,blue,magenta\" \"npm run start:tunnelling\" \"npm run start:hybrid\" \"npm run start:ui\"",
-    "start:wdi5": "npm run wdi5 --prefix app/businesspartners"
+    "start:wdi5": "npm run wdi5 --prefix app/businesspartners",
+    "--------": "-----------",
+    "pack:srv": "pack build $npm_package_config_imagePrefix/verificationapp-srv:latest --path gen/srv --buildpack gcr.io/paketo-buildpacks/nodejs --builder paketobuildpacks/builder:base --env BP_NODE_RUN_SCRIPTS=''",
+    "pack:db": "pack build $npm_package_config_imagePrefix/verificationapp-hana-deployer:latest --path gen/db --buildpack gcr.io/paketo-buildpacks/nodejs --builder paketobuildpacks/builder:base --env BP_NODE_RUN_SCRIPTS=''",
+    "pack:ui": "npm run build --prefix app/businesspartners && npm run copy:kyma --prefix app/businesspartners && docker build -t $npm_package_config_imagePrefix/verification-html5-deployer app/html5-deployer",
+    "pack:all": "npm run build:cf && npm run pack:srv && npm run pack:db && npm run pack:ui",
+    "-------": "-------------",
+    "push:srv": "docker push $npm_package_config_imagePrefix/verificationapp-srv:latest",
+    "push:db": "docker push $npm_package_config_imagePrefix/verificationapp-hana-deployer",
+    "push:ui": "docker push $npm_package_config_imagePrefix/verification-html5-deployer:latest",
+    "push:all": "npm run push:srv && npm run push:db && npm run push:ui",
+    "deploy:kyma": "helm upgrade verificationapp ./chart --debug"
   },
   "lint-staged": {
     "*.ts": [
@@ -109,7 +129,19 @@
       "db": {
         "kind": "sqlite",
         "[production]": {
-          "kind": "hana-cloud"
+          "kind": "hana-cloud",
+          "pool": {
+            "acquireTimeoutMillis_doc": "max milliseconds an acquire call will wait for a resource before timing out. (default no limit), if supplied should non-zero positive integer.",
+            "acquireTimeoutMillis": 4000,
+            "softIdleTimeoutMillis_doc": "amount of time an object may sit idle in the pool before it is eligible for eviction by the idle object evictor (if any), with the extra condition that at least 'min idle' object instances remain in the pool. Default -1 (nothing can get evicted)",
+            "softIdleTimeoutMillis": 80000,
+            "evictionRunIntervalMillis_doc": "How often to run eviction checks. Default: 0 (does not run).",
+            "evictionRunIntervalMillis": 0,
+            "max_doc": "maximum number of resources to create at any given time. (default=1)",
+            "max": 3000,
+            "xmin_doc": "minimum number of resources to keep in pool at any given time. If this is set >= max, the pool will silently set the min to equal max. (default=0)",
+            "min": 10
+          }
         },
         "[hybrid]": {
           "kind": "hana-cloud"
@@ -128,6 +160,9 @@
       "OP_API_BUSINESS_PARTNER_SRV": {
         "kind": "odata-v2",
         "model": "srv/external/OP_API_BUSINESS_PARTNER_SRV"
+      },
+      "auth": {
+        "kind": "xsuaa"
       }
     }
   },

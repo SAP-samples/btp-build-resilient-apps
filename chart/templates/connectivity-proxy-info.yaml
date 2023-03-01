@@ -1,0 +1,20 @@
+{{- if .Values.connectivity }}
+  {{- if or (not (hasKey .Values.connectivity "enabled")) .Values.connectivity.enabled }}
+    {{- $ := merge (dict "name" "connectivity-proxy-info") . }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.connectivity.configMapName }}
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "cap.labels" $ | nindent 4 }}
+data:
+  .metadata: >-
+    {"credentialProperties":[{"name":"subaccount_id","format":"text"},{"name":"subaccount_subdomain","format":"text"},{"name":"token_service_domain","format":"text"},{"name":"token_service_url","format":"text"},{"name":"token_service_url_pattern","format":"text"},{"name":"token_service_url_pattern_tenant_key","format":"text"},{"name":"clientid","format":"text"},{"name":"credential-type","format":"text"},{"name":"xsappname","format":"text"},{"name":"clientsecret","format":"text"},{"name":"connectivity_service","format":"json"},{"name":"onpremise_proxy_host","format":"text"},{"name":"onpremise_proxy_http_port","format":"text"},{"name":"onpremise_proxy_host","format":"text"},{"name":"url","format":"text"}],"metaDataProperties":[{"name":"instance_name","format":"text"},{"name":"instance_guid","format":"text"},{"name":"plan","format":"text"},{"name":"label","format":"text"},{"name":"type","format":"text"},{"name":"tags","format":"json"}]}
+  onpremise_proxy_host: connectivity-proxy.kyma-system.svc.cluster.local
+  onpremise_proxy_http_port: "20003"
+  onpremise_proxy_ldap_port: "20001"
+  onpremise_proxy_port: "20003"
+  onpremise_proxy_rfc_port: "20001"
+  onpremise_socks5_proxy_port: "20004"
+  {{- end }}
+{{- end }}

@@ -13,6 +13,8 @@
     "zip": "cd dist && npx bestzip ../businesspartners-content.zip *",
     "clean": "npx rimraf businesspartners-content.zip dist",
     "deploy": "npx -p @sap/ux-ui5-tooling fiori add deploy-config cf",
+    "build:kyma": "npm run build && npm run copy:kyma",
+    "copy:kyma": "shx mkdir -p ../html5-deployer/resources/ && shx cp -rf ./*.zip ../html5-deployer/resources/",
     "wdi5": "wdio run ./wdio.conf.js",
     "start:local": "destinations=`shx cat .destinations` PORT=5002 node node_modules/@sap/html5-repo-mock/index.js"
   },
