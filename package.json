@@ -9,7 +9,7 @@
     "node": "^16.15"
   },
   "dependencies": {
-    "@sap-cloud-sdk/connectivity": "^2.14.0",
+    "@sap-cloud-sdk/connectivity": "^3.0.0",
     "@sap-cloud-sdk/core": "^1.54.0",
     "@sap-cloud-sdk/http-client": "^2.14.0",
     "@sap-cloud-sdk/util": "^2.14.0",
