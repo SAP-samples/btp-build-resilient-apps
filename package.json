@@ -9,7 +9,7 @@
     "node": "^16.15"
   },
   "config": {
-    "imagePrefix": "ghcr.io/maxstreifeneder"
+    "imagePrefix": "<replace with your registry/user>"
   },
   "dependencies": {
     "@sap-cloud-sdk/connectivity": "^3.0.0",

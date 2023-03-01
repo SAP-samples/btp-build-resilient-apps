@@ -1,7 +1,6 @@
 global:
-  domain: c9ff5e0.kyma.ondemand.com
-  imagePullSecret:
-    name: container-registry
+  domain: <replace with kyma domain> # e.g.: a9ff5e0.kyma.ondemand.co
+  imagePullSecret: none # if you have a private registry, provide your secret here. (https://blogs.sap.com/2022/12/04/sap-btp-kyma-kubernetes-how-to-pull-from-private-repository/)
 srv:
   fullnameOverride: verification-srv
   replicaCount: 3
@@ -15,7 +14,7 @@ srv:
     auth:
       serviceInstanceFullname: verification-xsuaa
   image:
-    repository: ghcr.io/maxstreifeneder/verificationapp-srv
+    repository: <your-registry-and-user>/verificationapp-srv
     tag: latest
   resources:
     limits:
@@ -62,7 +61,7 @@ html5_apps_repo_host:
 
 hana_deployer:
   image:
-    repository: ghcr.io/maxstreifeneder/verificationapp-hana-deployer
+    repository: <your-registry-and-user>/verificationapp-hana-deployer
     tag: latest
   bindings:
     hana:
@@ -92,7 +91,7 @@ html5_apps_deployer:
     BPVerification-srv-api:
       service: srv
   image:
-    repository: ghcr.io/maxstreifeneder/verification-html5-deployer
+    repository: <your-registry-and-user>/verification-html5-deployer #same as in package.json config.ImagePrefix
     tag: latest
   bindings:
     xsuaa:
