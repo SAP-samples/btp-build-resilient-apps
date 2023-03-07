@@ -24,7 +24,7 @@ by clicking the <code>+ Add</code> button.
 
 ![Azure](images/azure-3.png)
 
-For S/4HANA VM as health probe will serve port 22.
+For S/4HANA as health probe e.g. endpoint **/sap/public/ping** can serve.
 
 ![Azure](images/azure-4.png)
 
