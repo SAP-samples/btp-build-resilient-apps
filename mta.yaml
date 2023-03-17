@@ -187,4 +187,4 @@ resources:
     type: org.cloudfoundry.managed-service
     parameters:
       service: autoscaler
-      service-plan: lite
+      service-plan: standard
