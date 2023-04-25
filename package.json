@@ -16,7 +16,7 @@
     "@sap-cloud-sdk/core": "^1.54.0",
     "@sap-cloud-sdk/http-client": "^3.0.0",
     "@sap-cloud-sdk/util": "^3.0.1",
-    "@sap/cds": "6.7.1",
+    "@sap/cds": "6.7.2",
     "@sap/cloud-sdk-vdm-business-partner-service": "^2.1.0",
     "@sap/hana-client": "^2.15.19",
     "@sap/xb-msg-amqp-v100": "^0.9.58",
