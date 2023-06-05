@@ -39,7 +39,7 @@ Deploy a ready-to-use Node.js application utilizing the SAP Cloud Application Pr
 
 11. Navigate to the **projects** directory and clone your forked sample GitHub repository by using the following command in the terminal:
    ```
-   cd projects && git clone -b extension https://github.com/YourUser/btp-build-resilient-apps
+   cd projects && git clone https://github.com/YourUser/btp-build-resilient-apps
    ```
    > **IMPORTANT:** ❗️Replace **YourUser** with your actual username.
 
