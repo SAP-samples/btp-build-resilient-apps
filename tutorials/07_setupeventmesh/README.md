@@ -27,7 +27,6 @@ If you are using an S/4HANA 1909 (or older version), please follow the following
 
 1. Log on to your SAP S/4HANA on-premise system (with an administrative user, not with the user that you have created in one of the previous steps) and open the transaction **/IWXBE/CONFIG**.
 2. Select **via Service Key**.
-   ![Configure Channel](./images/EventBased4.png)
 
 3. Choose a **channel name** e.g. 'S4EM', provide a description and paste the **Service Key content** (JSON) you have received in one of the previous steps. 
    ![Configure Channel](./images/eventmesh-trial.png)
