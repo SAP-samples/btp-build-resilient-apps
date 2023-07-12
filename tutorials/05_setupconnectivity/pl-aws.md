@@ -76,7 +76,11 @@ The necessary attributes that must be set are shown below for your reference.
 
 Manage permissions for IAM users, IAM roles, or AWS accounts to create endpoints for your service.
 
-For the BETA version, we can add **"*"** as a resource name (ARN)
+Navigate to Allowed Principals and click on Allowed Principals.
+
+Find the SAP BTP AWS Account IDs for the landscape where your Endpoint Service should be consumed from. A current list of account IDs can be found in <https://me.sap.com/systemsprovisioning/connectivity>
+
+For each account ID, hit Add Principal and enter the ARN in form of _arn:aws:iam::\<SAP BTP account ID from previous step\>:root_
 
 ![AWS Target Group](images/aws-principals.png)
 
