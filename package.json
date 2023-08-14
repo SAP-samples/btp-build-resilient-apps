@@ -20,7 +20,7 @@
     "@sap/cloud-sdk-vdm-business-partner-service": "^2.1.0",
     "@sap/hana-client": "^2.15.19",
     "@sap/xb-msg-amqp-v100": "^0.9.58",
-    "@sap/xsenv": "^3.4.0",
+    "@sap/xsenv": "^4.0.0",
     "@sap/xssec": "^3.2.15",
     "@xmldom/xmldom": "^0.8.6",
     "cross-var": "^1.1.0",
