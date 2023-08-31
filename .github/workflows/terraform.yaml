@@ -1,0 +1,8 @@
+name: 'Setup SAP BTP Infrastructure'
+on: workflow_dispatch
+
+jobs:
+  setup-btp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hashicorp/setup-terraform@v2
