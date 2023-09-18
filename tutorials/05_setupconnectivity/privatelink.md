@@ -21,14 +21,13 @@ This connection can be established by creating a private endpoint that exposes a
 
 ## Set Up SAP Private Link Service on SAP BTP
 
-The Private link service is available on SAP BTP accounts running on Azure and AWS (Beta) and should be enabled under your SAP BTP subaccount.
+The Private link service is available on SAP BTP accounts running on Azure and AWS and should be enabled under your SAP BTP subaccount.
 
 To be able to use the functionalities of the SAP Private Link service, you first need to set the entitlements in your subaccount.
 On <code>SAP BTP Cockpit -> Entitlements</code>, the <code>Private Link Service</code> should be configured.
 
 ![BTP Sub Account](images/private-link-entitlements.png)
 
->NOTE: for provider Amazon Web Services (AWS) currently only available in beta mode (the service plan is accordingly called beta).
 
 
 ## Setup up SAP PrivateLink service for Microsoft Azure
