@@ -79,17 +79,21 @@ Deploy a ready-to-use Node.js application utilizing the SAP Cloud Application Pr
     ![Success message](./images/org_was_set.png)
 
 17. Build the Multi-Target Application Archive (MTA Archive) by executing the following command in the root directory of your project in the terminal:
-    ```
-    npm run build:cf
-    ```
 
-    This will create a **gen** directory in the root of your project, containing the generated artifacts that will be used for deployment.
+   > [!IMPORTANT]
+   > Before building and deploying the application, please update the MTA deployment descriptor if you are using [PrivateLink as a connectivity option](https://github.com/SAP-samples/btp-build-resilient-apps/blob/main/tutorials/05_setupconnectivity/privatelink.md#bind-application-to-private-link-service)
+   >
+   ```
+   npm run build:cf
+   ```
+   
+   This will create a **gen** directory in the root of your project, containing the generated artifacts that will be used for deployment.
+   
+   ![Build result](./images/build_result.png)
+   
+   > If you're curious about what the npm script is doing, take a look at the package.json file in the root of your project. Specifically, check line 74 of the [package.json](../../package.json#L74) file.
 
-    ![Build result](./images/build_result.png)
-
-    > If you're curious about what the npm script is doing, take a look at the package.json file in the root of your project. Specifically, check line 74 of the [package.json](../../package.json#L74) file.
-
-18. Deploy the application to SAP BTP, Cloud Foundry Runtime by executing the following command in the root directory of your project in the terminal:
+19. Deploy the application to SAP BTP, Cloud Foundry Runtime by executing the following command in the root directory of your project in the terminal:
 
     If you want to deploy it to the SAP BTP, Cloud Foundry Runtime in the trial environment:
     ```
@@ -105,13 +109,13 @@ Deploy a ready-to-use Node.js application utilizing the SAP Cloud Application Pr
 
     ![Deployment completed message](./images/deployment_completed.png)
 
-19. Verify the result of the recent deployment using the [SAP BTP Cockpit](https://cockpit.eu10.hana.ondemand.com/cockpit/). Navigate to the subaccount and open the **HTML Applications** menu and check if the Frontend (as in the SAP Fiori Elements application) was deployed to the HTML5 Application repository. This was succesful, once the following entry in the list appears:
+20. Verify the result of the recent deployment using the [SAP BTP Cockpit](https://cockpit.eu10.hana.ondemand.com/cockpit/). Navigate to the subaccount and open the **HTML Applications** menu and check if the Frontend (as in the SAP Fiori Elements application) was deployed to the HTML5 Application repository. This was succesful, once the following entry in the list appears:
 ![HTML5 Application repository completed message](./images/html5_app.png)
 
-20. To ensure that the backend was also deployed successfully, go to **Cloud Foundry > Spaces** and select the Cloud Foundry space that you have chosen as the deployment target in the SAP Business Application Studio. 
+21. To ensure that the backend was also deployed successfully, go to **Cloud Foundry > Spaces** and select the Cloud Foundry space that you have chosen as the deployment target in the SAP Business Application Studio. 
 ![Space Navigation](./images/open_space.png)
 
-21. The list of apps should contain 2 entries: 
+22. The list of apps should contain 2 entries: 
     - **BPVerification-db-deployer:** This app is on purpose in state **Stopped** as this is a Cloud Foundry task that only runs once to deploy the database artefacts to SAP HANA Cloud.
     - **BPVerification-srv:** This is the app built with the SAP Cloud Application Programming Model (CAP) that serves as the backend for the SAP Fiori Elements frontend. The state has to be **Started**. 
    ![List of applications](./images/app_state.png)
