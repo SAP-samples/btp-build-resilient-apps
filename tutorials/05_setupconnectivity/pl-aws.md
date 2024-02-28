@@ -98,7 +98,7 @@ Navigate to SAP BTP Cockpit, select the subaccount, under the <code>Instances an
 
 Select from a list of services the <code>Private Link Service</code> and give a name to the instance.
 
-![AWS](images/btp-instance-1.png)
+![AWS](images/btp-3.png)
 
 Click the <code>Next ></code> button.
 
